@@ -8,10 +8,11 @@
         android:id="@+id/imgProduct"
         android:layout_width="80dp"
         android:layout_height="100dp"
-        android:background="@drawable/imgMedicine"
+        android:background="@drawable/salonpas"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtNameProduct"
