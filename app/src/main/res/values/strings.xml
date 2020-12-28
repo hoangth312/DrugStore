@@ -1,52 +1,52 @@
 <resources>
     <string name="app_name">DrugStore</string>
-    <string name="nameDrugStore">DrugStore 1</string>
-    <string name="search">Search DrugStore</string>
-    <string name="map">Map</string>
-    <string name="urine">Urine Test</string>
-    <string name="review">Review:</string>
-    <string name="location">Location:</string>
-    <string name="address"> 20 Hoàng Quốc Việt</string>
-    <string name="phone">Phone:</string>
-    <string name="numberPhone"> 048-430-0271</string>
-    <string name="time">Time:</string>
-    <string name="start"> Open at AM9:00~PM7:00 Close</string>
-    <string name="service">Service</string>
-    <string name="product">Product</string>
-    <string name="comment">Comment</string>
-    <string name="date">2018/06/02</string>
-    <string name="userComment">User comment</string>
-    <string name="user">User</string>
-    <string name="pharmacy">Pharmacy</string>
-    <string name="nameClinic">Clinic 1</string>
-    <string name="web">Website</string>
-    <string name="language">English</string>
-    <string name="link">https://www.omipharma.vn/about-omicare/</string>
-    <string name="clinic">Clinics</string>
-    <string name="see">➜ See more</string>
-    <string name="timeWorking">Working Time</string>
-    <string name="week">Days of the week</string>
-    <string name="timeMorning">09:00~12:00</string>
-    <string name="timeEvening">17:30~19:30</string>
-    <string name="note">Note</string>
-    <string name="mon">Mon</string>
-    <string name="tue">Tue</string>
-    <string name="wed">Wed</string>
-    <string name="thu">Thu</string>
-    <string name="fri">Fri</string>
-    <string name="sat">Sat</string>
-    <string name="sun">Sun</string>
-    <string name="tick">✓</string>
-    <string name="detailDrugStore">Detail of DrugStore</string>
-    <string name="detailClinic">Detail of Clinic</string>
-    <string name="personalDetails">Personal Details</string>
-    <string name="omicare">Omicare</string>
-    <string name="camera">Camera</string>
-    <string name="cancel">Cancel</string>
-    <string name="medicine">Name of Medicine</string>
-    <string name="subtitle">SubTitle</string>
-    <string name="price">Price: </string>
-    <string name="tax">140$ (154$ VAT)</string>
-    <string name="number">123</string>
-    <string name="similarProduct">Similar Products</string>
+    <string name="nameDrugStore" translatable="false">DrugStore 1</string>
+    <string name="search" translatable="false">Search DrugStore</string>
+    <string name="map" translatable="false">Map</string>
+    <string name="urine" translatable="false">Urine Test</string>
+    <string name="review" translatable="false">Review:</string>
+    <string name="location" translatable="false">Location:</string>
+    <string name="address" translatable="false"> 20 Hoàng Quốc Việt</string>
+    <string name="phone" translatable="false">Phone:</string>
+    <string name="numberPhone" translatable="false"> 048-430-0271</string>
+    <string name="time" translatable="false">Time:</string>
+    <string name="start" translatable="false"> Open at AM9:00~PM7:00 Close</string>
+    <string name="service" translatable="false">Service</string>
+    <string name="product" translatable="false">Product</string>
+    <string name="comment" translatable="false">Comment</string>
+    <string name="date" translatable="false">2018/06/02</string>
+    <string name="userComment" translatable="false">User comment</string>
+    <string name="user" translatable="false">User</string>
+    <string name="pharmacy" translatable="false">Pharmacy</string>
+    <string name="nameClinic" translatable="false">Clinic 1</string>
+    <string name="web" translatable="false">Website</string>
+    <string name="language" translatable="false">English</string>
+    <string name="link" translatable="false">https://www.omipharma.vn/about-omicare/</string>
+    <string name="clinic" translatable="false">Clinics</string>
+    <string name="see" translatable="false">➜ See more</string>
+    <string name="timeWorking" translatable="false">Working Time</string>
+    <string name="week" translatable="false">Days of the week</string>
+    <string name="timeMorning" translatable="false">09:00~12:00</string>
+    <string name="timeEvening" translatable="false">17:30~19:30</string>
+    <string name="note" translatable="false">Note</string>
+    <string name="mon" translatable="false">Mon</string>
+    <string name="tue" translatable="false">Tue</string>
+    <string name="wed" translatable="false">Wed</string>
+    <string name="thu" translatable="false">Thu</string>
+    <string name="fri" translatable="false">Fri</string>
+    <string name="sat" translatable="false">Sat</string>
+    <string name="sun" translatable="false">Sun</string>
+    <string name="tick" translatable="false">✓</string>
+    <string name="detailDrugStore" translatable="false">Detail of DrugStore</string>
+    <string name="detailClinic" translatable="false">Detail of Clinic</string>
+    <string name="personalDetails" translatable="false">Personal Details</string>
+    <string name="omicare" translatable="false">Omicare</string>
+    <string name="camera" translatable="false">Camera</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="medicine" translatable="false">Name of Medicine</string>
+    <string name="subtitle" translatable="false">SubTitle</string>
+    <string name="price" translatable="false">Price: </string>
+    <string name="tax" translatable="false">140$ (154$ VAT)</string>
+    <string name="number" translatable="false">123</string>
+    <string name="similarProduct" translatable="false">Similar Products</string>
 </resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/userComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/userComment"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/arial"
+        android:maxLength="50"
+        android:ellipsize="end"
+        />
+
+    <ImageView
+        android:id="@+id/megaphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ic_megaphone"
+        app:layout_constraintTop_toBottomOf="@+id/userComment" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/user"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/arial"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/megaphone"
+        app:layout_constraintTop_toBottomOf="@+id/userComment"
+        />
+    <ImageView
+        android:id="@+id/calander"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ic_calendar"
+        android:layout_marginLeft="50dp"
+        app:layout_constraintLeft_toRightOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/userComment"/>
+    <TextView
+        android:id="@+id/dateComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/date"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/arial"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/calander"
+        app:layout_constraintTop_toBottomOf="@+id/userComment"
+        />
+
+    <RatingBar
+        android:id="@+id/ratingBarComment"
+        style="@android:style/Widget.Material.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="56dp"
+        android:numStars="5"
+        android:stepSize="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/dateComment"
+        app:layout_constraintTop_toBottomOf="@+id/userComment" />
+</androidx.constraintlayout.widget.ConstraintLayout>
