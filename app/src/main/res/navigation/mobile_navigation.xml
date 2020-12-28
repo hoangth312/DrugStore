@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.hoanganh.drugstore.Fragment.ScanBarCodeFragment"
+        android:label=""
+        tools:layout="@layout/fragment_scan_barcode">
+        <action
+            android:id="@+id/action_nav_home_to_fmMap"
+            app:destination="@id/fmMap" />
+        <action
+            android:id="@+id/action_nav_home_to_fmSearchDugs"
+            app:destination="@id/fmSearchDugs" />
+        <action
+            android:id="@+id/action_nav_home_to_fmDrugInfo"
+            app:destination="@id/fmDrugInfo" />
+        <action
+            android:id="@+id/action_nav_home_to_fmPersonDetail"
+            app:destination="@id/fmPersonDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fmMap"
+        android:name="com.hoanganh.drugstore.Fragment.MapsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_fmMap_to_fmInfoDrugStore"
+            app:destination="@id/fmInfoDrugStore" />
+        <action
+            android:id="@+id/action_fmMap_to_fmInfoClinic"
+            app:destination="@id/fmInfoClinic" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fmSearchDugs"
+        android:name="com.hoanganh.drugstore.Fragment.SearchDrugsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_search_drugs" >
+        <action
+            android:id="@+id/action_fmSearchDugs_to_fmDrugInfo"
+            app:destination="@id/fmDrugInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/fmDrugInfo"
+        android:name="com.hoanganh.drugstore.Fragment.DrugInformationFragment"
+        android:label=""
+        tools:layout="@layout/fragment_drug_information" />
+
+    <fragment
+        android:id="@+id/fmPersonDetail"
+        android:name="com.hoanganh.drugstore.Fragment.PersonalDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_personal_details" />
+
+    <fragment
+        android:id="@+id/fmInfoDrugStore"
+        android:name="com.hoanganh.drugstore.Fragment.InformationDrugStoreFragment"
+        android:label=""
+        tools:layout="@layout/fragment_information_drug_store" />
+    <fragment
+        android:id="@+id/fmInfoClinic"
+        android:name="com.hoanganh.drugstore.Fragment.InformationOfClinicFragment"
+        android:label=""
+        tools:layout="@layout/fragment_information_of_clinic" />
+</navigation>
