@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="80dp"
-    android:layout_marginLeft="10dp">
+    android:layout_marginStart="10dp">
 
     <RelativeLayout
         android:id="@+id/relative"
@@ -36,5 +36,7 @@
         android:fontFamily="@font/arial"
         android:text="@string/pharmacy"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relative" />
 </androidx.constraintlayout.widget.ConstraintLayout>

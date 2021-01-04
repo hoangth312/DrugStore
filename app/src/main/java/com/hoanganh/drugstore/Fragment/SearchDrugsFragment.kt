@@ -51,8 +51,8 @@ class SearchDrugsFragment : Fragment() {
 
     private fun setupView() {
         viewOfLayout.rvSearchDrugs.layoutManager = LinearLayoutManager(context)
-        val adpter = SearchDrugsAdapter(dataList)
-        viewOfLayout.rvSearchDrugs.adapter = adpter
+        val adapter = SearchDrugsAdapter(dataList)
+        viewOfLayout.rvSearchDrugs.adapter = adapter
     }
 
 
