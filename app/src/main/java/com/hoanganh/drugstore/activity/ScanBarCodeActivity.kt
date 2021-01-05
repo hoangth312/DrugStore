@@ -1,31 +1,34 @@
 package com.hoanganh.drugstore.activity
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import com.google.android.material.navigation.NavigationView
+import com.hoanganh.drugstore.Fragment.InformationDrugStoreFragment
+import com.hoanganh.drugstore.Fragment.InformationOfClinicFragment
+import com.hoanganh.drugstore.Fragment.SearchDrugsFragment
 import com.hoanganh.drugstore.R
-import com.jaeger.library.StatusBarUtil
+import kotlinx.android.synthetic.main.app_bar_scan_barcode.*
+
 
 class ScanBarCodeActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan_bar_code)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+
 
 
 
@@ -38,6 +41,22 @@ class ScanBarCodeActivity : AppCompatActivity() {
                 R.id.nav_home), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        when (intent.getStringExtra("EXTRA")) {
+            "openFragmentSearchDrug" -> {
+                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SearchDrugsFragment()).commit()
+
+            }
+            "openFragmentDrugStore" -> {
+                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationDrugStoreFragment()).commit()
+
+            }
+            "openFragmentClinic" -> {
+                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationOfClinicFragment()).commit()
+
+            }
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -9,7 +9,7 @@ import com.hoanganh.drugstore.Model.SearchDrugsModel
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.item_rv_search_drugs.view.*
 
-class SearchDrugsAdapter(private val listDrug: ArrayList<SearchDrugsModel>): RecyclerView.Adapter<SearchDrugsAdapter.ViewHolder>() {
+class  SearchDrugsAdapter(private val listDrug: ArrayList<SearchDrugsModel>): RecyclerView.Adapter<SearchDrugsAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
 

@@ -2,21 +2,16 @@ package com.hoanganh.drugstore.activity
 
 import android.Manifest
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.hoanganh.drugstore.R
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.karumi.dexter.listener.single.PermissionListener
-
 import kotlinx.android.synthetic.main.activity_main.*
-import java.security.Permission
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,10 +23,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
             btnLogin.setOnClickListener() {
 
                 val intent = Intent(this, ScanBarCodeActivity::class.java)
                 startActivity(intent)
+
 
 
             }
@@ -42,10 +39,10 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Dexter.withContext(this)
-                .withPermissions(Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION)
+                .withPermissions(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .withListener(object : MultiplePermissionsListener {
                     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
-
+                        //
                     }
 
                     override fun onPermissionRationaleShouldBeShown(p0: MutableList<PermissionRequest>?, p1: PermissionToken?) {

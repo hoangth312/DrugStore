@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.ScanBarCodeActivity">
+    tools:context=".activity.ScanBarCodeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/btnToMap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
