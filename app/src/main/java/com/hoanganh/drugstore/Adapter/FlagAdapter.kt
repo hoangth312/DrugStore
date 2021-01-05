@@ -9,7 +9,7 @@ import com.hoanganh.drugstore.Model.FlagsModel
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.item_category_flags.view.*
 
-class FlagAdapter(context: Context,  listFlags:ArrayList<FlagsModel>): ArrayAdapter<FlagsModel>(context, 0, listFlags) {
+class  FlagAdapter(context: Context,  listFlags:ArrayList<FlagsModel>): ArrayAdapter<FlagsModel>(context, 0, listFlags) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val country  = getItem(position)

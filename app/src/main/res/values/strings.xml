@@ -76,7 +76,7 @@
     <string name="sreach_drug">Search for Drug Information</string>
     <string name="search_for_drug_information">Search For Drug Information</string>
     <string name="address_search">Address Search</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scan_barcode">Scan Barcode</string>
     <string name="search_by_keyword">Search by keyword</string>

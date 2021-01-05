@@ -46,7 +46,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mapGG: GoogleMap
     lateinit var sharedPerfFlags: SharedPreferences
