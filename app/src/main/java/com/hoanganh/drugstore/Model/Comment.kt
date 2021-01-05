@@ -1,6 +1,4 @@
 package com.hoanganh.drugstore.Model
 
-import java.util.*
-
-class CommentAdapter(var commennt:String, var review: Int, var date: Date) {
+class Comment(var comment:String, var nameUser: String, var review: Double, var date: Int) {
 }

@@ -5,72 +5,77 @@
     android:layout_height="50dp">
 
     <TextView
-        android:id="@+id/userComment"
+        android:id="@+id/txtComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/arial"
+        android:maxLength="50"
         android:text="@string/userComment"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:fontFamily="@font/arial"
-        android:maxLength="50"
-        android:ellipsize="end"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/megaphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@drawable/ic_megaphone"
-        app:layout_constraintTop_toBottomOf="@+id/userComment" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtNameUser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtComment" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/txtNameUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/arial"
         android:text="@string/user"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:fontFamily="@font/arial"
-        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/calander"
         app:layout_constraintLeft_toRightOf="@+id/megaphone"
-        app:layout_constraintTop_toBottomOf="@+id/userComment"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtComment" />
+
     <ImageView
         android:id="@+id/calander"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/ic_calendar"
         android:layout_marginLeft="50dp"
-        app:layout_constraintLeft_toRightOf="@+id/username"
-        app:layout_constraintTop_toBottomOf="@+id/userComment"/>
+        android:background="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/txtNameUser"
+        app:layout_constraintTop_toBottomOf="@+id/txtComment" />
+
     <TextView
         android:id="@+id/dateComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/arial"
         android:text="@string/date"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:fontFamily="@font/arial"
-        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/calander"
-        app:layout_constraintTop_toBottomOf="@+id/userComment"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtComment" />
 
     <RatingBar
-        android:id="@+id/ratingBarComment"
+        android:id="@+id/reviewComment"
         style="@android:style/Widget.Material.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_gravity="center"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="56dp"
         android:numStars="5"
         android:stepSize="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/dateComment"
-        app:layout_constraintTop_toBottomOf="@+id/userComment" />
+        app:layout_constraintTop_toBottomOf="@+id/txtComment" />
 </androidx.constraintlayout.widget.ConstraintLayout>
