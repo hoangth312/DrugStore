@@ -70,11 +70,11 @@
                     android:layout_height="200dp"
                     android:background="@drawable/pharmacy" />
 
-                <me.relex.circleindicator.CircleIndicator
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:layout_alignBottom="@+id/viewImageStore"
-                    android:layout_centerInParent="true" />
+<!--                <me.relex.circleindicator.CircleIndicator-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="15dp"-->
+<!--                    android:layout_alignBottom="@+id/viewImageStore"-->
+<!--                    android:layout_centerInParent="true" />-->
             </RelativeLayout>
         </ScrollView>
 
@@ -134,7 +134,7 @@
 
                 <RatingBar
                     android:id="@+id/ratingBar"
-                    style="@android:style/Widget.Material.RatingBar.Small"
+
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:numStars="5"
@@ -371,7 +371,7 @@
 
                     <RatingBar
                         android:id="@+id/ratingBar2"
-                        style="@android:style/Widget.Material.RatingBar.Small"
+
                         android:layout_width="wrap_content"
                         android:layout_height="15dp"
                         android:layout_gravity="center"
