@@ -22,6 +22,8 @@ class InformationDrugStoreFragment : Fragment() {
     val listService = ArrayList<Services>()
     val listProductUsed = ArrayList<ProductUsed>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
         viewOfLayout = inflater.inflate(R.layout.fragment_information_drug_store, container, false)
         setupView()
         setDataService()
@@ -58,6 +60,7 @@ class InformationDrugStoreFragment : Fragment() {
         listProductUsed.add(ProductUsed(R.drawable.ic_bag, "Medicine"))
         listProductUsed.add(ProductUsed(R.drawable.ic_milk, "For Children"))
         listProductUsed.add(ProductUsed(R.drawable.ic_candy, "Candy"))
+
 
 
     }

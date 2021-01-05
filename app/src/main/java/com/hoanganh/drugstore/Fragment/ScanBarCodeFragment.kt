@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
-
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.fragment_scan_barcode.view.*
 
@@ -35,6 +35,8 @@ class ScanBarCodeFragment : Fragment() {
         return viewOfLayout
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
@@ -52,7 +54,12 @@ class ScanBarCodeFragment : Fragment() {
         navc = Navigation.findNavController(view)
 
         viewOfLayout.btnMap.setOnClickListener{
-                navc?.navigate(R.id.action_nav_home_to_fmMap)
+
+
+//            val intent1 = Intent (getActivity(), MapsActivity::class.java)
+//
+//            getActivity()?.startActivity(intent1)
+            navc?.navigate(R.id.action_nav_home_to_activityMap)
         }
 
         viewOfLayout.btnSearchDrugs.setOnClickListener{

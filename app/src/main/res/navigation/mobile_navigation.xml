@@ -10,9 +10,7 @@
         android:name="com.hoanganh.drugstore.Fragment.ScanBarCodeFragment"
         android:label=""
         tools:layout="@layout/fragment_scan_barcode">
-        <action
-            android:id="@+id/action_nav_home_to_fmMap"
-            app:destination="@id/fmMap" />
+
         <action
             android:id="@+id/action_nav_home_to_fmSearchDugs"
             app:destination="@id/fmSearchDugs" />
@@ -22,19 +20,20 @@
         <action
             android:id="@+id/action_nav_home_to_fmPersonDetail"
             app:destination="@id/fmPersonDetail" />
+        <action
+            android:id="@+id/action_nav_home_to_activityMap"
+            app:destination="@id/activityMap" />
     </fragment>
-    <fragment
-        android:id="@+id/fmMap"
-        android:name="com.hoanganh.drugstore.Fragment.MapsFragment"
+    <activity
+        android:id="@+id/activityMap"
+        android:name="com.hoanganh.drugstore.activity.MapsActivity"
         android:label=""
-        tools:layout="@layout/fragment_maps">
-        <action
-            android:id="@+id/action_fmMap_to_fmInfoDrugStore"
-            app:destination="@id/fmInfoDrugStore" />
-        <action
-            android:id="@+id/action_fmMap_to_fmInfoClinic"
-            app:destination="@id/fmInfoClinic" />
-    </fragment>
+        tools:layout="@layout/activity_maps"
+
+
+        >
+
+    </activity>
 
     <fragment
         android:id="@+id/fmSearchDugs"
@@ -44,6 +43,9 @@
         <action
             android:id="@+id/action_fmSearchDugs_to_fmDrugInfo"
             app:destination="@id/fmDrugInfo" />
+        <action
+            android:id="@+id/action_fmSearchDugs_to_activityMap"
+            app:destination="@id/activityMap" />
     </fragment>
     <fragment
         android:id="@+id/fmDrugInfo"

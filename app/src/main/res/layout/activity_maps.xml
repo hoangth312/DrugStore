@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+
+    <fragment
+        android:id="@+id/mapGoogle"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Fragment.MapsFragment"
+
+        />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        app:layout_constraintBottom_toBottomOf="@+id/mapGoogle">
+
+        <ToggleButton
+            android:id="@+id/btnSearchDrugStore"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+
+            android:drawableTop="@drawable/btn_drug_store_check"
+            android:textOff="@string/drugstore"
+            android:textOn="@string/drugstore"
+
+
+            />
+
+        <ToggleButton
+            android:id="@+id/btnSearchClinic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/btn_clinic_check"
+            android:textOff="@string/clinic"
+            android:textOn="@string/clinic"
+
+            />
+
+        <Button
+            android:id="@+id/searchDrugInfo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="2"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_drug_id02"
+            android:drawablePadding="10dp"
+            android:gravity="start|center_vertical"
+
+            android:paddingStart="40dp"
+            android:text="@string/search_for_drug_information"
+            android:textColor="@color/blue_150"
+
+
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        app:layout_constraintTop_toTopOf="@+id/mapGoogle">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext2"
+            android:drawablePadding="10dp"
+            android:gravity="start"
+            android:src="@drawable/ic_back"
+            app:cornerRadius="50dp" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+
+            >
+        <AutoCompleteTextView
+            android:id="@+id/edtSearchAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/edittext2"
+            android:drawableStart="@drawable/ic_search_blue"
+            android:drawablePadding="10dp"
+            android:dropDownHeight="250dp"
+            android:hint="@string/address_search"
+            android:imeOptions="actionDone"
+            android:inputType="textImeMultiLine"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColorHint="@color/gray"
+            android:textSize="15sp"
+            />
+
+            <ImageButton
+                android:id="@+id/btnClearTextSeach"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic__02_cancel" />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:background="@drawable/edittext2">
+
+            <Spinner
+
+                android:id="@+id/spinnerLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_arrow_point_to_down" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_locate_button_gray"
+
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
