@@ -12,69 +12,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarMedicine"
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar_fragments"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#1AA6CD">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/titleClinic"
-                android:layout_width="@dimen/_300sdp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/arial"
-                android:text="@string/detailClinic"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_25ssp"
-                android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/linearMap"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imgMap"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_map"
-                    app:layout_constraintLeft_toRightOf="@+id/titleClinic" />
+              <RelativeLayout-->
+                 android:layout_width="match_parent"-->
+                android:layout_height="match_parent">-->
 
-                <TextView
-                    android:id="@+id/txtMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="@font/arial"
-                    android:text="@string/map"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+                   <androidx.viewpager2.widget.ViewPager2-->
+                      android:id="@+id/viewPagerImageClinic"-->
+                       android:layout_width="match_parent"-->
+                       android:layout_height="@dimen/_200sdp"-->
+                     android:background="@color/gray_200" />-->
 
-        <!--        <RelativeLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent">-->
-
-        <!--            <androidx.viewpager2.widget.ViewPager2-->
-        <!--                android:id="@+id/viewPagerImageClinic"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="@dimen/_200sdp"-->
-        <!--                android:background="@color/gray_200" />-->
-
-        <!--            <me.relex.circleindicator.CircleIndicator3-->
-        <!--                android:id="@+id/circleIn"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_alignParentBottom="true"-->
-        <!--                android:layout_marginBottom="10dp"-->
-        <!--                android:background="@color/blue_100"-->
-        <!--                app:ci_drawable="@drawable/white_radius_circle_indicator" />-->
-        <!--        </RelativeLayout>-->
+                 <me.relex.circleindicator.CircleIndicator3-->
+                      android:id="@+id/circleIn"-->
+                    android:layout_width="match_parent"-->
+                    android:layout_height="wrap_content"-->
+                       android:layout_alignParentBottom="true"-->
+                       android:layout_marginBottom="10dp"-->
+                       android:background="@color/blue_100"-->
+                      app:ci_drawable="@drawable/white_radius_circle_indicator" />
+           </RelativeLayout>-->
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/slider"
@@ -86,6 +50,7 @@
             app:corner_radius="5"
             app:placeholder="@drawable/ic_launcher_background"
             />
+
 
         <TextView
             android:id="@+id/txtNameClinic"
@@ -305,6 +270,7 @@
                     android:fontFamily="@font/arial"
                     android:text="aaaaaaa"
                     android:textSize="@dimen/_13ssp" />
+
             </LinearLayout>
 
             <TextView
@@ -708,6 +674,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/date" />
+
 
                      <RatingBar
                         android:id="@+id/reviewCommentClinic"

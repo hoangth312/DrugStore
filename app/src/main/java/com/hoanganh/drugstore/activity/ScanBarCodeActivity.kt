@@ -5,6 +5,7 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -44,19 +45,25 @@ class ScanBarCodeActivity : AppCompatActivity() {
 
         when (intent.getStringExtra("EXTRA")) {
             "openFragmentSearchDrug" -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SearchDrugsFragment()).commit()
-
+             //   supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SearchDrugsFragment()).commit()
+                navController.navigate(R.id.action_nav_home_to_fmSearchDugs)
             }
             "openFragmentDrugStore" -> {
                 supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationDrugStoreFragment()).commit()
 
+           //navController.navigate(R.id.action_nav_home_to_fmInfoDrugStore)
             }
             "openFragmentClinic" -> {
                 supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationOfClinicFragment()).commit()
-
+                //navController.navigate(R.id.action_nav_home_to_fmInfoClinic)
             }
 
         }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.nav_home) { supportActionBar?.show() }
+            else{ supportActionBar?.hide() }
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

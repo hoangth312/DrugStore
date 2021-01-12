@@ -26,8 +26,8 @@
             app:frameAspectRatioHeight="1"
             app:frameAspectRatioWidth="1"
             app:frameColor="@android:color/white"
-            app:frameCornersRadius="10dp"
-            app:frameCornersSize="20dp"
+            app:frameCornersRadius="@dimen/_10sdp"
+            app:frameCornersSize="@dimen/_20sdp"
             app:frameSize="0.5"
             app:frameThickness="2dp"
             app:maskColor="#77000000" />
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:textSize="20sp"
+            android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:text="@string/scan_inside_frame"/>
@@ -47,23 +47,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/_15sdp"
             android:orientation="vertical">
 
 
             <LinearLayout
                 android:id="@+id/btnSearchDrugs"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/edittext1"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:background="@drawable/ic_searching30" />
 
                 <TextView
@@ -74,25 +74,25 @@
                     android:gravity="center"
                     android:text="@string/searchDrugs"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnMap"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/edittext1"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
 
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:background="@drawable/ic_map" />
 
                 <TextView
@@ -103,16 +103,16 @@
                     android:gravity="center"
                     android:text="@string/map"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnTest"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/edittext1"
                 android:orientation="horizontal">
 
@@ -124,10 +124,8 @@
                     android:gravity="center"
                     android:text="@string/urine"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

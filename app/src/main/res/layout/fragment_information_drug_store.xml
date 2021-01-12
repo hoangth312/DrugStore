@@ -11,9 +11,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarMedicine"
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar_fragments"
             android:layout_width="match_parent"
+
             android:layout_height="@dimen/_50sdp"
             android:background="#1AA6CD">
 
@@ -52,11 +54,6 @@
                     android:textSize="@dimen/_20ssp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
-
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -78,7 +75,6 @@
                     app:ci_drawable="@drawable/white_radius_circle_indicator"
                     />
             </RelativeLayout>
-        </ScrollView>
 
         <TextView
             android:id="@+id/txtNameDrugStore"
@@ -105,6 +101,7 @@
             android:layout_marginTop="@dimen/_1sdp"
             android:background="@color/white"
             android:orientation="vertical"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtNameDrugStore"
@@ -282,6 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp" />
+
             </LinearLayout>
 
             <TextView
@@ -319,6 +317,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp" />
+
             </LinearLayout>
 
             <TextView
@@ -382,6 +381,7 @@
                         android:text="@string/date" />
 
                     <RatingBar
+
                         android:id="@+id/reviewCommentDS"
                         style="@android:style/Widget.Material.Light.RatingBar.Small"
                         android:layout_width="wrap_content"
