@@ -1,5 +1,7 @@
 package com.hoanganh.drugstore.Fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +33,6 @@ class ScanBarCodeFragment : Fragment() {
 
 
 
-
         return viewOfLayout
     }
 
@@ -46,6 +47,7 @@ class ScanBarCodeFragment : Fragment() {
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
                 Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+                navc?.navigate(R.id.action_nav_home_to_fmDrugInfo2)
             }
         }
         scannerView.setOnClickListener {
@@ -55,10 +57,6 @@ class ScanBarCodeFragment : Fragment() {
 
         viewOfLayout.btnMap.setOnClickListener{
 
-
-//            val intent1 = Intent (getActivity(), MapsActivity::class.java)
-//
-//            getActivity()?.startActivity(intent1)
             navc?.navigate(R.id.action_nav_home_to_activityMap)
         }
 
