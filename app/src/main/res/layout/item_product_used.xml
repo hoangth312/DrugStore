@@ -39,6 +39,8 @@
         android:text="@string/pharmacy"
         android:textSize="12sp"
         android:lines="2"
+
         android:gravity="center"
+
          />
 </LinearLayout>
