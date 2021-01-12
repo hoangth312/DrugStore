@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ImageView
         android:id="@+id/imgPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
         android:background="@drawable/ic_play"
-        android:layout_gravity="center_vertical"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:text="aaaaaaa"
         android:id="@+id/txtNoteClinic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:textSize="15sp"
-        android:fontFamily="@font/arial"
-        android:textColor="#898989"
-        app:layout_constraintLeft_toRightOf="@+id/imgPlay"
-        android:maxLength="250"
         android:ellipsize="end"
-        />
-</LinearLayout>
+        android:fontFamily="@font/arial"
+        android:maxLength="250"
+        android:layout_marginStart="5dp"
+        android:text="aaaaaaa"
+        android:gravity="top"
+        android:textColor="#898989"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/imgPlay"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

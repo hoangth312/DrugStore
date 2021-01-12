@@ -9,7 +9,7 @@ import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.item_service.view.*
 import java.util.ArrayList
 
-class ServiceAdapter(private var listService: ArrayList<Services>): RecyclerView.Adapter<ServiceAdapter.ViewHolder>() {
+class   ServiceAdapter(private var listService: ArrayList<Services>): RecyclerView.Adapter<ServiceAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 

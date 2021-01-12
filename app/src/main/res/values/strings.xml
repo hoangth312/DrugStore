@@ -19,7 +19,7 @@
     <string name="user">User</string>
     <string name="pharmacy">Pharmacy</string>
     <string name="nameClinic">Clinic 1</string>
-    <string name="web">Website</string>
+    <string name="web">Website:</string>
     <string name="language">English</string>
     <string name="link">https://www.omipharma.vn/about-omicare/</string>
     <string name="clinic">Clinics</string>
@@ -51,7 +51,6 @@
     <string name="similarProduct">Similar Products</string>
     <string name="check">✓</string>
 
-
     <string name="Email">Email</string>
     <string name="drugstore">Drug Store</string>
     <string name="Password">Password</string>
@@ -67,8 +66,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-
-
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -76,8 +73,6 @@
 
 
     <string name="scan_inside_frame">Please scan barcode inside the frame</string>
-
-
 
     <string name="sreach_drug">Search for Drug Information</string>
     <string name="search_for_drug_information">Search For Drug Information</string>
