@@ -23,15 +23,6 @@
         <action
             android:id="@+id/action_nav_home_to_activityMap"
             app:destination="@id/activityMap" />
-        <action
-            android:id="@+id/action_nav_home_to_fmDrugInfo2"
-            app:destination="@id/fmDrugInfo" />
-        <action
-            android:id="@+id/action_nav_home_to_fmInfoDrugStore"
-            app:destination="@id/fmInfoDrugStore" />
-        <action
-            android:id="@+id/action_nav_home_to_fmInfoClinic"
-            app:destination="@id/fmInfoClinic" />
     </fragment>
     <activity
         android:id="@+id/activityMap"
@@ -55,9 +46,6 @@
         <action
             android:id="@+id/action_fmSearchDugs_to_activityMap"
             app:destination="@id/activityMap" />
-        <action
-            android:id="@+id/action_fmSearchDugs_to_fmDrugInfo2"
-            app:destination="@id/fmDrugInfo" />
     </fragment>
     <fragment
         android:id="@+id/fmDrugInfo"
