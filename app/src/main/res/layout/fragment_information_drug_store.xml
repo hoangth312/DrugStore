@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFDFD"
-
     >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,16 +14,16 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarMedicine"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_50sdp"
             android:background="#1AA6CD">
 
             <TextView
-                android:layout_width="300dp"
+                android:layout_width="@dimen/_300sdp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/arial"
                 android:text="@string/detailDrugStore"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -37,7 +35,7 @@
 
                 <ImageView
                     android:id="@+id/imgMap"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/ic_map"
@@ -47,11 +45,11 @@
                     android:id="@+id/txtMap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/map"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_20ssp"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -68,14 +66,17 @@
                 <ViewFlipper
                     android:id="@+id/viewImageStore"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="@dimen/_200sdp"
                     android:background="@drawable/pharmacy" />
 
-<!--                <me.relex.circleindicator.CircleIndicator-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="15dp"-->
-<!--                    android:layout_alignBottom="@+id/viewImageStore"-->
-<!--                    android:layout_centerInParent="true" />-->
+                <me.relex.circleindicator.CircleIndicator
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:layout_alignBottom="@+id/viewImageStore"
+                    android:layout_centerHorizontal="true"
+                    app:ci_drawable="@drawable/white_radius_circle_indicator"
+                    />
             </RelativeLayout>
         </ScrollView>
 
@@ -83,25 +84,25 @@
             android:id="@+id/txtNameDrugStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:background="@color/white"
             android:fontFamily="@font/arial"
             android:text="@string/nameDrugStore"
             android:textColor="#1AA6CD"
-            android:textSize="20sp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/viewImageStore" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/_1sdp"
             android:background="#898989" />
 
         <LinearLayout
             android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="@dimen/_1sdp"
             android:background="@color/white"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -113,8 +114,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
 
                 android:orientation="horizontal">
 
@@ -127,18 +128,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/review"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
                 <RatingBar
                     android:id="@+id/ratingBar"
-
+                    style="@android:style/Widget.Material.RatingBar.Small"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_gravity="center"
                     android:numStars="5"
                     android:rating="4.5"
                     android:stepSize="0.5" />
@@ -147,8 +149,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -160,29 +162,29 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/location"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/address"
                     android:textColor="#898989"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_13ssp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal"
 
                 >
@@ -196,29 +198,29 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/phone"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/phoneNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/numberPhone"
                     android:textColor="#898989"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_13ssp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -230,33 +232,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/time"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/timeOpen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/start"
                     android:textColor="#898989"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_13ssp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="@dimen/_5sdp"
                 android:background="#B6B3B3" />
 
             <LinearLayout
                 android:id="@+id/linear2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/linear1">
@@ -264,27 +266,27 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/service"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_18ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="#898989" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcService"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="@dimen/_5sdp"
                 android:background="#B6B3B3" />
 
             <LinearLayout
@@ -292,7 +294,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:background="@color/white"
                 android:orientation="vertical"
 
@@ -301,34 +303,34 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/product"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_18ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="#898989" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcProductUsed"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="@dimen/_5sdp"
                 android:background="#B6B3B3" />
 
             <LinearLayout
                 android:id="@+id/linear4"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:layout_weight="4"
                 android:background="@color/white"
                 android:orientation="vertical">
@@ -336,63 +338,66 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/comment"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_18ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="#898989" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listComment"
+                    android:id="@+id/rcComment"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp" />
 
                 <EditText
                     android:id="@+id/edtComment"
-                    android:layout_width="400dp"
+                    android:layout_width="@dimen/_280sdp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:background="@drawable/edittext"
                     android:gravity="top"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="200"
-                    android:minHeight="100dp"
-                    android:padding="10dp"
-                    android:textSize="12sp" />
+                    android:minHeight="@dimen/_100sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_12ssp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/_50sdp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/txtDateCommentDS"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="@dimen/_18sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/date" />
 
                     <RatingBar
-                        android:id="@+id/ratingBar2"
-
+                        android:id="@+id/reviewCommentDS"
+                        style="@android:style/Widget.Material.Light.RatingBar.Small"
                         android:layout_width="wrap_content"
-                        android:layout_height="15dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="40dp"
+                        android:layout_marginStart="@dimen/_20sdp"
                         android:numStars="5"
+                        android:isIndicator="false"
                         android:stepSize="0.5" />
 
                     <Button
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
+                        android:id="@+id/btnCommentDS"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="60dp"
+                        android:layout_marginStart="@dimen/_50sdp"
                         android:background="@drawable/button"
                         android:text="@string/comment"
                         android:textColor="#1AA6CD" />

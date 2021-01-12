@@ -8,24 +8,30 @@ import com.hoanganh.drugstore.Model.Comment
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.item_comment.view.*
 
-class CommentAdapter(private val listComment: ArrayList<com.hoanganh.drugstore.Model.Comment>) : RecyclerView.Adapter<CommentAdapter.Comment>() {
+class CommentAdapter(private val listComment: ArrayList<Comment>) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
-    class Comment(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Comment {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
-        return Comment(view)
+        return CommentViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: Comment, position: Int) {
-        val comment: com.hoanganh.drugstore.Model.Comment = listComment[position]
-        holder.itemView.txtComment.text = listComment[position].comment
-        holder.itemView.txtNameUser.text = listComment[position].nameUser
-        holder.itemView.dateComment.text = listComment[position].date.toString()
-        holder.itemView.reviewComment.numStars = listComment[position].review.toInt()
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
+        val comment: Comment = listComment[position]
+
+        holder.itemView.txtComment.text = comment.comment
+        holder.itemView.txtNameUser.text = comment.nameUser
+        holder.itemView.dateComment.text = comment.date
+        holder.itemView.reviewComment.rating = comment.review.toFloat()
     }
 
     override fun getItemCount(): Int {
-       return listComment.size
+        return if (listComment.size > 2) {
+            2
+        } else {
+            listComment.size
+        }
+
     }
 }

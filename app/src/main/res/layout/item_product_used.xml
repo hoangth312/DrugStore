@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="80dp"
+    android:layout_height="@dimen/_80sdp"
     android:orientation="vertical"
-    android:layout_marginStart="10dp">
+    android:layout_marginStart="@dimen/_10sdp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -12,10 +12,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewItem"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
             app:cardBackgroundColor="#CAC8C8"
-            app:cardCornerRadius="100dp">
+            android:layout_marginBottom="@dimen/_2sdp"
+            app:cardCornerRadius="@dimen/_100sdp">
 
             <ImageView
                 android:id="@+id/imgProductUsed"
@@ -31,11 +32,11 @@
 
     <TextView
         android:id="@+id/txtNameProductUsed"
-        android:layout_width="55dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_20sdp"
         android:fontFamily="@font/arial"
         android:text="@string/pharmacy"
-        android:textSize="12sp"
+        android:textSize="@dimen/_12ssp"
         android:lines="2"
          />
 </LinearLayout>
