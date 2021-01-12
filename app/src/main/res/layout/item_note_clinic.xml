@@ -21,7 +21,7 @@
         android:fontFamily="@font/arial"
         android:maxLength="250"
         android:layout_marginStart="5dp"
-        android:text="aaaaaaa"
+        android:text="@string/timeEvening"
         android:gravity="top"
         android:textColor="#898989"
         android:textSize="@dimen/_15sdp"
