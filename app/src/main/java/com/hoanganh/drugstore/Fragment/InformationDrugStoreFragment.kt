@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
@@ -14,6 +15,8 @@ import com.hoanganh.drugstore.Adapter.ServiceAdapter
 import com.hoanganh.drugstore.Model.ProductUsed
 import com.hoanganh.drugstore.Model.Services
 import com.hoanganh.drugstore.R
+import kotlinx.android.synthetic.main.app_bar_fragments.view.*
+
 import kotlinx.android.synthetic.main.fragment_information_drug_store.view.*
 import java.util.ArrayList
 
@@ -25,6 +28,8 @@ class InformationDrugStoreFragment : Fragment() {
 
 
         viewOfLayout = inflater.inflate(R.layout.fragment_information_drug_store, container, false)
+        viewOfLayout.toolbar_title.text = getString(R.string.detailOfDrugstore)
+
         setupView()
         setDataService()
         setDataProduct()
@@ -32,7 +37,16 @@ class InformationDrugStoreFragment : Fragment() {
 
 
     }
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+
+    }
 
     private fun setupView() {
         viewOfLayout.rcService.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -46,7 +60,7 @@ class InformationDrugStoreFragment : Fragment() {
     private fun setDataService() {
         listService.add(Services(R.drawable.ic_pills, "Prescription"))
         listService.add(Services(R.drawable.ic_pharmacy, "Modulation"))
-        listService.add(Services(R.drawable.ic_blood, "BBlood Tests"))
+        listService.add(Services(R.drawable.ic_blood, "Blood Tests"))
         listService.add(Services(R.drawable.ic_cardiogram, "AED"))
         listService.add(Services(R.drawable.ic_wine, "Alcohol"))
         listService.add(Services(R.drawable.ic_coffee, "Coffee"))
