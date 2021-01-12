@@ -4,8 +4,8 @@
 
 
     <stroke android:color="@color/gray"
-        android:width="1dp"
-        android:dashWidth="38dp"
+        android:width="@dimen/_1sdp"
+        android:dashWidth="@dimen/_35sdp"
         />
-    <corners android:radius="8dp"/>
+    <corners android:radius="@dimen/_6sdp"/>
 </shape>
