@@ -11,52 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarMedicine"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
-            android:background="#1AA6CD">
 
-            <TextView
-                android:layout_width="@dimen/_300sdp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/arial"
-                android:text="@string/detailDrugStore"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20ssp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/linearMap"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imgMap"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_map"
-                    app:layout_constraintLeft_toRightOf="@+id/titleClinic" />
-
-                <TextView
-                    android:id="@+id/txtMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:fontFamily="@font/arial"
-                    android:text="@string/map"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
-
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -75,10 +30,9 @@
                     android:visibility="visible"
                     android:layout_alignBottom="@+id/viewImageStore"
                     android:layout_centerHorizontal="true"
-                    app:ci_drawable="@drawable/white_radius_circle_indicator"
                     />
             </RelativeLayout>
-        </ScrollView>
+
 
         <TextView
             android:id="@+id/txtNameDrugStore"
