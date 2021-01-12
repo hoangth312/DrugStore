@@ -709,7 +709,7 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/date" />
 
-                    <RatingBar
+                     <RatingBar
                         android:id="@+id/reviewCommentClinic"
                         style="@android:style/Widget.Material.Light.RatingBar.Small"
                         android:layout_width="wrap_content"

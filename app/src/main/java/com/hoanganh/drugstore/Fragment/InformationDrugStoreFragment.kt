@@ -47,7 +47,6 @@ class InformationDrugStoreFragment : Fragment() {
         val productUsedAdapter = ProductUsedAdapter(listProductUsed)
         viewOfLayout.rcProductUsed.adapter = productUsedAdapter
 
-
     }
 
 

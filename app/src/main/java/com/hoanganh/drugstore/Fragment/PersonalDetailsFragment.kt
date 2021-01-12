@@ -30,7 +30,7 @@ class PersonalDetailsFragment() : Fragment() {
         setUpViewPager()
 //        openCamera()
         return viewOfLayout
-    }
+    } 
 
 //    private fun openCamera() {
 //       btnCamera.setOnClickListener {
