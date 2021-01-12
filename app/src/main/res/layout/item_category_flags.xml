@@ -10,9 +10,9 @@
         android:id="@+id/imFlags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_marginEnd="20dp"
+       android:layout_marginEnd="@dimen/_20sdp"
         android:src="@drawable/ic_flag_vietnam"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="@dimen/_20sdp" />
 
 
 
