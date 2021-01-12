@@ -30,11 +30,5 @@ class  FlagAdapter(context: Context,  listFlags:ArrayList<FlagsModel>): ArrayAda
 
 
     }
-//
-//    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
-//
-//
-//            return view
-//    }
 
 }
