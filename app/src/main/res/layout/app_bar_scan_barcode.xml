@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.ScanBarCodeActivity">
+    tools:context=".activity.ScanBarCodeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/scan_barcode"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 

@@ -79,7 +79,17 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_fmSearchDugs_to_activityMap">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_fmSearchDugs_to_fmDrugInfo">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_fmSearchDugs_to_fmDrugInfo2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -94,13 +104,28 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="88" />
+                            <option name="x" value="-109" />
+                            <option name="y" value="6" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_nav_home_to_activityMap">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_nav_home_to_fmDrugInfo">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_nav_home_to_fmDrugInfo2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_nav_home_to_fmInfoDrugStore">
                               <value>
                                 <LayoutPositions />
                               </value>

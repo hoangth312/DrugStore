@@ -17,8 +17,6 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.preference.PreferenceManager
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -29,66 +27,62 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.hoanganh.drugstore.Adapter.FlagAdapter
 import com.hoanganh.drugstore.Model.FlagsModel
 import com.hoanganh.drugstore.R
 import com.jakewharton.processphoenix.ProcessPhoenix
+import com.nightonke.jellytogglebutton.JellyToggleButton.OnStateChangeListener
+import com.nightonke.jellytogglebutton.State
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
-import java.lang.reflect.Type
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mapGG: GoogleMap
     lateinit var sharedPerfFlags: SharedPreferences
-    lateinit var sharedPerfHistory: SharedPreferences
-
     lateinit var editorFlags: SharedPreferences.Editor
-
     var loadNN = 0
     private var latitude: Double = 21.027786029944146
     private var longitude: Double = 105.83550446759239
-
+    private var latitudeAddress: Double? = null
+    private var longitudeAddress:Double? = null
     var languageToLoad123: String? = ""
-    var textHistory: String? = ""
     var currentActivity = 0
-
     private val testStore = LatLng(21.049666, 105.789118)
     private val testStore2 = LatLng(21.045172, 105.798254)
     private val testStore3 = LatLng(21.009181, 105.805162)
+    private val testStore4 = LatLng(21.033267, 105.858277)
     private val testCnilic = LatLng(21.043219, 105.801465)
     private val testCnilic2 = LatLng(21.047120, 105.800037)
     private val testCnilic3 = LatLng(21.010538, 105.804881)
-
     private var historySearch: ArrayList<String> = arrayListOf()
-
     private var myLocation: LatLng? = null
-    private var circleOptions = CircleOptions()
+    private var searchLocation: LatLng? = null
+    private  var circleOptions = CircleOptions()
     private val markersStores: MutableList<Marker> = mutableListOf()
     private val listAddressStores: MutableList<LatLng> = mutableListOf()
     private val addressStoreNearbyPlaces: MutableList<LatLng> = mutableListOf()
+
+
     private val markersClinics: MutableList<Marker> = mutableListOf()
     private val listAddressClinics: MutableList<LatLng> = mutableListOf()
     private val addressClinicsNearbyPlaces: MutableList<LatLng> = mutableListOf()
-    var isCheckDrugStore = true
-    var isCheckClinic = true
+
+
+    var isCheckDrugStore = false
+    var isCheckClinic = false
     private lateinit var markerStore: Marker
     private lateinit var markerClinic: Marker
+    var abc = 0
+    val myList = mutableListOf<Circle>()
 
-
-    val PREFS_NAME = "PingBusPrefs"
-    val PREFS_SEARCH_HISTORY = "SearchHistory"
-    private var settingss: SharedPreferences? = null
-    private var history: MutableSet<String> = mutableSetOf()
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -106,13 +100,8 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setUpGooogleMap()
 
         btnBack.setOnClickListener { finish() }
-        btnSearchDrugStore.setOnCheckedChangeListener() { _, _ -> searchDrugStore() }
 
-
-
-
-        btnSearchClinic.setOnCheckedChangeListener() { _: CompoundButton, _: Boolean -> searchClinics() }
-
+        checktbSelectOption()
         searchDrugInfo.setOnClickListener() {
             val intent = Intent(this, ScanBarCodeActivity::class.java)
             intent.putExtra("EXTRA", "openFragmentSearchDrug")
@@ -121,6 +110,8 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
+   btnSearchDrugStore.setOnCheckedChangeListener() { _, _ -> searchDrugStore() }
+        btnSearchClinic.setOnCheckedChangeListener() { _: CompoundButton, _: Boolean -> searchClinics() }
 
         edtSearchAddress.setOnTouchListener(View.OnTouchListener { v, event ->
             setAutoCompleteSource()
@@ -128,36 +119,28 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             false
         })
-        btnClearTextSeach.setOnClickListener{ edtSearchAddress.text.clear()}
+        btnClearTextSeach.setOnClickListener { edtSearchAddress.text.clear() }
+        Paper.init(this);
+        historySearch = Paper.book().read("contacts", ArrayList())
 
-
-        getArrayList("History")
     }
+
 
     override fun onStop() {
         super.onStop()
-      saveArrayList(historySearch,"History")
+        Paper.book().write("contacts", historySearch);
+    }
+    private fun checktbSelectOption() {
+        btnSearchDrugStore.isEnabled
+        tbSelectOption.onStateChangeListener = OnStateChangeListener { _, state, _ ->
+            if (state == State.LEFT) {abc = 0 }
+            if (state == State.RIGHT) {abc = 1}
+            btnSearchDrugStore.isChecked = false
+            btnSearchClinic.isChecked = false
+        }
+
     }
 
-
-
-    fun saveArrayList(list: ArrayList<String>, key: String?) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor = prefs.edit()
-        val gson = Gson()
-        val json = gson.toJson(list)
-        editor.putString(key, json)
-        editor.apply() // This line is IMPORTANT !!!
-    }
-
-    fun getArrayList(key: String?): ArrayList<String> {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val gson = Gson()
-        val json = prefs.getString(key, null)
-        val type: Type = object : TypeToken<ArrayList<String?>?>() {}.type
-        historySearch = gson.fromJson(json, type)
-        return historySearch
-    }
 
     private fun sharePerferencesFlags() {
         sharedPerfFlags = getSharedPreferences("Language", Context.MODE_PRIVATE)
@@ -167,141 +150,205 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-
     private fun setAutoCompleteSource() {
-
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, historySearch)
-
-
         edtSearchAddress.setAdapter(adapter)
-
-
     }
-
 
     @SuppressLint("ResourceType")
     override fun onMapReady(googleMap: GoogleMap) {
         mapGG = googleMap
 
-        val hanoiCappital = LatLng(latitude, longitude)
 
-//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+
+        val hanoiCappital = LatLng(latitude, longitude)
         mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(hanoiCappital, 10F))
+
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+
+            btnSearchDrugStore.isEnabled = true
+            btnSearchClinic.isEnabled = true
+        }, 3000)
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        mapGG.isMyLocationEnabled = false
-        mapGG.uiSettings.isMyLocationButtonEnabled = false;
+        mapGG.isMyLocationEnabled = true
+        mapGG.uiSettings.isMyLocationButtonEnabled = false
+
+        fab.setOnClickListener() {clickFab()}
 
 
-        fab.setOnClickListener() {
-            mapGG.clear()
-            btnSearchDrugStore.isChecked = false
-            btnSearchClinic.isChecked = false
-
-            mapGG.isMyLocationEnabled = true
-            if (mapGG.myLocation != null) {
-                latitude = mapGG.myLocation.latitude
-                longitude = mapGG.myLocation.longitude
-                myLocation = LatLng(latitude, longitude)
-                addCricle()
-            } else {
-                Toast.makeText(this, "Taking positioning, ,Wait 5 seconds", Toast.LENGTH_SHORT).show()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (mapGG.myLocation != null) {
-                        latitude = mapGG.myLocation.latitude
-                        longitude = mapGG.myLocation.longitude
-                        myLocation = LatLng(latitude, longitude)
-                        addCricle()
-                    } else {
-                        Toast.makeText(this@MapsActivity, "Can't update Your Location", Toast.LENGTH_SHORT).show()
-
-                    }
-                }, 5000)
-
-            }
-        }
-
-
-        mapGG.setOnMarkerClickListener(OnMarkerClickListener { marker ->
+        mapGG.setOnMarkerClickListener { marker ->
             val intent = Intent(this, ScanBarCodeActivity::class.java)
-
             when (marker.tag) {
-                "store" -> {
-                    intent.putExtra("EXTRA", "openFragmentDrugStore")
-                }
-
-                "clinic" -> {
-                    intent.putExtra("EXTRA", "openFragmentClinic")
-                }
+                "store" -> intent.putExtra("EXTRA", "openFragmentDrugStore")
+                "clinic" -> intent.putExtra("EXTRA", "openFragmentClinic")
             }
             startActivity(intent)
             false
-        })
+        }
+       searchByEditText()
 
-        searchByEditText()
 
 
     }
 
-    private fun searchDrugStore() {
-        if (myLocation != null) {
-
-            addCricle()
-            val distance = FloatArray(2)
-            listAddressStores.add(testStore)
-            listAddressStores.add(testStore2)
-            listAddressStores.add(testStore3)
-
-            for (i in listAddressStores) {
-                Location.distanceBetween(i.latitude,
-                        i.longitude, circleOptions.center.latitude,
-                        circleOptions.center.longitude, distance)
-
-                if (distance[0] < circleOptions.radius) {
-                    addressStoreNearbyPlaces.add(i)
-                }
-            }
-
-
-            if (isCheckDrugStore && addressStoreNearbyPlaces.size > 0) {
-                isCheckDrugStore = false
-
-                //  Toast.makeText(this, "123", Toast.LENGTH_SHORT).show()
-                for (j in addressStoreNearbyPlaces) {
-
-                    markerStore = mapGG.addMarker(MarkerOptions()
-                            .position(LatLng(j.latitude, j.longitude))
-                            .title("tìm thấy$j")
-
-                            .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on))))
-                    markerStore.tag = "store"
-                    markersStores.add(markerStore)
-                }
-            } else if (isCheckDrugStore && addressStoreNearbyPlaces.size == 0) {
-                isCheckDrugStore = false
-                Toast.makeText(this, "No Drug stores near you", Toast.LENGTH_SHORT).show()
+private fun clickFab(){
+    mapGG.clear()
+    if (mapGG.myLocation != null) {
+        setMyLocation()
+        addCricle()
+        mapGG.clear()
+    } else {
+        Toast.makeText(this, "Taking positioning, ,Wait 5 seconds", Toast.LENGTH_SHORT).show()
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (mapGG.myLocation != null) {
+                setMyLocation()
+                addCricle()
             } else {
-                isCheckDrugStore = true
-                for (marker in markersStores)
-                    marker.remove()
+                Toast.makeText(this@MapsActivity, "Can't update Your Location", Toast.LENGTH_SHORT).show()
             }
-        } else {
-            Toast.makeText(this, "Store null", Toast.LENGTH_SHORT).show()
-        }
+            btnSearchDrugStore.isEnabled = true
+            btnSearchClinic.isEnabled = true
+        }, 5000)
+    }
+    btnSearchDrugStore.isChecked = false
+    btnSearchClinic.isChecked = false
+
+
+}
+
+
+    private fun setMyLocation() {
+        latitude = mapGG.myLocation.latitude
+        longitude = mapGG.myLocation.longitude
+        myLocation = LatLng(latitude, longitude)
+    }
+
+
+    private fun searchDrugStore() {
+
+        listAddressStores.add(testStore)
+        listAddressStores.add(testStore2)
+        listAddressStores.add(testStore3)
+        listAddressStores.add(testStore4)
+
+
+        if ( abc == 0){ Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()}
+
+        if ( abc == 1){ searchDrugstore500m() }
+
+
+
+//  if (myLocation == null && getCity == null) {
+//            isCheckDrugStore = true
+//            //Toast.makeText(this, "Store null", Toast.LENGTH_SHORT).show()
+//
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//                return
+//            }
+//            mapGG.isMyLocationEnabled = true
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                val a = mapGG.myLocation.latitude
+//                val b = mapGG.myLocation.longitude
+//                getCity = LatLng(a, b)
+//                mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(getCity, 10F))
+//
+//                val gcd = Geocoder(this, Locale.getDefault())
+//                var listCityName: List<Address> = gcd.getFromLocation(a, b, 1)
+//
+//                cityName = listCityName[0].adminArea
+//                Log.d("123", cityName)
+//
+//                Toast.makeText(this, cityName, Toast.LENGTH_SHORT).show()
+//
+//            }, 5000)
+//
+//        } else if (myLocation == null && getCity != null) {
+//
+//            isCheckDrugStore = !isCheckDrugStore
+//
+//            val a = mapGG.myLocation.latitude
+//            val b = mapGG.myLocation.longitude
+//            getCity = LatLng(a, b)
+//            mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(getCity, 10F))
+//
+//        }
     }
 
     private fun searchClinics() {
+
+        listAddressClinics.add(testCnilic)
+        listAddressClinics.add(testCnilic2)
+        listAddressClinics.add(testCnilic3)
+
+
+        if ( abc == 0){ Toast.makeText(this, "test Clinic", Toast.LENGTH_SHORT).show()}
+        if ( abc == 1){ searchDClinic500m()}
+    }
+
+    private fun searchDrugstore500m() {
+        addressStoreNearbyPlaces.clear()
+        if (searchLocation == null) {
+            setMyLocation()
+        } else{ myLocation = searchLocation }
+
+
+            if (myLocation != null) {
+                addCricle()
+                val distance = FloatArray(2)
+                for (i in listAddressStores) {
+                    Location.distanceBetween(i.latitude,
+                            i.longitude, circleOptions.center.latitude,
+                            circleOptions.center.longitude, distance)
+
+                    if (distance[0] < circleOptions.radius) {
+                        addressStoreNearbyPlaces.add(i)
+                    }
+                }
+                if (!isCheckDrugStore && addressStoreNearbyPlaces.size > 0) {
+                    isCheckDrugStore = true
+
+                    for (j in addressStoreNearbyPlaces) {
+
+                        markerStore = mapGG.addMarker(MarkerOptions()
+                                .position(LatLng(j.latitude, j.longitude))
+                                .title("tìm thấy$j")
+
+                                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on))))
+                        markerStore.tag = "store"
+                        markersStores.add(markerStore)
+                    }
+                } else if (!isCheckDrugStore && addressStoreNearbyPlaces.size == 0) {
+                    isCheckDrugStore = true
+                    Toast.makeText(this, "No Drug stores near you", Toast.LENGTH_SHORT).show()
+                } else {
+                    isCheckDrugStore = false
+                    for (marker in markersStores)
+                        marker.remove()
+                }
+
+            } else Toast.makeText(this, "null", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun searchDClinic500m() {
+        addressClinicsNearbyPlaces.clear()
+        if (searchLocation == null) {
+            setMyLocation()
+        } else{ myLocation = searchLocation }
+
         if (myLocation != null) {
 
             addCricle()
             val distance = FloatArray(2)
-            listAddressClinics.add(testCnilic)
-            listAddressClinics.add(testCnilic2)
-            listAddressClinics.add(testCnilic3)
 
             for (i in listAddressClinics) {
                 Location.distanceBetween(i.latitude,
@@ -312,10 +359,8 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     addressClinicsNearbyPlaces.add(i)
                 }
             }
-
-
-            if (isCheckClinic && addressClinicsNearbyPlaces.size > 0) {
-                isCheckClinic = false
+            if (!isCheckClinic && addressClinicsNearbyPlaces.size > 0) {
+                isCheckClinic = true
 
                 for (j in addressClinicsNearbyPlaces) {
 
@@ -328,23 +373,26 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     markersClinics.add(markerClinic)
 
                 }
-            } else if (isCheckClinic && addressClinicsNearbyPlaces.size == 0) {
-                isCheckClinic = false
+            } else if (!isCheckClinic && addressClinicsNearbyPlaces.size == 0) {
+                isCheckClinic = true
                 Toast.makeText(this, "No Drug stores near you", Toast.LENGTH_SHORT).show()
             } else {
-                isCheckClinic = true
+                isCheckClinic = false
                 for (marker in markersClinics)
                     marker.remove()
             }
         } else {
             Toast.makeText(this, "Clinic null", Toast.LENGTH_SHORT).show()
         }
-
     }
 
 
+
+
+
     private fun addCricle() {
-        //  mapGG.clear()
+
+
         mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), 16F))
         mapGG.addCircle(circleOptions
                 .center(LatLng(latitude, longitude))
@@ -364,8 +412,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         rlp.setMargins(0, 0, 500, 200)
         rlp.width = 200
         rlp.height = 200
-
-
     }
 
 
@@ -385,8 +431,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
                         }
-
-
                     }
                     1 -> {
                         if (position != currentActivity) {
@@ -394,8 +438,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-
-
                         }
                     }
                     2 -> {
@@ -404,7 +446,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
 
                     }
@@ -414,7 +455,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
                     }
                     4 -> {
@@ -423,7 +463,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
                     }
                     5 -> {
@@ -432,7 +471,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
                     }
                     6 -> {
@@ -441,7 +479,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
                     }
                     7 -> {
@@ -450,7 +487,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
                     }
                     8 -> {
@@ -459,7 +495,6 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
                     }
                     9 -> {
@@ -468,22 +503,13 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             editorFlags.apply { putString("NN", tesst) }.apply()
                             editorFlags.putInt("ItemSpiner", position).commit()
                             resetApp()
-//
                         }
                     }
                 }
-
-
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
             }
-
-
         }
-
-
     }
 
     private fun changeLanguage() {
@@ -509,14 +535,9 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     || event.action == KeyEvent.ACTION_DOWN
                     || event.action == KeyEvent.KEYCODE_ENTER) {
                 geoLocateByEditText()
-
             }
-
-
-
             false
         }
-
     }
 
     private fun geoLocateByEditText() {
@@ -525,7 +546,7 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         btnSearchDrugStore.isChecked = false
         btnSearchClinic.isChecked = false
         val searchString = edtSearchAddress.text.toString()
-        if (searchString != ""){
+        if (searchString != "") {
             historySearch.add(0, searchString)
         }
 
@@ -535,22 +556,18 @@ class  MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             list = geoCoder.getFromLocationName(searchString, 1)
         } catch (e: IOException) {
         }
-
         if ((list.size) > 0) {
 
             val address = list[0]
 
             latitude = address.latitude
             longitude = address.longitude
-            myLocation = LatLng(latitude, longitude)
-            mapGG.addMarker(MarkerOptions().position(myLocation!!).title(address.toString()))
-            mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 16F))
-
-
-
-
+            searchLocation = LatLng(latitude, longitude)
+            mapGG.addMarker(MarkerOptions().position(searchLocation!!).title(address.toString()))
+            mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(searchLocation, 16F))
         }
     }
+
 
     private fun getMarkerBitmapFromStore(@DrawableRes resId: Int): Bitmap? {
         val customMarkerView: View = (getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.item_view_stores_marker, null)
