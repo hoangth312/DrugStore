@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:ignore="MissingClass">
 
-
     <fragment
         android:id="@+id/mapGoogle"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -19,7 +18,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_height="@dimen/_40sdp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="4"
@@ -28,17 +27,14 @@
         <ToggleButton
             android:id="@+id/btnSearchDrugStore"
             android:layout_width="0dp"
-            android:enabled="false"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/btn_drug_store_check"
+            android:enabled="false"
             android:textOff="@string/drugstore"
-            android:textOn="@string/drugstore"
-
-
-            />
+            android:textOn="@string/drugstore" />
 
         <ToggleButton
             android:id="@+id/btnSearchClinic"
@@ -46,9 +42,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_weight="1"
-            android:enabled="false"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/btn_clinic_check"
+            android:enabled="false"
             android:textOff="@string/clinic"
             android:textOn="@string/clinic"
 
@@ -69,8 +65,6 @@
             android:paddingStart="@dimen/_20sdp"
             android:text="@string/search_for_drug_information"
             android:textColor="@color/blue_150"
-
-
             android:textSize="12sp" />
 
 
@@ -119,7 +113,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="textImeMultiLine"
                 android:maxLines="1"
-                android:padding="@dimen/_10sdp"
+                android:padding="@dimen/_4sdp"
                 android:textColorHint="@color/gray"
                 android:textSize="@dimen/_10ssp" />
 
@@ -133,12 +127,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/ic__02_cancel" />
-
-
         </RelativeLayout>
 
         <RelativeLayout
-
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/_5sdp"
@@ -146,7 +137,6 @@
             android:background="@drawable/edittext2">
 
             <Spinner
-
                 android:id="@+id/spinnerLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -165,9 +155,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:src="@drawable/ic_arrow_point_to_down" />
-
         </RelativeLayout>
-
 
     </LinearLayout>
 
@@ -182,13 +170,12 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
     <com.nightonke.jellytogglebutton.JellyToggleButton
         android:id="@+id/tbSelectOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:jtbDuration="1000"
         android:layout_marginStart="@dimen/_10sdp"
+        app:jtbDuration="1000"
         app:jtbEaseType="ease_in_out_circ"
         app:jtbJelly="lazy_tremble_head_slim_jim"
         app:jtbLeftBackgroundColor="@color/blue_150"
@@ -206,7 +193,6 @@
         app:jtbTextMarginLeft="@dimen/_2sdp"
         app:jtbTextMarginRight="@dimen/_2sdp"
         app:jtbTextMarginTop="@dimen/_2sdp"
-
         app:layout_constraintBottom_toBottomOf="@+id/fab"
         app:layout_constraintStart_toStartOf="parent" />
 

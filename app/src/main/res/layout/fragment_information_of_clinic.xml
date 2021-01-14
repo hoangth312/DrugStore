@@ -318,8 +318,8 @@
                             android:layout_weight="3"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/week" />
+                            android:text="@string/week"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtMon"
@@ -328,8 +328,8 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/mon" />
+                            android:text="@string/mon"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtTue"
@@ -338,8 +338,8 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/tue" />
+                            android:text="@string/tue"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtWed"
@@ -348,8 +348,8 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/wed" />
+                            android:text="@string/wed"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtThu"
@@ -358,8 +358,8 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/thu" />
+                            android:text="@string/thu"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txFri"
@@ -368,8 +368,8 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/fri" />
+                            android:text="@string/fri"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtSat"
@@ -378,8 +378,8 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/sat" />
+                            android:text="@string/sat"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtSun"
@@ -388,8 +388,8 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/sun" />
+                            android:text="@string/sun"
+                            android:textSize="@dimen/_10ssp" />
                     </TableRow>
 
                     <TableRow
@@ -404,8 +404,8 @@
                             android:layout_weight="3"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/timeMorning" />
+                            android:text="@string/timeMorning"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorMon"
@@ -414,8 +414,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorTue"
@@ -424,8 +424,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorWed"
@@ -434,8 +434,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorThu"
@@ -444,8 +444,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorFri"
@@ -454,8 +454,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorSat"
@@ -464,8 +464,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorSun"
@@ -474,8 +474,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
                     </TableRow>
 
                     <TableRow
@@ -490,8 +490,8 @@
                             android:layout_weight="3"
                             android:fontFamily="@font/arial"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/timeEvening" />
+                            android:text="@string/timeEvening"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenMon"
@@ -500,8 +500,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenTue"
@@ -510,8 +510,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenWed"
@@ -520,8 +520,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenThu"
@@ -530,8 +530,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenFri"
@@ -540,8 +540,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenSat"
@@ -550,8 +550,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenSun"
@@ -560,8 +560,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_10ssp"
-                            android:text="@string/check" />
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -676,18 +676,18 @@
                         android:text="@string/date" />
 
 
-                     <RatingBar
+                    <RatingBar
                         android:id="@+id/reviewCommentClinic"
                         style="@android:style/Widget.Material.Light.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_20sdp"
-                        android:numStars="5"
                         android:isIndicator="false"
+                        android:numStars="5"
                         android:stepSize="0.5" />
 
-                      <Button
+                    <Button
                         android:id="@+id/btnCommentClinic"
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_20sdp"

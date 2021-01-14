@@ -4,23 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-      
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
 import com.denzcoskun.imageslider.models.SlideModel
-
 import com.hoanganh.drugstore.Adapter.CommentAdapter
-import com.hoanganh.drugstore.Adapter.ImageTutorialAdapter
-
 import com.hoanganh.drugstore.Adapter.NoteAdapter
-import com.hoanganh.drugstore.Adapter.ViewPagerAdapter
 import com.hoanganh.drugstore.Model.Clinics
 import com.hoanganh.drugstore.Model.Comment
-
 import com.hoanganh.drugstore.R
-
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.*
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.view.*
 import me.relex.circleindicator.CircleIndicator3
@@ -99,11 +92,6 @@ class InformationOfClinicFragment : Fragment() {
         listNote.add(Clinics("Fully equipped clinic, doctors with long experience in treating diseases"))
     }
 
-}
-
-        
-
-    }
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
@@ -115,4 +103,3 @@ class InformationOfClinicFragment : Fragment() {
 
     }
 }
-
