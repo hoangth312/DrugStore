@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDFD"
-    >
+    android:background="#FFFDFD">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,66 +14,64 @@
             android:id="@+id/app_bar"
             layout="@layout/app_bar_fragments"
             android:layout_width="match_parent"
-
             android:layout_height="@dimen/_50sdp"
-            android:background="#1AA6CD">
+            android:background="#1AA6CD" />
+
+        <TextView
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial"
+            android:text="@string/detailDrugStore"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearMap"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgMap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ic_map"
+                app:layout_constraintLeft_toRightOf="@+id/titleClinic" />
 
             <TextView
-                android:layout_width="@dimen/_300sdp"
+                android:id="@+id/txtMap"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/arial"
-                android:text="@string/detailDrugStore"
+                android:text="@string/map"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearMap"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarMedicine">
 
-                <ImageView
-                    android:id="@+id/imgMap"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_map"
-                    app:layout_constraintLeft_toRightOf="@+id/titleClinic" />
-
-                <TextView
-                    android:id="@+id/txtMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:fontFamily="@font/arial"
-                    android:text="@string/map"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <RelativeLayout
+            <ViewFlipper
+                android:id="@+id/viewImageStore"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarMedicine">
+                android:layout_height="@dimen/_200sdp"
+                android:background="@drawable/pharmacy" />
 
-                <ViewFlipper
-                    android:id="@+id/viewImageStore"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    android:background="@drawable/pharmacy" />
-
-                <me.relex.circleindicator.CircleIndicator
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_alignBottom="@+id/viewImageStore"
-                    android:layout_centerHorizontal="true"
-                    app:ci_drawable="@drawable/white_radius_circle_indicator"
-                    />
-            </RelativeLayout>
+<!--            <me.relex.circleindicator.CircleIndicator-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignBottom="@+id/viewImageStore"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:visibility="visible"-->
+<!--                app:ci_drawable="@drawable/white_radius_circle_indicator" />-->
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/txtNameDrugStore"
@@ -388,8 +385,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_20sdp"
-                        android:numStars="5"
                         android:isIndicator="false"
+                        android:numStars="5"
                         android:stepSize="0.5" />
 
                     <Button
