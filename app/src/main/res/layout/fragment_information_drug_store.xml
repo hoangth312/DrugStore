@@ -64,13 +64,13 @@
                 android:layout_height="@dimen/_200sdp"
                 android:background="@drawable/pharmacy" />
 
-            <me.relex.circleindicator.CircleIndicator
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/viewImageStore"
-                android:layout_centerHorizontal="true"
-                android:visibility="visible"
-                app:ci_drawable="@drawable/white_radius_circle_indicator" />
+<!--            <me.relex.circleindicator.CircleIndicator-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignBottom="@+id/viewImageStore"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:visibility="visible"-->
+<!--                app:ci_drawable="@drawable/white_radius_circle_indicator" />-->
         </RelativeLayout>
 
         <TextView

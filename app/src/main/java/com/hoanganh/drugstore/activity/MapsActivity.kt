@@ -1,11 +1,9 @@
 package com.hoanganh.drugstore.activity
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -24,7 +22,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -33,6 +30,7 @@ import com.google.android.gms.maps.model.*
 import com.hoanganh.drugstore.Adapter.FlagAdapter
 import com.hoanganh.drugstore.Model.FlagsModel
 import com.hoanganh.drugstore.R
+import com.hoanganh.drugstore.extension.checkRequiredPermissions
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.nightonke.jellytogglebutton.JellyToggleButton.OnStateChangeListener
 import com.nightonke.jellytogglebutton.State
@@ -42,6 +40,11 @@ import java.io.IOException
 import java.util.Locale
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+
+    companion object {
+        const val REQUEST_CODE_LOCATION = 11112
+        const val SDK_VERSION_ANDROID_P = 28
+    }
 
     private lateinit var mapGG: GoogleMap
     lateinit var sharedPerfFlags: SharedPreferences
@@ -96,7 +99,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         btnBack.setOnClickListener { finish() }
 
         checktbSelectOption()
-        searchDrugInfo.setOnClickListener() {
+        searchDrugInfo.setOnClickListener {
             val intent = Intent(this, ScanBarCodeActivity::class.java)
             intent.putExtra("EXTRA", "openFragmentSearchDrug")
             startActivity(intent)
@@ -164,13 +167,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             btnSearchDrugStore.isEnabled = true
             btnSearchClinic.isEnabled = true
         }, 3000)
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (!this.checkRequiredPermissions()) {
             return
         }
         mapGG.isMyLocationEnabled = true

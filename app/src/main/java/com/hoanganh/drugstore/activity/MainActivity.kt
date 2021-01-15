@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnLogin.setOnClickListener() {
+        btnLogin.setOnClickListener {
             val intent = Intent(this, ScanBarCodeActivity::class.java)
             startActivity(intent)
 
