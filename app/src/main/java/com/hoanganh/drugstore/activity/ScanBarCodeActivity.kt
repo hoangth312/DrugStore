@@ -7,7 +7,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
@@ -71,16 +70,18 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     private fun getFmFromMap() {
         when (intent.getStringExtra("EXTRA")) {
             "openFragmentSearchDrug" -> {
-                // supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SearchDrugsFragment()).commit()
+             //   supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SearchDrugsFragment()).commit()
                 navController.navigate(R.id.action_nav_home_to_fmSearchDugs)
             }
             "openFragmentDrugStore" -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationDrugStoreFragment()).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment, InformationDrugStoreFragment()).commit()
 
                 //navController.navigate(R.id.action_nav_home_to_fmInfoDrugStore)
             }
             "openFragmentClinic" -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationOfClinicFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationOfClinicFragment())
+                    .commit()
                 //navController.navigate(R.id.action_nav_home_to_fmInfoClinic)
             }
 

@@ -22,14 +22,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MainActivity : AppCompatActivity() {
     var userName =""
     var password = ""
     private var token: String? = null
     private var idUser: Int? = null
     var dialog: AlertDialog? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,22 +55,28 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            }
-
-
-
+        }
     }
 
     override fun onStart() {
         super.onStart()
         Dexter.withContext(this)
-                .withPermissions(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET)
-                .withListener(object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
-                    }
+            .withPermissions(
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.INTERNET
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
+                    //
+                }
 
                     override fun onPermissionRationaleShouldBeShown(p0: MutableList<PermissionRequest>?, p1: PermissionToken?) {
+
                     }
+
+
                 }).check()
         if(SharedPrefManager.getInstance(this).isLoggedIn){
             val intent = Intent(applicationContext, ScanBarCodeActivity::class.java)

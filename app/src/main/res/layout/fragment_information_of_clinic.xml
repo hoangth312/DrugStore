@@ -19,52 +19,63 @@
             android:layout_height="wrap_content" />
 
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+              <RelativeLayout-->
+                 android:layout_width="match_parent"-->
+                android:layout_height="match_parent">-->
 
-                <ViewFlipper
-                    android:id="@+id/viewImageClinic"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/pharmacy" />
+                   <androidx.viewpager2.widget.ViewPager2-->
+                      android:id="@+id/viewPagerImageClinic"-->
+                       android:layout_width="match_parent"-->
+                       android:layout_height="@dimen/_200sdp"-->
+                     android:background="@color/gray_200" />-->
 
-                <!--                <me.relex.circleindicator.CircleIndicator-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="13dp"-->
-                <!--                    android:layout_alignBottom="@+id/viewImageClinic"-->
-                <!--                    android:layout_centerInParent="true" />-->
-            </RelativeLayout>
-        </ScrollView>
+                 <me.relex.circleindicator.CircleIndicator3-->
+                      android:id="@+id/circleIn"-->
+                    android:layout_width="match_parent"-->
+                    android:layout_height="wrap_content"-->
+                       android:layout_alignParentBottom="true"-->
+                       android:layout_marginBottom="10dp"-->
+                       android:background="@color/blue_100"-->
+                      app:ci_drawable="@drawable/white_radius_circle_indicator" />
+           </RelativeLayout>-->
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            app:auto_cycle="true"
+            app:period="1000"
+            app:delay="0"
+            app:corner_radius="5"
+            app:placeholder="@drawable/ic_launcher_background"
+            />
+
 
         <TextView
             android:id="@+id/txtNameClinic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/white"
             android:fontFamily="@font/arial"
             android:text="@string/nameClinic"
             android:textColor="#1AA6CD"
-            android:textSize="20sp"
+            android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/viewImageStore" />
 
-        <TextView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/_1sdp"
             android:background="#898989" />
 
         <LinearLayout
             android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/white"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,7 +85,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -86,18 +97,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/review"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
                 <RatingBar
                     android:id="@+id/ratingBar"
                     style="@android:style/Widget.Material.RatingBar.Small"
                     android:layout_width="wrap_content"
-                    android:layout_height="15dp"
+                    android:layout_height="@dimen/_15sdp"
                     android:layout_gravity="center"
                     android:numStars="5"
                     android:rating="4"
@@ -107,8 +118,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -120,29 +131,29 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/location"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/address"
                     android:textColor="#898989"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_13sdp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -154,82 +165,81 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/phone"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/phoneNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/numberPhone"
                     android:textColor="#898989"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_13sdp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="@dimen/_70sdp"
                     android:background="@drawable/ic_global" />
 
                 <TextView
                     android:id="@+id/language"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/language"
                     android:textColor="#898989"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_13sdp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:background="@drawable/ic_explorer" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/web"
                     android:textColor="#898989"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/timeOpen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/link"
                     android:textColor="#898989"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_13ssp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="@dimen/_5sdp"
                 android:background="#B6B3B3" />
 
             <LinearLayout
                 android:id="@+id/linear2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/linear1"
@@ -240,56 +250,61 @@
                     android:id="@+id/txtInforClinic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/clinic"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_18ssp"
                     android:textStyle="bold" />
 
-                <TextView
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="#898989" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listService"
+                <TextView
+                    android:id="@+id/txtDetailClinic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp" />
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:fontFamily="@font/arial"
+                    android:text="aaaaaaa"
+                    android:textSize="@dimen/_13ssp" />
+
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="@dimen/_5sdp"
                 android:background="#B6B3B3" />
 
             <LinearLayout
                 android:id="@+id/linear3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/timeWorking"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_18sdp"
                     android:textStyle="bold" />
 
-                <TextView
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="#898989" />
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp">
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp">
 
                     <TableRow
                         android:layout_width="wrap_content"
@@ -302,9 +317,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="3"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/week" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/week"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtMon"
@@ -312,9 +327,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/mon" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/mon"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtTue"
@@ -322,9 +337,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/tue" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/tue"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtWed"
@@ -332,9 +347,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/wed" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/wed"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtThu"
@@ -342,9 +357,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/thu" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/thu"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txFri"
@@ -352,9 +367,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/fri" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/fri"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtSat"
@@ -362,9 +377,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/sat" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/sat"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/txtSun"
@@ -372,9 +387,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/sun" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/sun"
+                            android:textSize="@dimen/_10ssp" />
                     </TableRow>
 
                     <TableRow
@@ -388,9 +403,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/timeMorning" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/timeMorning"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorMon"
@@ -398,9 +413,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorTue"
@@ -408,9 +423,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorWed"
@@ -418,9 +433,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorThu"
@@ -428,9 +443,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorFri"
@@ -438,9 +453,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorSat"
@@ -448,9 +463,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkMorSun"
@@ -458,9 +473,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
                     </TableRow>
 
                     <TableRow
@@ -474,9 +489,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:fontFamily="@font/arial"
-                            android:padding="5dp"
-
-                            android:text="@string/timeEvening" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/timeEvening"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenMon"
@@ -484,9 +499,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenTue"
@@ -494,9 +509,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenWed"
@@ -504,9 +519,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenThu"
@@ -514,9 +529,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenFri"
@@ -524,9 +539,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenSat"
@@ -534,9 +549,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
 
                         <TextView
                             android:id="@+id/checkEvenSun"
@@ -544,23 +559,23 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="5dp"
-
-                            android:text="@string/check" />
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/check"
+                            android:textSize="@dimen/_10ssp" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="@dimen/_5sdp"
                 android:background="#B6B3B3" />
 
             <LinearLayout
                 android:id="@+id/linear4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/linear1">
@@ -569,29 +584,30 @@
                     android:id="@+id/txtNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/note"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_18ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="#898989" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/reNoteClinic"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp" />
 
                 <TextView
                     android:id="@+id/txtSeeMore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:text="@string/see"
                     android:textAlignment="viewEnd"
                     android:textColor="#1AA6CD" />
@@ -599,84 +615,87 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="@dimen/_5sdp"
                 android:background="#B6B3B3" />
 
             <LinearLayout
                 android:id="@+id/linear5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txtCommentClinic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/comment"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_18ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="#898989" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/reCommentClinic"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    tools:ignore="TooManyViews" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp" />
 
                 <EditText
-                    android:id="@+id/edtComment"
-                    android:layout_width="350dp"
+                    android:id="@+id/edtCommentClinic"
+                    android:layout_width="@dimen/_280sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
+                    android:layout_margin="@dimen/_10sdp"
                     android:background="@drawable/edittext"
                     android:gravity="top"
                     android:maxLength="200"
-                    android:minHeight="100dp"
-                    android:padding="5dp"
+                    android:minHeight="@dimen/_100sdp"
+                    android:padding="@dimen/_5sdp"
 
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/_12ssp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/_50sdp"
                     android:orientation="horizontal">
 
+
                     <TextView
+                        android:id="@+id/txtDateCommentClinic"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="@dimen/_18sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/date" />
 
+
                     <RatingBar
-                        android:id="@+id/ratingBar2"
-                        style="@android:style/Widget.Material.RatingBar.Small"
+                        android:id="@+id/reviewCommentClinic"
+                        style="@android:style/Widget.Material.Light.RatingBar.Small"
                         android:layout_width="wrap_content"
-                        android:layout_height="15dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="40dp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:isIndicator="false"
                         android:numStars="5"
                         android:stepSize="0.5" />
 
                     <Button
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
+                        android:id="@+id/btnCommentClinic"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="60dp"
+                        android:layout_marginStart="@dimen/_50sdp"
                         android:background="@drawable/button"
-                        android:fontFamily="@font/arial"
                         android:text="@string/comment"
-                        android:textColor="#1AA6CD"
-                        android:textSize="12sp" />
+                        android:textColor="#1AA6CD" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

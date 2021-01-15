@@ -19,7 +19,7 @@
     <string name="user">User</string>
     <string name="pharmacy">Pharmacy</string>
     <string name="nameClinic">Clinic 1</string>
-    <string name="web">Website</string>
+    <string name="web">Website:</string>
     <string name="language">English</string>
     <string name="link">https://www.omipharma.vn/about-omicare/</string>
     <string name="clinic">Clinics</string>
@@ -50,7 +50,6 @@
     <string name="number">123</string>
     <string name="similarProduct">Similar Products</string>
     <string name="check">✓</string>
-
 
     <string name="Email">Email</string>
     <string name="drugstore">Drug Store</string>

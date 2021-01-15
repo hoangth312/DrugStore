@@ -11,8 +11,15 @@ import kotlinx.android.synthetic.main.item_note_clinic.view.*
 
 class NoteAdapter(private val listNote: ArrayList<Clinics>) : RecyclerView.Adapter<NoteAdapter.NoteAdapterViewHolder>() {
 
+    companion object{
+        const val DEPARTMENT_CLINIC = 1
+        const val NOTE_CLINICS = 2
+    }
 
     class NoteAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    }
+    class DepartmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
     }
 
