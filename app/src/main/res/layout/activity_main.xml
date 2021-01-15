@@ -20,7 +20,7 @@
 
     <EditText
 
-        android:id="@+id/edtEmail"
+        android:id="@+id/edtUserName"
         android:layout_width="@dimen/_240sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,8 +28,8 @@
         android:background="@drawable/edittext0"
         android:drawableLeft="@drawable/ic_person"
         android:drawablePadding="@dimen/_10sdp"
-        android:hint="@string/Email"
-        android:inputType="textEmailAddress"
+        android:hint="@string/user_name"
+        android:inputType="text"
         android:padding="@dimen/_15sdp"
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/edtUserName" />
 
     <TextView
         android:id="@+id/textView"

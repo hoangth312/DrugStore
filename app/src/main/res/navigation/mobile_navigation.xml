@@ -5,6 +5,25 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+<!--    <activity-->
+<!--        android:id="@+id/main_activity"-->
+<!--        android:name="com.hoanganh.drugstore.activity.MainActivity"-->
+<!--        android:label=""-->
+<!--        tools:layout="@layout/activity_main"-->
+<!--        >-->
+<!--        <action-->
+<!--            android:id="@+id/action_main_activity_to_scanBarCodeActivity"-->
+<!--            app:destination="@id/scanBarCodeActivity" />-->
+<!--    </activity>-->
+<!--    <activity-->
+<!--        android:id="@+id/scanBarCodeActivity"-->
+<!--        android:name="com.hoanganh.drugstore.activity.ScanBarCodeActivity"-->
+<!--        android:label=""-->
+<!--        tools:layout="@layout/activity_scan_bar_code"-->
+<!--        >-->
+
+<!--    </activity>-->
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.hoanganh.drugstore.Fragment.ScanBarCodeFragment"
@@ -33,14 +52,16 @@
             android:id="@+id/action_nav_home_to_fmInfoClinic"
             app:destination="@id/fmInfoClinic" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_informationUser"
+        android:name="com.hoanganh.drugstore.Fragment.InfoUserFragment"
+        android:label=""
+        tools:layout="@layout/fragment_info_user" />
     <activity
         android:id="@+id/activityMap"
         android:name="com.hoanganh.drugstore.activity.MapsActivity"
         android:label=""
-        tools:layout="@layout/activity_maps"
-
-
-        >
+        tools:layout="@layout/activity_maps">
 
     </activity>
 

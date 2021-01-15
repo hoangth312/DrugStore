@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,14 +13,14 @@ import com.hoanganh.drugstore.Adapter.ProductUsedAdapter
 import com.hoanganh.drugstore.Adapter.ServiceAdapter
 import com.hoanganh.drugstore.Model.Comment
 import com.hoanganh.drugstore.Model.ProductUsed
-import com.hoanganh.drugstore.Model.Service
+import com.hoanganh.drugstore.Model.Services
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.fragment_information_drug_store.view.*
 import java.util.ArrayList
 
 class InformationDrugStoreFragment : Fragment() {
     lateinit var viewOfLayout: View
-    val listService = ArrayList<Service>()
+    val listService = ArrayList<Services>()
     val listProductUsed = ArrayList<ProductUsed>()
     val listComment = ArrayList<Comment>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,7 +35,16 @@ class InformationDrugStoreFragment : Fragment() {
 
 
     }
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+
+    }
 
 
     private fun setupView() {
@@ -50,13 +60,13 @@ class InformationDrugStoreFragment : Fragment() {
     }
 
     private fun setDataService() {
-        listService.add(Service(R.drawable.ic_pills, "Prescription"))
-        listService.add(Service(R.drawable.ic_pharmacy, "Modulation"))
-        listService.add(Service(R.drawable.ic_blood, "BBlood Tests"))
-        listService.add(Service(R.drawable.ic_cardiogram, "AED"))
-        listService.add(Service(R.drawable.ic_wine, "Alcohol"))
-        listService.add(Service(R.drawable.ic_coffee, "Coffee"))
-        listService.add(Service(R.drawable.ic_parking, "Parking"))
+        listService.add(Services(R.drawable.ic_pills, "Prescription"))
+        listService.add(Services(R.drawable.ic_pharmacy, "Modulation"))
+        listService.add(Services(R.drawable.ic_blood, "BBlood Tests"))
+        listService.add(Services(R.drawable.ic_cardiogram, "AED"))
+        listService.add(Services(R.drawable.ic_wine, "Alcohol"))
+        listService.add(Services(R.drawable.ic_coffee, "Coffee"))
+        listService.add(Services(R.drawable.ic_parking, "Parking"))
     }
 
     private fun setDataProduct() {
