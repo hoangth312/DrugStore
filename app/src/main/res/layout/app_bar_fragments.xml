@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/_48sdp"
     tools:context=".activity.ScanBarCodeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.DrugStore.PopupOverlay" >
+            app:popupTheme="@style/Theme.DrugStore.PopupOverlay">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -34,10 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:gravity="end"
                 android:layout_margin="@dimen/_10sdp"
-
-                >
+                android:gravity="end">
 
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
@@ -45,22 +43,14 @@
                     android:src="@drawable/ic_map" />
 
                 <TextView
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:text="@string/map"
-                    android:textSize="@dimen/_12ssp"
                     android:textColor="@color/white"
-
-                    />
-
-
+                    android:textSize="@dimen/_12ssp" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
