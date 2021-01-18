@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginStart="@dimen/_50sdp"
                 android:fontFamily="@font/arial"
                 android:text="@string/number"
                 android:textColor="#898989"

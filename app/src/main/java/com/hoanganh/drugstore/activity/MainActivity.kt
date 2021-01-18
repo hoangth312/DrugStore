@@ -23,7 +23,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
     var userName = ""
     var password = ""
     private var token: String? = null
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         btnLogin.setOnClickListener(this)
         btnSignUp.setOnClickListener(this)
+
 
     }
 
@@ -93,6 +96,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+
     private fun diaLogLoading() {
         val builder = AlertDialog.Builder(this)
         builder.setCancelable(false)
@@ -131,6 +135,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(applicationContext, "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
 }

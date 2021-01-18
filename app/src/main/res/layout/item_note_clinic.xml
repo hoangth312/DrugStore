@@ -24,7 +24,7 @@
         android:text="aaaaaaa"
         android:gravity="top"
         android:textColor="#898989"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_13sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/imgPlay"
         app:layout_constraintTop_toTopOf="parent" />

@@ -13,13 +13,18 @@ import com.hoanganh.drugstore.Adapter.CommentAdapter
 import com.hoanganh.drugstore.Adapter.ProductUsedAdapter
 import com.hoanganh.drugstore.Adapter.ServiceAdapter
 import com.hoanganh.drugstore.Model.Comment
+import com.hoanganh.drugstore.Model.DrugStore
 import com.hoanganh.drugstore.Model.ProductUsed
 import com.hoanganh.drugstore.Model.Services
 import com.hoanganh.drugstore.R
+import com.hoanganh.drugstore.api.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_information_drug_store.*
 import kotlinx.android.synthetic.main.fragment_information_drug_store.view.*
+import retrofit2.Call
 import java.text.SimpleDateFormat
 import java.util.*
+import retrofit2.Callback
+import retrofit2.Response
 
 class InformationDrugStoreFragment : Fragment() {
     lateinit var viewOfLayout: View
@@ -27,17 +32,34 @@ class InformationDrugStoreFragment : Fragment() {
     private val listProductUsed = ArrayList<ProductUsed>()
     private val listCommentDS = ArrayList<Comment>()
     private val now = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
-
+//    private val token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaG9uZ2RlcHRyYWkiLCJpYXQiOjE2MTA5NTM5NTAsImV4cCI6MTYxMDk4Mjc1MH0.RbhX2TaCOUFZEvQ18V9YpQrePZ_9S0VeD2WyhtZ98hukcpHIa8TSNnVAqFEhvwim-iYqezMIMWu7Sd5Y2Vw7RQ"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewOfLayout = inflater.inflate(R.layout.fragment_information_drug_store, container, false)
         setupView()
         setDataService()
         setDataProduct()
         setDataComment()
-
+//        getDataDrugStore()
 
         return viewOfLayout
     }
+
+//    private fun getDataDrugStore() {
+//        RetrofitClient
+//                .getApiService()
+//                .getDrugstore(token)
+//        .enqueue(object : Callback<DrugStore>{
+//            override fun onResponse(call: Call<DrugStore>, response: Response<DrugStore>) {
+//                response.isSuccessful
+//            }
+//
+//            override fun onFailure(call: Call<DrugStore>, t: Throwable) {
+
+//            }
+//
+//        })
+//    }
+
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()

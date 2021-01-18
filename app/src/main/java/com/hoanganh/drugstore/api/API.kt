@@ -1,5 +1,6 @@
 package com.hoanganh.drugstore.api
 
+import com.hoanganh.drugstore.Model.DrugStore
 import com.hoanganh.drugstore.Model.LoginResponse
 import com.hoanganh.drugstore.Model.RegisterAccount
 import com.hoanganh.drugstore.Model.User
@@ -29,5 +30,8 @@ interface API {
 
 
 
+
+    @GET("drugstores")
+    fun getDrugstore(@Header("Authorization") auth: String): Call<DrugStore>
 
 }
