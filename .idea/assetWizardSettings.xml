@@ -11,7 +11,6 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-
                         <option name="children">
                           <map>
                             <entry key="clipartAsset">
@@ -30,9 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_chat" />
-                            <entry key="sourceFile" value="D:\Project\icon\chat.svg" />
-
+                            <entry key="outputName" value="ic_log_out" />
+                            <entry key="sourceFile" value="D:\Project\icon\log-out.svg" />
                           </map>
                         </option>
                       </PersistentState>
