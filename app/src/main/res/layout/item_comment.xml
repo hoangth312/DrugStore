@@ -13,7 +13,6 @@
         android:maxLength="50"
         android:text="@string/userComment"
         android:textSize="@dimen/_13sdp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +59,7 @@
         android:fontFamily="@font/arial"
         android:text="@string/date"
         android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/calender"
         app:layout_constraintTop_toBottomOf="@+id/txtComment" />
@@ -69,7 +68,7 @@
         android:id="@+id/reviewComment"
         style="@android:style/Widget.Material.RatingBar.Small"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_15sdp"
+        android:layout_height="@dimen/_12sdp"
         android:layout_gravity="center"
         android:numStars="5"
         android:rating="5"
@@ -83,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:background="#898989"
+        android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviewComment" />
