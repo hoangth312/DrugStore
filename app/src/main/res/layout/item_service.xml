@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/imgItemService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_pills"
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/txtItemNameService"
-        android:layout_width="@dimen/_60sdp"
+        android:layout_width="@dimen/_55sdp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial"
         android:text="@string/pharmacy"
