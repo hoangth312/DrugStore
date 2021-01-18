@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-
-    android:layout_height="@dimen/_80sdp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/_10sdp">
 
 
     <RelativeLayout
         android:id="@+id/relative"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +20,10 @@
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginBottom="@dimen/_2sdp"
-            app:cardBackgroundColor="#CAC8C8"
-            app:cardCornerRadius="@dimen/_100sdp">
+            app:cardBackgroundColor="@color/gray_100"
+            app:cardCornerRadius="@dimen/_100sdp"
+
+            >
 
             <ImageView
                 android:id="@+id/imgItemService"
@@ -37,11 +39,13 @@
 
     <TextView
         android:id="@+id/txtItemNameService"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_60sdp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial"
         android:text="@string/pharmacy"
         android:textSize="@dimen/_12ssp"
+        android:lines="2"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relative" />

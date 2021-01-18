@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.denzcoskun.imageslider.models.SlideModel
 import com.hoanganh.drugstore.Adapter.CommentAdapter
 import com.hoanganh.drugstore.Adapter.NoteAdapter
 import com.hoanganh.drugstore.Model.Clinics
@@ -16,11 +15,9 @@ import com.hoanganh.drugstore.Model.Comment
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.*
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.view.*
-import me.relex.circleindicator.CircleIndicator3
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
 import kotlinx.android.synthetic.main.app_bar_fragments.view.*
 
 
@@ -28,7 +25,7 @@ class InformationOfClinicFragment : Fragment() {
     lateinit var viewOfLayout: View
     private val listNote = ArrayList<Clinics>()
     private val listCommentClinics = ArrayList<Comment>()
-    private val listImage = ArrayList<SlideModel>()
+  private val listImage = ArrayList<Int>()
     private val now = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,15 +40,12 @@ class InformationOfClinicFragment : Fragment() {
     }
 
     private fun setDataBanner() {
-        listImage.add(SlideModel(R.drawable.pharmacy))
-        listImage.add(SlideModel(R.drawable.salonpas))
-        slider.setImageList(listImage, true)
 //       listImage.add(0, R.drawable.pharmacy)
 //        listImage.add(1, R.drawable.salonpas)
 //        val pagerAdaper = ViewPagerAdapter(listImage)
 //        viewOfLayout.viewPagerImageClinic.adapter = pagerAdaper
 //        viewOfLayout.viewPagerImageClinic.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//        viewOfLayout.circleIn.setViewPager(viewPagerImageClinic)
+
 
     }
 

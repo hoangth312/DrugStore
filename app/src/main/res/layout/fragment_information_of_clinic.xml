@@ -20,36 +20,26 @@
 
 
 
-              <RelativeLayout-->
-                 android:layout_width="match_parent"-->
-                android:layout_height="match_parent">-->
+              <RelativeLayout
+                 android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                   <androidx.viewpager2.widget.ViewPager2-->
-                      android:id="@+id/viewPagerImageClinic"-->
-                       android:layout_width="match_parent"-->
-                       android:layout_height="@dimen/_200sdp"-->
-                     android:background="@color/gray_200" />-->
+                   <androidx.viewpager2.widget.ViewPager2
+                      android:id="@+id/viewPagerImageClinic"
+                       android:layout_width="match_parent"
+                       android:layout_height="@dimen/_200sdp"
+                     android:background="@color/gray_200" />
 
-                 <me.relex.circleindicator.CircleIndicator3-->
-                      android:id="@+id/circleIn"-->
-                    android:layout_width="match_parent"-->
-                    android:layout_height="wrap_content"-->
-                       android:layout_alignParentBottom="true"-->
-                       android:layout_marginBottom="10dp"-->
-                       android:background="@color/blue_100"-->
-                      app:ci_drawable="@drawable/white_radius_circle_indicator" />
+<!--                 <me.relex.circleindicator.CircleIndicator3-->
+<!--                      android:id="@+id/circleIn"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                       android:layout_alignParentBottom="true"-->
+<!--                       android:layout_marginBottom="10dp"-->
+<!--                       android:background="@color/blue_100"-->
+<!--                      app:ci_drawable="@drawable/white_radius_circle_indicator" />-->
            </RelativeLayout>-->
 
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/slider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            app:auto_cycle="true"
-            app:period="1000"
-            app:delay="0"
-            app:corner_radius="5"
-            app:placeholder="@drawable/ic_launcher_background"
-            />
 
 
         <TextView
@@ -62,14 +52,14 @@
             android:fontFamily="@font/arial"
             android:text="@string/nameClinic"
             android:textColor="#1AA6CD"
-            android:textSize="@dimen/_20ssp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/viewImageStore" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:background="#898989" />
+            android:background="@color/gray_100" />
 
         <LinearLayout
             android:id="@+id/linear1"
@@ -184,7 +174,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_70sdp"
+                    android:layout_marginStart="@dimen/_50sdp"
                     android:background="@drawable/ic_global" />
 
                 <TextView
@@ -208,6 +198,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:background="@drawable/ic_explorer" />
 
                 <TextView
@@ -233,7 +224,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_5sdp"
-                android:background="#B6B3B3" />
+                android:background="@color/gray_100" />
 
             <LinearLayout
                 android:id="@+id/linear2"
@@ -253,13 +244,13 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/clinic"
-                    android:textSize="@dimen/_18ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="#898989" />
+                    android:background="@color/gray_100" />
 
                 <TextView
                     android:id="@+id/txtDetailClinic"
@@ -276,7 +267,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_5sdp"
-                android:background="#B6B3B3" />
+                android:background="@color/gray_100" />
 
             <LinearLayout
                 android:id="@+id/linear3"
@@ -292,13 +283,13 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/timeWorking"
-                    android:textSize="@dimen/_18sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="#898989" />
+                    android:background="@color/gray_100" />
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -569,7 +560,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_5sdp"
-                android:background="#B6B3B3" />
+                android:background="@color/gray_100" />
 
             <LinearLayout
                 android:id="@+id/linear4"
@@ -593,14 +584,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="#898989" />
+                    android:background="@color/gray_100" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/reNoteClinic"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_280sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_20sdp" />
+                    android:layout_gravity="center" />
 
                 <TextView
                     android:id="@+id/txtSeeMore"
@@ -616,7 +606,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_5sdp"
-                android:background="#B6B3B3" />
+                android:background="@color/gray_100" />
 
             <LinearLayout
                 android:id="@+id/linear5"
@@ -632,20 +622,20 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:fontFamily="@font/arial"
                     android:text="@string/comment"
-                    android:textSize="@dimen/_18ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="#898989" />
+                    android:background="@color/gray_100" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/reCommentClinic"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_280sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_20sdp" />
+                    android:layout_gravity="center"
+                    />
 
                 <EditText
                     android:id="@+id/edtCommentClinic"
@@ -658,7 +648,6 @@
                     android:maxLength="200"
                     android:minHeight="@dimen/_100sdp"
                     android:padding="@dimen/_5sdp"
-
                     android:textSize="@dimen/_12ssp" />
 
                 <LinearLayout
