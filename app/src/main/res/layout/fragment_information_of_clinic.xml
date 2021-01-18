@@ -19,37 +19,35 @@
             android:layout_height="wrap_content" />
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-              <RelativeLayout-->
-                 android:layout_width="match_parent"-->
-                android:layout_height="match_parent">-->
-
-                   <androidx.viewpager2.widget.ViewPager2-->
-                      android:id="@+id/viewPagerImageClinic"-->
-                       android:layout_width="match_parent"-->
-                       android:layout_height="@dimen/_200sdp"-->
-                     android:background="@color/gray_200" />-->
-
-                 <me.relex.circleindicator.CircleIndicator3-->
-                      android:id="@+id/circleIn"-->
-                    android:layout_width="match_parent"-->
-                    android:layout_height="wrap_content"-->
-                       android:layout_alignParentBottom="true"-->
-                       android:layout_marginBottom="10dp"-->
-                       android:background="@color/blue_100"-->
-                      app:ci_drawable="@drawable/white_radius_circle_indicator" />
-           </RelativeLayout>-->
-
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/slider"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerImageClinic"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
-            app:auto_cycle="true"
-            app:period="1000"
-            app:delay="0"
-            app:corner_radius="5"
-            app:placeholder="@drawable/ic_launcher_background"
-            />
+            android:background="@color/gray_200" />
+
+<!--            <me.relex.circleindicator.CircleIndicator3-->
+<!--                android:id="@+id/circleIn"-->
+<!--                android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="@color/blue_100"-->
+<!--            app:ci_drawable="@drawable/white_radius_circle_indicator" />-->
+        </RelativeLayout>
+
+        <!--        <com.denzcoskun.imageslider.ImageSlider-->
+        <!--            android:id="@+id/slider"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/_200sdp"-->
+        <!--            app:auto_cycle="true"-->
+        <!--            app:corner_radius="5"-->
+        <!--            app:delay="0"-->
+        <!--            app:period="1000"-->
+        <!--            app:placeholder="@drawable/ic_launcher_background" />-->
 
 
         <TextView

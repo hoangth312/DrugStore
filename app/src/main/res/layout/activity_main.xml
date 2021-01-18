@@ -20,7 +20,7 @@
 
     <EditText
 
-        android:id="@+id/edtUserName"
+        android:id="@+id/edUserName"
         android:layout_width="@dimen/_240sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/edtPassword"
+        android:id="@+id/edPassword"
         android:layout_width="@dimen/_240sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -51,7 +51,7 @@
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/edUserName" />
 
     <TextView
         android:id="@+id/textView"
@@ -62,8 +62,8 @@
         android:textColor="@color/blue"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/edtPassword"
-        app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/edPassword"
+        app:layout_constraintTop_toBottomOf="@id/edPassword" />
 
     <Button
         android:id="@+id/btnLogin"

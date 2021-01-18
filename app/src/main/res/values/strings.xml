@@ -94,5 +94,8 @@
     <string name="logout">Logout</string>
     <string name="please_wait_this_may_take_a_moment">Please wait! This may take a moment.</string>
     <string name="setting">Setting</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
 
 </resources>

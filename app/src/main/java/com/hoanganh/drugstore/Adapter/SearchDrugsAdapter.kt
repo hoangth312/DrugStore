@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hoanganh.drugstore.Model.SearchDrugsModel
+import com.hoanganh.drugstore.Model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.item_rv_search_drugs.view.*
 
@@ -45,12 +45,12 @@ class SearchDrugsAdapter(
 
         fun bindData(model: SearchDrugsModel) {
             itemView.apply {
-                imageDrugs.setImageResource(model.image)
-                nameDrug.text = model.name
-                subTitleDrug.text = model.subTilte
+              //  imageDrugs.setImageResource(model.imageProducts.get(0))
+                nameDrug.text = model.vietnameseName
+                subTitleDrug.text = model.categoryName
                 descriptionDrug.text = model.description
-                numberOfLikes.text = model.numLike.toString()
-                numberOfCmt.text = model.numCmt.toString()
+                numberOfLikes.text = model.likeTotal.toString()
+                numberOfCmt.text = model.commentTotal.toString()
             }
         }
     }

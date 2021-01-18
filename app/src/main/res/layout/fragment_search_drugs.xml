@@ -28,9 +28,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
-                android:id="@+id/edtSearchAddress"
+                android:id="@+id/edtSearchDrug"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
@@ -38,9 +38,10 @@
                 android:drawableStart="@drawable/ic_search_gray"
                 android:drawablePadding="@dimen/_5sdp"
                 android:hint="@string/search"
-                android:imeOptions="actionSearch"
-                android:padding="@dimen/_5sdp"
+                android:imeOptions="actionDone"
+                android:inputType="textImeMultiLine"
                 android:maxLines="1"
+                android:padding="@dimen/_5sdp"
                 android:textColorHint="@color/gray"
                 android:textSize="@dimen/_15ssp" />
 
@@ -49,8 +50,7 @@
                 android:id="@+id/btnClearText"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
+                android:layout_gravity="end|center"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic__02_cancel" />
 

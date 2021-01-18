@@ -11,7 +11,12 @@ data class User(
     val type: String,
     @SerializedName("username")
     @Expose
-    val userName: String
+    val userName: String,
+    val firstName: String,
+    val lastName: String,
+    val avatarUrl: String,
+    val passwordEncode: String,
+
 ) {
 
 }
