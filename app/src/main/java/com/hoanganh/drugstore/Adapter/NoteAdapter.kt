@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hoanganh.drugstore.Model.Clinics
-import com.hoanganh.drugstore.Model.SearchDrugsModel
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.item_note_clinic.view.*
 

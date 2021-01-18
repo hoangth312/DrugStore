@@ -25,7 +25,9 @@ class InformationOfClinicFragment : Fragment() {
     lateinit var viewOfLayout: View
     private val listNote = ArrayList<Clinics>()
     private val listCommentClinics = ArrayList<Comment>()
+
   private val listImage = ArrayList<Int>()
+
     private val now = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,6 +42,7 @@ class InformationOfClinicFragment : Fragment() {
     }
 
     private fun setDataBanner() {
+
 //       listImage.add(0, R.drawable.pharmacy)
 //        listImage.add(1, R.drawable.salonpas)
 //        val pagerAdaper = ViewPagerAdapter(listImage)

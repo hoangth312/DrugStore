@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import com.hoanganh.drugstore.Model.User
 
 
-
 class SharedPrefManager private constructor(private val context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(GET_USER, Context.MODE_PRIVATE)
     val isLoggedIn: Boolean
@@ -14,6 +13,10 @@ class SharedPrefManager private constructor(private val context: Context) {
             return sharedPreferences.getInt("id", -1) != -1
         }
 
+    fun logOutShare(){
+        sharedPreferences.edit().clear().apply()
+    }
+
     fun saveUser(user: User) {
 
         val editor = sharedPreferences.edit()
@@ -21,16 +24,26 @@ class SharedPrefManager private constructor(private val context: Context) {
         editor.putString("email", user.email)
         editor.putString("token", user.token)
         editor.putString("userName", user.userName)
+        editor.putString("type", user.type)
+        editor.putString("firstName", user.firstName)
+        editor.putString("lastName", user.lastName)
+        editor.putString("avatarUrl", user.avatarUrl)
+        editor.putString("passwordEncode", user.passwordEncode)
         editor.apply()
     }
 
 
 
 
-       fun getID(): Int { return sharedPreferences.getInt("id",0)}
-      fun getEmail(): String? {return sharedPreferences.getString("email","")}
-        fun getToken (): String? {return sharedPreferences.getString("token","")}
-        fun getUserName(): String?  {return sharedPreferences.getString("userName","")}
+       fun getID(): Int { return sharedPreferences.getInt("id", 0)}
+      fun getEmail(): String? {return sharedPreferences.getString("email", "")}
+        fun getToken (): String? {return sharedPreferences.getString("token", "")}
+        fun getUserName(): String?  {return sharedPreferences.getString("userName", "")}
+        fun getType(): String?  {return sharedPreferences.getString("type", "")}
+        fun getFirstName(): String?  {return sharedPreferences.getString("firstName", "")}
+        fun getLastName(): String?  {return sharedPreferences.getString("lastName", "")}
+        fun getAvatarUrl(): String?  {return sharedPreferences.getString("avatarUrl", "")}
+        fun getPasswordEncode(): String?  {return sharedPreferences.getString("passwordEncode", "")}
 
 
 
@@ -40,9 +53,9 @@ class SharedPrefManager private constructor(private val context: Context) {
         val SET_USER = "setUser"
         private var sharedPrefManager: SharedPrefManager? = null
         @Synchronized
-        fun getInstance(mCtx: Context): SharedPrefManager {
+        fun getInstance(mCtx: Context?): SharedPrefManager {
             if (sharedPrefManager == null) {
-                sharedPrefManager = SharedPrefManager(mCtx)
+                sharedPrefManager = mCtx?.let { SharedPrefManager(it) }
             }
             return sharedPrefManager as SharedPrefManager
         }

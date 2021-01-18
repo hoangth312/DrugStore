@@ -3,15 +3,16 @@ package com.hoanganh.drugstore.activity
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.hoanganh.drugstore.Model.LoginResponse
 import com.hoanganh.drugstore.Model.User
 import com.hoanganh.drugstore.R
+import com.hoanganh.drugstore.api.RetrofitClient
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import com.hoanganh.drugstore.utils.InternetConnection
-import com.hoanganh.drugstore.api.RetrofitClient
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -22,7 +23,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+
     var userName = ""
     var password = ""
     private var token: String? = null
@@ -33,31 +36,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btnLogin.setOnClickListener(this)
+        btnSignUp.setOnClickListener(this)
 
 
-        btnLogin.setOnClickListener() {
-                 userName = edtUserName.text.toString().trim()
-                 password = edtPassword.text.toString().trim()
-
-                if(userName.isEmpty()){
-                    edtUserName.error = "User required"
-                    edtUserName.requestFocus()
-                    return@setOnClickListener
-                }
-                if(password.isEmpty()){
-                    edtPassword.error = "Password required"
-                    edtPassword.requestFocus()
-                    return@setOnClickListener
-                }
-                loginAccount()
-
-            val intent = Intent(applicationContext, ScanBarCodeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-            startActivity(intent)
-
-
-        }
     }
 
     override fun onStart() {
@@ -71,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 .withListener(object : MultiplePermissionsListener {
                     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
-                        //
+
                     }
 
                     override fun onPermissionRationaleShouldBeShown(p0: MutableList<PermissionRequest>?, p1: PermissionToken?) {
@@ -80,12 +62,46 @@ class MainActivity : AppCompatActivity() {
 
 
                 }).check()
-        if(SharedPrefManager.getInstance(this).isLoggedIn){
+        if (SharedPrefManager.getInstance(this).isLoggedIn) {
             val intent = Intent(applicationContext, ScanBarCodeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
             startActivity(intent)
         }
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            btnLogin -> {
+                userName = edUserName.text.toString().trim()
+                password = edPassword.text.toString().trim()
+
+                if (userName.isEmpty()) {
+                    edUserName.error = "User required"
+                    edUserName.requestFocus()
+                    return
+                }
+                if (password.isEmpty()) {
+                    edPassword.error = "Password required"
+                    edPassword.requestFocus()
+                    return
+                }
+                loginAccount()
+            }
+
+            btnSignUp -> {
+                startActivity(Intent(applicationContext, RegisterActivity::class.java))
+            }
+        }
+    }
+
+
+
+    private fun diaLogLoading() {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+        builder.setView(R.layout.layout_loading_dialog)
+        dialog = builder.create()
     }
 
     private fun loginAccount() {
@@ -106,6 +122,8 @@ class MainActivity : AppCompatActivity() {
                         token = response.body()?.token
                         idUser = response.body()?.id
                         SharedPrefManager.getInstance(applicationContext).saveUser(response.body()!!.copy())
+
+
                         val intent = Intent(this@MainActivity, ScanBarCodeActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -118,14 +136,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun diaLogLoading() {
-        val builder = AlertDialog.Builder(this)
-        builder.setCancelable(false)
-        builder.setView(R.layout.layout_loading_dialog)
-        dialog = builder.create()
-    }
 
 
 }
+
+
+
+
+
+
 
 
