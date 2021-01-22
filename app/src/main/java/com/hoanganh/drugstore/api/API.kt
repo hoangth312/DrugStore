@@ -1,7 +1,8 @@
 package com.hoanganh.drugstore.api
 
-import com.hoanganh.drugstore.Model.*
-import com.hoanganh.drugstore.Model.datasearchdrug.SearchDrugsModel
+import com.hoanganh.drugstore.Model.DrugStore
+import com.hoanganh.drugstore.Model.LoginResponse
+import com.hoanganh.drugstore.Model.User
 import retrofit2.Call
 import retrofit2.http.*
 
