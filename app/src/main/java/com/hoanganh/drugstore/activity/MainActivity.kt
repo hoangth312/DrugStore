@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var userName = ""
     var password = ""
-    private var token: String? = null
-    private var idUser: Int? = null
     var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         btnLogin.setOnClickListener(this)
         btnSignUp.setOnClickListener(this)
+        tvForgotPass.setOnClickListener(this)
 
 
     }
@@ -73,24 +72,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             btnLogin -> {
-                userName = edUserName.text.toString().trim()
-                password = edPassword.text.toString().trim()
-
-                if (userName.isEmpty()) {
-                    edUserName.error = "User required"
-                    edUserName.requestFocus()
-                    return
-                }
-                if (password.isEmpty()) {
-                    edPassword.error = "Password required"
-                    edPassword.requestFocus()
-                    return
-                }
                 loginAccount()
+//                startActivity(Intent(this@MainActivity, ScanBarCodeActivity::class.java))
             }
-
             btnSignUp -> {
                 startActivity(Intent(applicationContext, RegisterActivity::class.java))
+            }
+            tvForgotPass -> {
+                startActivity(Intent(applicationContext, ForgotPasswordActivity::class.java))
             }
         }
     }
@@ -105,6 +94,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun loginAccount() {
+        userName = edUserName.text.toString().trim()
+        password = edPassword.text.toString().trim()
+
+        if (userName.isEmpty()) {
+            edUserName.error = "User required"
+            edUserName.requestFocus()
+            return
+        }
+        if (password.isEmpty()) {
+            edPassword.error = "Password required"
+            edPassword.requestFocus()
+            return
+        }
         if (InternetConnection.checkConnection(applicationContext)) {
             diaLogLoading()
             dialog!!.show()
@@ -119,11 +121,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     dialog!!.dismiss()
                     if (response.isSuccessful) {
-                        token = response.body()?.token
-                        idUser = response.body()?.id
-                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()!!.copy())
-
-
+             SharedPrefManager.getInstance(this@MainActivity).saveUser(response.body()!!.copy())
                         val intent = Intent(this@MainActivity, ScanBarCodeActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -135,6 +133,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(applicationContext, "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
 

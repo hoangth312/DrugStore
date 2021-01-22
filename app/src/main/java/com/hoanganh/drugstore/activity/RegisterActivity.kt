@@ -85,8 +85,9 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         .enqueue(object : Callback<RegisterAccount> {
             override fun onResponse(call: Call<RegisterAccount?>, response: Response<RegisterAccount?>) {
                 if (response.isSuccessful) {
-                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                    startActivity(intent)
+                    Toast.makeText(this@RegisterActivity, "User registered successfully", Toast.LENGTH_LONG).show()
+//                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+//                    startActivity(intent)
                     finish()
                 }
             }

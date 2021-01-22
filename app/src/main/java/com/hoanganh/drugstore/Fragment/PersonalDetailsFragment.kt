@@ -1,5 +1,6 @@
 package com.hoanganh.drugstore.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,27 +27,9 @@ class PersonalDetailsFragment : Fragment() {
         return viewOfLayout
     }
 
-//    private fun openCamera() {
-//       btnCamera.setOnClickListener {
-//           val callCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//           startActivityForResult(callCamera, CAMERA_REQUEST_CODE)
-//       }
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        when(requestCode){
-//            CAMERA_REQUEST_CODE -> {
-//                if (resultCode == Activity.RESULT_OK && data !=null){
-////                    viewPagerImage.set
-//                }
-//            }
-//            else -> {
-//
-//            }
-//        }
-//    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
     private fun setUpViewPager() {
         val imgView = listOf(

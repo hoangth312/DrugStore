@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/textPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_120sdp"
@@ -45,6 +45,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imgMedicine" />
 
         <TextView
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial"
@@ -52,7 +53,7 @@
             android:textColor="#FF9800"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv"
-            app:layout_constraintLeft_toRightOf="@+id/price"
+            app:layout_constraintLeft_toRightOf="@+id/textPrice"
             app:layout_constraintTop_toBottomOf="@+id/imgMedicine" />
 
         <TextView
@@ -64,7 +65,7 @@
             android:background="#898989"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/price" />
+            app:layout_constraintTop_toBottomOf="@+id/textPrice" />
 
         <LinearLayout
             android:id="@+id/linearHeart"

@@ -47,7 +47,6 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(navView, navController)
-
         appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.nav_home, R.id.nav_informationUser), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -60,8 +59,8 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         logOutAccount()
 
 
-        var firstName = SharedPrefManager.getInstance(this).getFirstName()
-        var lastName = SharedPrefManager.getInstance(this).getLastName()
+        val firstName = SharedPrefManager.getInstance(this).getFirstName()
+        val lastName = SharedPrefManager.getInstance(this).getLastName()
         headerView.tvUserName.text =  "$firstName $lastName"
         headerView.tvEmailUser.text = SharedPrefManager.getInstance(this).getEmail().toString()
 

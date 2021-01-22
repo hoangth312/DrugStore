@@ -13,9 +13,30 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="184" />
-                            <option name="y" value="800" />
+                            <option name="x" value="204" />
+                            <option name="y" value="806" />
                           </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="fmChangePass">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-19" />
+                            <option name="y" value="795" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_fmChangePass_to_nav_informationUser">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -84,29 +105,12 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_fmSearchDugs_to_fmDrugInfo">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_fmSearchDugs_to_fmDrugInfo2">
+                            <entry key="action_fmSearchDugs_to_fmInfoDrugStore">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="main_activity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-171" />
-                            <option name="y" value="20" />
-                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -171,21 +175,9 @@
                             <option name="y" value="361" />
                           </Point>
                         </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="scanBarCodeActivity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-149" />
-                            <option name="y" value="442" />
-                          </Point>
-                        </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_logout">
+                            <entry key="action_nav_informationUser_to_fmChangePass">
                               <value>
                                 <LayoutPositions />
                               </value>

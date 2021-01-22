@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_log_out" />
-                            <entry key="sourceFile" value="D:\Project\icon\log-out.svg" />
+                            <entry key="outputName" value="ic_next" />
+                            <entry key="sourceFile" value="D:\Project\icon\next.svg" />
                           </map>
                         </option>
                       </PersistentState>
