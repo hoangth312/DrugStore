@@ -15,14 +15,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewItem"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginBottom="@dimen/_2sdp"
             app:cardBackgroundColor="@color/gray_100"
             app:cardCornerRadius="@dimen/_100sdp"
-
+            android:layout_margin="@dimen/_3sdp"
             >
 
             <ImageView
@@ -34,7 +34,7 @@
                 android:src="@drawable/ic_pills"
 
                 />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 
     <TextView

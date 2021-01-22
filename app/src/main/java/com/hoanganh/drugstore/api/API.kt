@@ -1,6 +1,7 @@
 package com.hoanganh.drugstore.api
 
 import com.hoanganh.drugstore.Model.DrugStore
+import com.hoanganh.drugstore.Model.DrugStoreItem
 import com.hoanganh.drugstore.Model.LoginResponse
 import com.hoanganh.drugstore.Model.User
 import retrofit2.Call
@@ -13,6 +14,6 @@ interface API {
     fun userLogin(@Body user: LoginResponse): Call<User>
 
     @GET("drugstores")
-    fun getDrugstore(@Header("Authorization") auth: String): Call<DrugStore>
+    fun getDrugstore(): Call<List<DrugStoreItem>>
 
 }
