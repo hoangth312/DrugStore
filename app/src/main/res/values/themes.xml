@@ -22,4 +22,10 @@
     <style name="Theme.DrugStore.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Theme.MDCComponents" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+
+    <style name="FullScreenDialogStyle" parent="Theme.DrugStore">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>

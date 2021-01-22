@@ -43,6 +43,10 @@ class InformationDrugStoreFragment : Fragment() {
 
         return viewOfLayout
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.finish()
+    }
 
 //    private fun getDataDrugStore() {
 //        RetrofitClient

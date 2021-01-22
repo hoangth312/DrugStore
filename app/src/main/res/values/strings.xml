@@ -97,5 +97,11 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="change_pass">Change Pass</string>
+    <string name="input_old_your_password">Input Old Your Password</string>
+    <string name="input_new_your_password">Input New Your Password</string>
+    <string name="comfirm_new_your_password">Comfirm New Your Password</string>
+    <string name="confirm">Confirm</string>
+    <string name="input_your_mail">Input Your Mail</string>
 
 </resources>

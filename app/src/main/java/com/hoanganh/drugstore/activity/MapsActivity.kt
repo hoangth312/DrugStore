@@ -22,6 +22,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -37,7 +38,12 @@ import com.nightonke.jellytogglebutton.State
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
-import java.util.Locale
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.MutableList
+import kotlin.collections.arrayListOf
+import kotlin.collections.mutableListOf
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -52,8 +58,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var loadNN = 0
     private var latitude: Double = 21.027786029944146
     private var longitude: Double = 105.83550446759239
-    private var latitudeAddress: Double? = null
-    private var longitudeAddress: Double? = null
+
     var languageToLoad123: String? = ""
     var currentActivity = 0
     private val testStore = LatLng(21.049666, 105.789118)
@@ -70,7 +75,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val markersStores: MutableList<Marker> = mutableListOf()
     private val listAddressStores: MutableList<LatLng> = mutableListOf()
     private val addressStoreNearbyPlaces: MutableList<LatLng> = mutableListOf()
-
     private val markersClinics: MutableList<Marker> = mutableListOf()
     private val listAddressClinics: MutableList<LatLng> = mutableListOf()
     private val addressClinicsNearbyPlaces: MutableList<LatLng> = mutableListOf()
@@ -79,8 +83,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var isCheckClinic = false
     private lateinit var markerStore: Marker
     private lateinit var markerClinic: Marker
-    var abc = 0
-    val myList = mutableListOf<Circle>()
+    var checkAllCityAndRround = 0
+
+    private lateinit var navController: NavController
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,13 +96,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
 
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.mapGoogle) as SupportMapFragment
+                .findFragmentById(R.id.mapGoogle) as SupportMapFragment
         mapFragment.getMapAsync(this)
         setUpSpinnerFlags()
         setUpGooogleMap()
-
         btnBack.setOnClickListener { finish() }
-
         checktbSelectOption()
         searchDrugInfo.setOnClickListener {
             val intent = Intent(this, ScanBarCodeActivity::class.java)
@@ -105,8 +108,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
             finish()
         }
-
-
         btnSearchDrugStore.setOnCheckedChangeListener { _, _ -> searchDrugStore() }
         btnSearchClinic.setOnCheckedChangeListener { _: CompoundButton, _: Boolean -> searchClinics() }
 
@@ -129,10 +130,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         btnSearchDrugStore.isEnabled
         tbSelectOption.onStateChangeListener = OnStateChangeListener { _, state, _ ->
             if (state == State.LEFT) {
-                abc = 0
+                checkAllCityAndRround = 0
             }
             if (state == State.RIGHT) {
-                abc = 1
+                checkAllCityAndRround = 1
             }
             btnSearchDrugStore.isChecked = false
             btnSearchClinic.isChecked = false
@@ -149,7 +150,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setAutoCompleteSource() {
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            this, android.R.layout.simple_list_item_1, historySearch
+                this, android.R.layout.simple_list_item_1, historySearch
         )
         edtSearchAddress.setAdapter(adapter)
     }
@@ -179,8 +180,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapGG.setOnMarkerClickListener { marker ->
             val intent = Intent(this, ScanBarCodeActivity::class.java)
             when (marker.tag) {
-                "store" -> intent.putExtra("EXTRA", "openFragmentDrugStore")
-                "clinic" -> intent.putExtra("EXTRA", "openFragmentClinic")
+             "store" -> intent.putExtra("EXTRA", "openFragmentDrugStore")
+             "clinic" -> intent.putExtra("EXTRA", "openFragmentClinic")
             }
             startActivity(intent)
             false
@@ -225,11 +226,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         listAddressStores.add(testStore4)
 
 
-        if (abc == 0) {
+        if (checkAllCityAndRround == 0) {
             Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()
         }
 
-        if (abc == 1) {
+        if (checkAllCityAndRround == 1) {
             searchDrugstore500m()
         }
 
@@ -276,10 +277,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         listAddressClinics.add(testCnilic2)
         listAddressClinics.add(testCnilic3)
 
-        if (abc == 0) {
+        if (checkAllCityAndRround == 0) {
             Toast.makeText(this, "test Clinic", Toast.LENGTH_SHORT).show()
         }
-        if (abc == 1) {
+        if (checkAllCityAndRround == 1) {
             searchDClinic500m()
         }
     }
@@ -298,9 +299,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val distance = FloatArray(2)
             for (i in listAddressStores) {
                 Location.distanceBetween(
-                    i.latitude,
-                    i.longitude, circleOptions.center.latitude,
-                    circleOptions.center.longitude, distance
+                        i.latitude,
+                        i.longitude, circleOptions.center.latitude,
+                        circleOptions.center.longitude, distance
                 )
 
                 if (distance[0] < circleOptions.radius) {
@@ -313,11 +314,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 for (j in addressStoreNearbyPlaces) {
 
                     markerStore = mapGG.addMarker(
-                        MarkerOptions()
-                            .position(LatLng(j.latitude, j.longitude))
-                            .title("tìm thấy$j")
+                            MarkerOptions()
+                                    .position(LatLng(j.latitude, j.longitude))
+                                    .title("tìm thấy$j")
 
-                            .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on)))
+                                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on)))
                     )
                     markerStore.tag = "store"
                     markersStores.add(markerStore)
@@ -347,9 +348,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val distance = FloatArray(2)
             for (i in listAddressClinics) {
                 Location.distanceBetween(
-                    i.latitude,
-                    i.longitude, circleOptions.center.latitude,
-                    circleOptions.center.longitude, distance
+                        i.latitude,
+                        i.longitude, circleOptions.center.latitude,
+                        circleOptions.center.longitude, distance
                 )
 
                 if (distance[0] < circleOptions.radius) {
@@ -362,10 +363,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 for (j in addressClinicsNearbyPlaces) {
 
                     markerClinic = mapGG.addMarker(
-                        MarkerOptions()
-                            .position(LatLng(j.latitude, j.longitude))
-                            .title("tìm thấy$j")
-                            .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_clinic_on)))
+                            MarkerOptions()
+                                    .position(LatLng(j.latitude, j.longitude))
+                                    .title("tìm thấy$j")
+                                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_clinic_on)))
                     )
 
                     markerClinic.tag = "clinic"
@@ -388,21 +389,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), 16F))
         mapGG.addCircle(
-            circleOptions
-                .center(LatLng(latitude, longitude))
-                .radius(500.0)
-                .strokeWidth(0F)
-                .fillColor(Color.argb(0, 0, 0, 0))
-                .clickable(true)
+                circleOptions
+                        .center(LatLng(latitude, longitude))
+                        .radius(500.0)
+                        .strokeWidth(0F)
+                        .fillColor(Color.argb(0, 0, 0, 0))
+                        .clickable(true)
         )
     }
 
     private fun setUpGooogleMap() {
 
         val locationButton =
-            (mapGoogle?.view?.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById<View>(
-                Integer.parseInt("2")
-            )
+                (mapGoogle?.view?.findViewById<View>(Integer.parseInt("1"))?.parent as View).findViewById<View>(
+                        Integer.parseInt("2")
+                )
         val rlp = locationButton.layoutParams as RelativeLayout.LayoutParams
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
@@ -515,8 +516,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val config = Configuration()
         config.locale = locale
         baseContext.resources.updateConfiguration(
-            config,
-            baseContext.resources.displayMetrics
+                config,
+                baseContext.resources.displayMetrics
         )
     }
 
@@ -529,9 +530,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         edtSearchAddress.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH
-                || actionId == EditorInfo.IME_ACTION_DONE
-                || event.action == KeyEvent.ACTION_DOWN
-                || event.action == KeyEvent.KEYCODE_ENTER
+                    || actionId == EditorInfo.IME_ACTION_DONE
+                    || event.action == KeyEvent.ACTION_DOWN
+                    || event.action == KeyEvent.KEYCODE_ENTER
             ) {
                 geoLocateByEditText()
             }
@@ -569,8 +570,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun getMarkerBitmapFromStore(@DrawableRes resId: Int): Bitmap? {
         val customMarkerView: View = (getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-            R.layout.item_view_stores_marker,
-            null
+                R.layout.item_view_stores_marker,
+                null
         )
         val markerImageView = customMarkerView.findViewById<View>(R.id.profile_image_stores) as ImageView
         markerImageView.setImageResource(resId)
@@ -578,8 +579,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         customMarkerView.layout(0, 0, customMarkerView.measuredWidth, customMarkerView.measuredHeight)
         customMarkerView.buildDrawingCache()
         val returnedBitmap = Bitmap.createBitmap(
-            customMarkerView.measuredWidth, customMarkerView.measuredHeight,
-            Bitmap.Config.ARGB_8888
+                customMarkerView.measuredWidth, customMarkerView.measuredHeight,
+                Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(returnedBitmap)
         canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)

@@ -13,12 +13,12 @@ import com.hoanganh.drugstore.Adapter.NoteAdapter
 import com.hoanganh.drugstore.Model.Clinics
 import com.hoanganh.drugstore.Model.Comment
 import com.hoanganh.drugstore.R
+import kotlinx.android.synthetic.main.app_bar_fragments.view.*
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.*
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlinx.android.synthetic.main.app_bar_fragments.view.*
 
 
 class InformationOfClinicFragment : Fragment() {
@@ -39,6 +39,11 @@ class InformationOfClinicFragment : Fragment() {
         setDataBanner()
         return viewOfLayout
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.finish()
     }
 
     private fun setDataBanner() {
