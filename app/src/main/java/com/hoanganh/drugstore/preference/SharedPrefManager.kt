@@ -2,7 +2,7 @@ package com.hoanganh.drugstore.preference
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.hoanganh.drugstore.Model.User
+import com.hoanganh.drugstore.model.User
 
 
 class SharedPrefManager private constructor(private val context: Context) {
@@ -51,7 +51,6 @@ class SharedPrefManager private constructor(private val context: Context) {
 
     companion object {
         val GET_USER = "getUser"
-        val SET_USER = "setUser"
         private var sharedPrefManager: SharedPrefManager? = null
         @Synchronized
         fun getInstance(context: Context): SharedPrefManager {

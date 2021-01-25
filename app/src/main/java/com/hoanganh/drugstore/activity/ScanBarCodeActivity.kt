@@ -17,6 +17,7 @@ import com.hoanganh.drugstore.Fragment.InformationDrugStoreFragment
 import com.hoanganh.drugstore.Fragment.InformationOfClinicFragment
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.EXTRA
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_scan_bar_code.*
 import kotlinx.android.synthetic.main.app_bar_scan_barcode.*
@@ -79,7 +80,7 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     private fun getFmFromMap() {
-        when (intent.getStringExtra("EXTRA")) {
+        when (intent.getStringExtra(EXTRA)) {
             "openFragmentSearchDrug" -> {
                 //   supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SearchDrugsFragment()).commit()
                 navController.navigate(R.id.action_nav_home_to_fmSearchDugs)
@@ -101,7 +102,7 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
 
     private fun selectToolBar() {
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.nav_home || destination.id == R.id.nav_informationUser) {
                 supportActionBar?.show()
             } else {

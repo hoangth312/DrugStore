@@ -1,11 +1,10 @@
 package com.hoanganh.drugstore.Adapter
 
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hoanganh.drugstore.Model.datasearchdrug.SearchDrugsModel
+import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_rv_search_drugs.view.*

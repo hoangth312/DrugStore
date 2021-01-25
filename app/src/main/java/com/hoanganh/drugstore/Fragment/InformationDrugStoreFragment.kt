@@ -12,19 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hoanganh.drugstore.Adapter.CommentAdapter
 import com.hoanganh.drugstore.Adapter.ProductUsedAdapter
 import com.hoanganh.drugstore.Adapter.ServiceAdapter
-import com.hoanganh.drugstore.Model.Comment
-import com.hoanganh.drugstore.Model.DrugStore
-import com.hoanganh.drugstore.Model.ProductUsed
-import com.hoanganh.drugstore.Model.Services
+import com.hoanganh.drugstore.model.Comment
+import com.hoanganh.drugstore.model.ProductUsed
+import com.hoanganh.drugstore.model.Services
 import com.hoanganh.drugstore.R
-import com.hoanganh.drugstore.api.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_information_drug_store.*
 import kotlinx.android.synthetic.main.fragment_information_drug_store.view.*
-import retrofit2.Call
 import java.text.SimpleDateFormat
 import java.util.*
-import retrofit2.Callback
-import retrofit2.Response
 
 class InformationDrugStoreFragment : Fragment() {
     lateinit var viewOfLayout: View

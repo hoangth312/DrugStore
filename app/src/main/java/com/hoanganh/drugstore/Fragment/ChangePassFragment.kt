@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.hoanganh.drugstore.Model.ChangePassUser
+import com.hoanganh.drugstore.model.ChangePassUser
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
 import com.hoanganh.drugstore.preference.SharedPrefManager
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.fragment_change_pass.*
 import kotlinx.android.synthetic.main.fragment_change_pass.view.*
 import retrofit2.Call
@@ -89,18 +88,23 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
         RetrofitClient.getApiService().putChangePass("$type  $token",ChangePassUser(userName!!,oldPass,newPass,confirmNewPass)).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "Change Password Successfully", Toast.LENGTH_SHORT).show()
+                    activity!!.runOnUiThread {
+                        Toast.makeText(context, "Change Password Successfully", Toast.LENGTH_SHORT).show()
+                    }
                     SharedPrefManager.getInstance(requireContext()).logOutShare()
                     activity!!.finish()
                 } else {
-                    Toast.makeText(context, "Old Password is Wrong", Toast.LENGTH_SHORT).show()
+                    activity!!.runOnUiThread {
+                        Toast.makeText(context, "Old Password is Wrong", Toast.LENGTH_SHORT).show()
+                    }
                 }
-
 
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                activity!!.runOnUiThread {
+                    Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                }
             }
 
         })

@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoanganh.drugstore.Adapter.CommentAdapter
 import com.hoanganh.drugstore.Adapter.NoteAdapter
-import com.hoanganh.drugstore.Model.Clinics
-import com.hoanganh.drugstore.Model.Comment
+import com.hoanganh.drugstore.model.Clinics
+import com.hoanganh.drugstore.model.Comment
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.app_bar_fragments.view.*
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.*

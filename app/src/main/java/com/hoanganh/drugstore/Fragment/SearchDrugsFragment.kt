@@ -2,8 +2,6 @@ package com.hoanganh.drugstore.Fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.akiniyalocts.pagingrecycler.PagingDelegate
+
 import com.hoanganh.drugstore.Adapter.SearchDrugsAdapter
-import com.hoanganh.drugstore.Model.datasearchdrug.SearchDrugsModel
+import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.activity.MapsActivity
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.VIETNAMESE
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import com.hoanganh.drugstore.utils.InternetConnection
 import kotlinx.android.synthetic.main.app_bar_fragments.view.*
@@ -74,7 +73,6 @@ class SearchDrugsFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(context)
         viewOfLayout.rvSearchDrugs.layoutManager = linearLayoutManager
         adapter = SearchDrugsAdapter(dataList, onItemClick = this::onCellClickListener)
-
         viewOfLayout.rvSearchDrugs.adapter = adapter
         adapter?.notifyDataSetChanged()
         setTotalResult()
@@ -105,33 +103,40 @@ class SearchDrugsFragment : Fragment() {
         type = SharedPrefManager.getInstance(requireContext()).getType().toString()
         if (InternetConnection.checkConnection(requireContext())) {
             RetrofitClient.getApiService().getDrugSearchbyName("$type  $token",
-                    "VIETNAMESE", nameDrugSearch).enqueue(object : Callback<List<SearchDrugsModel>> {
+                    VIETNAMESE, nameDrugSearch).enqueue(object : Callback<List<SearchDrugsModel>> {
                 override fun onResponse(call: Call<List<SearchDrugsModel>>, response: Response<List<SearchDrugsModel>>) {
                     if (response.isSuccessful) {
                         dataList = response.body() as ArrayList<SearchDrugsModel>
-                        if (dataList.size == 0){
-                            Toast.makeText(context, "Không có sp phù hợp", Toast.LENGTH_SHORT).show()
+                        if (dataList.size == 0) {
+                            activity!!.runOnUiThread {
+                                Toast.makeText(context, "Không có sp phù hợp", Toast.LENGTH_SHORT).show()
+                            }
                         }
                         setupView()
 
                     } else {
-                        Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
+                        activity!!.runOnUiThread {
+                            Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
 
                 override fun onFailure(call: Call<List<SearchDrugsModel>>, t: Throwable) {
-                    Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show()
+                    activity!!.runOnUiThread {
+                        Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show()
+                    }
                 }
             })
         } else {
-            Toast.makeText(requireContext(), "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+            requireActivity().runOnUiThread {
+                Toast.makeText(requireContext(), "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+            }
         }
-
     }
 
     private fun onCellClickListener(drugsModel: SearchDrugsModel) {
         navc?.navigate(R.id.action_fmSearchDugs_to_fmDrugInfo)
-        val action = SearchDrugsFragmentDirections.actionFmSearchDugsToFmDrugInfo(drugsModel.id.toString())
+        val action = SearchDrugsFragmentDirections.actionFmSearchDugsToFmDrugInfo(drugsModel.id)
         navc?.navigateUp()
         navc?.navigate(action)
         Toast.makeText(context, drugsModel.id.toString(), Toast.LENGTH_SHORT).show()
