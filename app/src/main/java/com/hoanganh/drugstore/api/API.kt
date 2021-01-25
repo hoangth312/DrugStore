@@ -1,8 +1,9 @@
 package com.hoanganh.drugstore.api
 
-import com.hoanganh.drugstore.Model.DrugStore
-import com.hoanganh.drugstore.Model.LoginResponse
-import com.hoanganh.drugstore.Model.User
+import com.hoanganh.drugstore.model.*
+import com.hoanganh.drugstore.model.clinic.ClinicModel
+import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
+import com.hoanganh.drugstore.model.drugstore.DrugStoreModel
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -27,12 +28,26 @@ interface API {
 
     @PUT("user/update/password")
     fun putChangePass(@Header("Authorization") auth: String,
-                      @Body changePassUser: ChangePassUser):Call<Void>
+                      @Body changePassUser: ChangePassUser): Call<Void>
 
     @GET("drugstores")
     fun getDrugstore(@Header("Authorization") auth: String): Call<DrugStore>
 
     @POST("auth/password/reset")
-    fun forgotPassword(@Query("email") email: String):Call<Void>
+    fun forgotPassword(@Query("email") email: String): Call<Void>
+
+    @GET("drugstores/city")
+    fun getAllDrugStoreInCity(@Header("Authorization") auth: String,
+                              @Query("city") city: String): Call<List<DrugStoreModel>>
+
+    @GET("clinic/city")
+    fun getAllClinicInCity(@Header("Authorization") auth: String,
+                           @Query("city") city: String): Call<List<ClinicModel>>
+
+
+    @GET("products/search/qrcode")
+    fun getDrugbyCode(@Header("Authorization") auth: String,
+                           @Query("qrCode") city: String):  Call<SearchDrugsModel>
+
 
 }

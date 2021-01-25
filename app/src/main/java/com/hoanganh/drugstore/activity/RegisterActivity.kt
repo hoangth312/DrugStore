@@ -1,12 +1,11 @@
 package com.hoanganh.drugstore.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.hoanganh.drugstore.Model.RegisterAccount
+import com.hoanganh.drugstore.model.RegisterAccount
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
 import kotlinx.android.synthetic.main.activity_main.*
@@ -45,8 +44,16 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         val password: String = edPassRegister.text.toString().trim()
         val confirmPassword: String = edConfirmPassRegister.text.toString().trim()
 
-
-
+        if (firstName.isEmpty()) {
+            edFristName.error = "First Name required"
+            edFristName.requestFocus()
+            return
+        }
+        if (lastName.isEmpty()) {
+            edLastName.error = "Last Name required"
+            edLastName.requestFocus()
+            return
+        }
         if (userName.isEmpty()) {
             edUserNameRegister.error = "Name required"
             edUserNameRegister.requestFocus()
@@ -85,15 +92,18 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
         .enqueue(object : Callback<RegisterAccount> {
             override fun onResponse(call: Call<RegisterAccount?>, response: Response<RegisterAccount?>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@RegisterActivity, "User registered successfully", Toast.LENGTH_LONG).show()
-//                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-//                    startActivity(intent)
+                    runOnUiThread {
+                        Toast.makeText(this@RegisterActivity, "User registered successfully", Toast.LENGTH_LONG).show()
+                    }
+//
                     finish()
                 }
             }
 
             override fun onFailure(call: Call<RegisterAccount>, t: Throwable) {
-                Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_LONG).show()
+                runOnUiThread {
+                    Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_LONG).show()
+                }
                 tvNoty.text = "Registration failed"
                 tvNoty.visibility = View.VISIBLE
             }

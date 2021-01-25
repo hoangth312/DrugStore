@@ -56,7 +56,7 @@ class ForgotPasswordActivity : AppCompatActivity(),View.OnClickListener {
 
         RetrofitClient.getApiService().forgotPassword(emailUserInput).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     dialog!!.dismiss()
                     edEmailForgotPass.visibility = View.INVISIBLE
                     subTitleForgotPass.text = "Pass da duoc gui den mail"
@@ -64,19 +64,24 @@ class ForgotPasswordActivity : AppCompatActivity(),View.OnClickListener {
                     btnBackToHome.visibility = View.VISIBLE
                     btnConfirmForgotPass.visibility = View.INVISIBLE
 
-                }else{
+                } else {
                     dialog!!.dismiss()
-                    Toast.makeText(this@ForgotPasswordActivity," Khoong thay email", Toast.LENGTH_SHORT).show()
+                    runOnUiThread {
+                        Toast.makeText(this@ForgotPasswordActivity, " Khoong thay email", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@ForgotPasswordActivity, t.message, Toast.LENGTH_SHORT).show()
+               runOnUiThread {
+                    Toast.makeText(this@ForgotPasswordActivity, t.message, Toast.LENGTH_SHORT).show()
+                }
             }
         })
 
     } else {
-            Toast.makeText(applicationContext, "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+        runOnUiThread {
+                Toast.makeText(applicationContext, "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

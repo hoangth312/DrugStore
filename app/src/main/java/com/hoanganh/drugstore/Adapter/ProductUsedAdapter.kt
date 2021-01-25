@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hoanganh.drugstore.Model.ProductUsed
-import com.hoanganh.drugstore.Model.Services
+import com.hoanganh.drugstore.model.ProductUsed
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.item_product_used.view.*
 import java.util.ArrayList

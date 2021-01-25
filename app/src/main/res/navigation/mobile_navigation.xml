@@ -25,9 +25,7 @@
         <action
             android:id="@+id/action_nav_home_to_activityMap"
             app:destination="@id/activityMap" />
-        <action
-            android:id="@+id/action_nav_home_to_fmDrugInfo2"
-            app:destination="@id/fmDrugInfo" />
+
         <action
             android:id="@+id/action_nav_home_to_fmInfoDrugStore"
             app:destination="@id/fmInfoDrugStore" />
@@ -75,8 +73,8 @@
         tools:layout="@layout/fragment_drug_information" >
         <argument
             android:name="sendIdDrug"
-            app:argType="string"
-            android:defaultValue=""/>
+            app:argType="integer"
+            android:defaultValue="0"/>
 
     </dialog>
 

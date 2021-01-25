@@ -21,63 +21,73 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.hoanganh.drugstore.Adapter.FlagAdapter
-import com.hoanganh.drugstore.Model.FlagsModel
 import com.hoanganh.drugstore.R
+import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.CHINA
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.CLINIC
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.ENGLISH
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.EXTRA
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.FRANCE
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.GERMANY
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.HISTORY_SEARCH
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.ITALIA
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.ITEM_SPINER
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.JAPAN
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.KOREA
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.LANGUAGE
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.LANGUAGE2
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.SPAIN
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.STORE
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.USA
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.VIETNAM
 import com.hoanganh.drugstore.extension.checkRequiredPermissions
+import com.hoanganh.drugstore.model.FlagsModel
+import com.hoanganh.drugstore.model.clinic.ClinicModel
+import com.hoanganh.drugstore.model.drugstore.DrugStoreModel
+import com.hoanganh.drugstore.preference.SharedPrefManager
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.nightonke.jellytogglebutton.JellyToggleButton.OnStateChangeListener
 import com.nightonke.jellytogglebutton.State
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_maps.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.List
-import kotlin.collections.MutableList
-import kotlin.collections.arrayListOf
-import kotlin.collections.mutableListOf
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    companion object {
-        const val REQUEST_CODE_LOCATION = 11112
-        const val SDK_VERSION_ANDROID_P = 28
-    }
 
+    var dialog: AlertDialog? = null
     private lateinit var mapGG: GoogleMap
     lateinit var sharedPerfFlags: SharedPreferences
     lateinit var editorFlags: SharedPreferences.Editor
     var loadNN = 0
-    private var latitude: Double = 21.027786029944146
-    private var longitude: Double = 105.83550446759239
-
+    private var latitude: Double = 21.021542
+    private var longitude: Double = 105.769647
     var languageToLoad123: String? = ""
     var currentActivity = 0
-    private val testStore = LatLng(21.049666, 105.789118)
-    private val testStore2 = LatLng(21.045172, 105.798254)
-    private val testStore3 = LatLng(21.009181, 105.805162)
-    private val testStore4 = LatLng(21.033267, 105.858277)
-    private val testCnilic = LatLng(21.043219, 105.801465)
-    private val testCnilic2 = LatLng(21.047120, 105.800037)
-    private val testCnilic3 = LatLng(21.010538, 105.804881)
     private var historySearch: ArrayList<String> = arrayListOf()
     private var myLocation: LatLng? = null
     private var searchLocation: LatLng? = null
     private var circleOptions = CircleOptions()
     private val markersStores: MutableList<Marker> = mutableListOf()
-    private val listAddressStores: MutableList<LatLng> = mutableListOf()
-    private val addressStoreNearbyPlaces: MutableList<LatLng> = mutableListOf()
+    private val listAddressStores: MutableList<DrugStoreModel> = mutableListOf()
+    private val addressStoreNearbyPlaces: MutableList<DrugStoreModel> = mutableListOf()
     private val markersClinics: MutableList<Marker> = mutableListOf()
-    private val listAddressClinics: MutableList<LatLng> = mutableListOf()
-    private val addressClinicsNearbyPlaces: MutableList<LatLng> = mutableListOf()
+    private val listAddressClinics: MutableList<ClinicModel> = mutableListOf()
+    private val addressClinicsNearbyPlaces: MutableList<ClinicModel> = mutableListOf()
 
     var isCheckDrugStore = false
     var isCheckClinic = false
@@ -85,7 +95,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var markerClinic: Marker
     var checkAllCityAndRround = 0
 
-    private lateinit var navController: NavController
+
+    private var cityName = ""
+    var token: String = ""
+    var type: String = ""
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +107,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         changeLanguage()
 
         setContentView(R.layout.activity_maps)
-
+        token = SharedPrefManager.getInstance(this).getToken().toString()
+        type = SharedPrefManager.getInstance(this).getType().toString()
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.mapGoogle) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -102,9 +116,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setUpGooogleMap()
         btnBack.setOnClickListener { finish() }
         checktbSelectOption()
+
         searchDrugInfo.setOnClickListener {
             val intent = Intent(this, ScanBarCodeActivity::class.java)
-            intent.putExtra("EXTRA", "openFragmentSearchDrug")
+            intent.putExtra(EXTRA, "openFragmentSearchDrug")
             startActivity(intent)
             finish()
         }
@@ -118,34 +133,49 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         btnClearTextSeach.setOnClickListener { edtSearchAddress.text.clear() }
         Paper.init(this);
-        historySearch = Paper.book().read("contacts", ArrayList())
+        historySearch = Paper.book().read(HISTORY_SEARCH, ArrayList())
+
     }
 
     override fun onStop() {
         super.onStop()
-        Paper.book().write("contacts", historySearch);
+        Paper.book().write(HISTORY_SEARCH, historySearch);
     }
 
     private fun checktbSelectOption() {
         btnSearchDrugStore.isEnabled
         tbSelectOption.onStateChangeListener = OnStateChangeListener { _, state, _ ->
             if (state == State.LEFT) {
+                btnSearchDrugStore.isEnabled = true
+                btnSearchClinic.isEnabled = true
                 checkAllCityAndRround = 0
             }
             if (state == State.RIGHT) {
+                btnSearchDrugStore.isEnabled = true
+                btnSearchClinic.isEnabled = true
                 checkAllCityAndRround = 1
+            }
+            if (state == State.LEFT_TO_RIGHT) {
+                btnSearchDrugStore.isEnabled = false
+                btnSearchClinic.isEnabled = false
+            }
+            if (state == State.RIGHT_TO_LEFT) {
+                btnSearchDrugStore.isEnabled = false
+                btnSearchClinic.isEnabled = false
             }
             btnSearchDrugStore.isChecked = false
             btnSearchClinic.isChecked = false
+
         }
+
     }
 
     @SuppressLint("CommitPrefEdits")
     private fun sharePerferencesFlags() {
-        sharedPerfFlags = getSharedPreferences("Language", Context.MODE_PRIVATE)
+        sharedPerfFlags = getSharedPreferences(LANGUAGE, Context.MODE_PRIVATE)
         editorFlags = sharedPerfFlags.edit()
-        currentActivity = sharedPerfFlags.getInt("ItemSpiner", 0)
-        loadNN = sharedPerfFlags.getInt("ItemSpiner", 0)
+        currentActivity = sharedPerfFlags.getInt(ITEM_SPINER, 0)
+        loadNN = sharedPerfFlags.getInt(ITEM_SPINER, 0)
     }
 
     private fun setAutoCompleteSource() {
@@ -160,7 +190,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapGG = googleMap
 
         val hanoiCappital = LatLng(latitude, longitude)
-        mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(hanoiCappital, 10F))
+        mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(hanoiCappital, 5F))
 
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -174,14 +204,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapGG.isMyLocationEnabled = true
         mapGG.uiSettings.isMyLocationButtonEnabled = false
 
+
         fab.setOnClickListener() { clickFab() }
 
 
         mapGG.setOnMarkerClickListener { marker ->
             val intent = Intent(this, ScanBarCodeActivity::class.java)
             when (marker.tag) {
-             "store" -> intent.putExtra("EXTRA", "openFragmentDrugStore")
-             "clinic" -> intent.putExtra("EXTRA", "openFragmentClinic")
+                STORE -> intent.putExtra(EXTRA, "openFragmentDrugStore")
+                CLINIC -> intent.putExtra(EXTRA, "openFragmentClinic")
             }
             startActivity(intent)
             false
@@ -213,87 +244,112 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setMyLocation() {
-        latitude = mapGG.myLocation.latitude
-        longitude = mapGG.myLocation.longitude
-        myLocation = LatLng(latitude, longitude)
+        if (mapGG.myLocation == null) {
+            Toast.makeText(this, "Can't update Your Location", Toast.LENGTH_SHORT).show()
+        } else {
+            latitude = mapGG.myLocation.latitude
+            longitude = mapGG.myLocation.longitude
+            myLocation = LatLng(latitude, longitude)
+
+        }
     }
 
+    private fun getCityName(){
+        val gcd = Geocoder(this, Locale.getDefault())
+        val listCityName: List<Address> = gcd.getFromLocation(latitude, longitude, 1)
+        cityName = listCityName[0].adminArea
+    }
     private fun searchDrugStore() {
-
-        listAddressStores.add(testStore)
-        listAddressStores.add(testStore2)
-        listAddressStores.add(testStore3)
-        listAddressStores.add(testStore4)
-
-
-        if (checkAllCityAndRround == 0) {
-            Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()
-        }
-
-        if (checkAllCityAndRround == 1) {
-            searchDrugstore500m()
-        }
-
-//  if (myLocation == null && getCity == null) {
-//            isCheckDrugStore = true
-//            //Toast.makeText(this, "Store null", Toast.LENGTH_SHORT).show()
-//
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-//                    != PackageManager.PERMISSION_GRANTED) {
-//                return
-//            }
-//            mapGG.isMyLocationEnabled = true
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                val a = mapGG.myLocation.latitude
-//                val b = mapGG.myLocation.longitude
-//                getCity = LatLng(a, b)
-//                mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(getCity, 10F))
-//
-//                val gcd = Geocoder(this, Locale.getDefault())
-//                var listCityName: List<Address> = gcd.getFromLocation(a, b, 1)
-//
-//                cityName = listCityName[0].adminArea
-//                Log.d("123", cityName)
-//
-//                Toast.makeText(this, cityName, Toast.LENGTH_SHORT).show()
-//
-//            }, 5000)
-//
-//        } else if (myLocation == null && getCity != null) {
-//
-//            isCheckDrugStore = !isCheckDrugStore
-//
-//            val a = mapGG.myLocation.latitude
-//            val b = mapGG.myLocation.longitude
-//            getCity = LatLng(a, b)
-//            mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(getCity, 10F))
-//
-//        }
-    }
-
-    private fun searchClinics() {
-        listAddressClinics.add(testCnilic)
-        listAddressClinics.add(testCnilic2)
-        listAddressClinics.add(testCnilic3)
-
-        if (checkAllCityAndRround == 0) {
-            Toast.makeText(this, "test Clinic", Toast.LENGTH_SHORT).show()
-        }
-        if (checkAllCityAndRround == 1) {
-            searchDClinic500m()
-        }
-    }
-
-    private fun searchDrugstore500m() {
+        btnSearchDrugStore.isEnabled = false
+        btnSearchClinic.isEnabled = false
+        diaLogLoading()
+        dialog!!.show()
+        listAddressStores.clear()
         addressStoreNearbyPlaces.clear()
+
         if (searchLocation == null) {
             setMyLocation()
         } else {
             myLocation = searchLocation
         }
+        getDataDrugStore()
+
+       Handler(Looper.getMainLooper()).postDelayed({
+            if (checkAllCityAndRround == 0) {
+                searchDrugsStoreAllCity()
+            }
+
+            if (checkAllCityAndRround == 1) {
+                searchDrugstore500m()
+            }
+       }, 2000)
+
+        btnSearchDrugStore.isEnabled = true
+        btnSearchClinic.isEnabled = true
 
 
+    }
+
+
+    private fun getDataDrugStore() {
+        getCityName()
+        RetrofitClient.getApiService().getAllDrugStoreInCity("$type  $token", cityName).enqueue(object : Callback<List<DrugStoreModel>> {
+            override fun onResponse(call: Call<List<DrugStoreModel>>, response: Response<List<DrugStoreModel>>) {
+
+                if (response.isSuccessful) {
+
+                    val dataList = response.body() as List<DrugStoreModel>
+//
+                    for (i in dataList) {
+                        listAddressStores.add(i)
+                    }
+
+
+                } else {
+                  runOnUiThread {
+                        Toast.makeText(this@MapsActivity, "không có", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<DrugStoreModel>>, t: Throwable) {
+                runOnUiThread {
+           Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        })
+    }
+
+    private fun searchDrugsStoreAllCity() {
+
+        if (!isCheckDrugStore && listAddressStores.size > 0) {
+            isCheckDrugStore = true
+            for (i in listAddressStores) {
+                markerStore = mapGG.addMarker(
+                        MarkerOptions()
+                                .position(LatLng(i.latitude, i.longitude))
+                                .title(i.name)
+                                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on)))
+                )
+                markerStore.tag = STORE
+                markersStores.add(markerStore)
+            }
+
+
+        } else if (!isCheckDrugStore && listAddressStores.size == 0) {
+            isCheckDrugStore = true
+            Toast.makeText(this, "No Drug stores in Your City", Toast.LENGTH_SHORT).show()
+        } else {
+            isCheckDrugStore = false
+            for (marker in markersStores)
+                marker.remove()
+        }
+        mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12F))
+        dialog!!.dismiss()
+    }
+
+    private fun searchDrugstore500m() {
         if (myLocation != null) {
             addCricle()
             val distance = FloatArray(2)
@@ -307,7 +363,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (distance[0] < circleOptions.radius) {
                     addressStoreNearbyPlaces.add(i)
                 }
+
             }
+
             if (!isCheckDrugStore && addressStoreNearbyPlaces.size > 0) {
                 isCheckDrugStore = true
 
@@ -316,11 +374,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     markerStore = mapGG.addMarker(
                             MarkerOptions()
                                     .position(LatLng(j.latitude, j.longitude))
-                                    .title("tìm thấy$j")
-
+                                    .title(j.name)
                                     .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on)))
                     )
-                    markerStore.tag = "store"
+                    markerStore.tag = STORE
                     markersStores.add(markerStore)
                 }
             } else if (!isCheckDrugStore && addressStoreNearbyPlaces.size == 0) {
@@ -331,11 +388,80 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 for (marker in markersStores)
                     marker.remove()
             }
+
         } else Toast.makeText(this, "null", Toast.LENGTH_SHORT).show()
+
+        dialog!!.dismiss()
+
     }
 
-    private fun searchDClinic500m() {
+
+
+    private fun getDataClinic() {
+        getCityName()
+        RetrofitClient.getApiService().getAllClinicInCity("$type  $token", cityName).enqueue(object : Callback<List<ClinicModel>> {
+            override fun onResponse(call: Call<List<ClinicModel>>, response: Response<List<ClinicModel>>) {
+
+                if (response.isSuccessful) {
+
+                    val dataListClinic = response.body() as List<ClinicModel>
+//
+                    for (i in dataListClinic) {
+                        listAddressClinics.add(i)
+                    }
+
+
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@MapsActivity, "không có", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<ClinicModel>>, t: Throwable) {
+                runOnUiThread {
+            Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
+    }
+
+
+    private fun searchClinics() {
+
+        btnSearchDrugStore.isEnabled = false
+        btnSearchClinic.isEnabled = false
+        diaLogLoading()
+        dialog!!.show()
+        listAddressClinics.clear()
         addressClinicsNearbyPlaces.clear()
+
+        if (searchLocation == null) {
+            setMyLocation()
+        } else {
+            myLocation = searchLocation
+        }
+        getDataClinic()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+        if (checkAllCityAndRround == 0) {
+           searchClinicStoreAllCity()
+        }
+        if (checkAllCityAndRround == 1) {
+            searchClinic500m()
+        }
+        }, 2000)
+        btnSearchDrugStore.isEnabled = true
+        btnSearchClinic.isEnabled = true
+
+
+
+    }
+
+    private fun searchClinic500m() {
+
+
         if (searchLocation == null) {
             setMyLocation()
         } else {
@@ -369,7 +495,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                     .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_clinic_on)))
                     )
 
-                    markerClinic.tag = "clinic"
+                    markerClinic.tag = CLINIC
                     markersClinics.add(markerClinic)
                 }
             } else if (!isCheckClinic && addressClinicsNearbyPlaces.size == 0) {
@@ -383,7 +509,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             Toast.makeText(this, "Clinic null", Toast.LENGTH_SHORT).show()
         }
+        dialog!!.dismiss()
     }
+
+
+    private fun searchClinicStoreAllCity() {
+
+        if (!isCheckClinic && listAddressClinics.size > 0) {
+            isCheckClinic = true
+            for (i in listAddressClinics) {
+                markerClinic = mapGG.addMarker(
+                        MarkerOptions()
+                                .position(LatLng(i.latitude, i.longitude))
+                                .title(i.name)
+                                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_clinic_on)))
+                )
+                markerClinic.tag = CLINIC
+                markersClinics.add(markerClinic)
+            }
+
+
+        } else if (!isCheckClinic && listAddressClinics.size == 0) {
+            isCheckClinic = true
+            Toast.makeText(this, "No Clinic in Your City", Toast.LENGTH_SHORT).show()
+        } else {
+            isCheckClinic = false
+            for (marker in markersClinics)
+                marker.remove()
+        }
+        mapGG.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12F))
+        dialog!!.dismiss()
+    }
+
 
     private fun addCricle() {
 
@@ -418,86 +575,86 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         spinnerLanguage.setSelection(loadNN)
         spinnerLanguage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                var tesst = ""
+                var ketOfCountry = ""
                 when (position) {
 
                     0 -> {
                         if (position != currentActivity) {
-                            tesst = "ja_JP"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = JAPAN
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     1 -> {
                         if (position != currentActivity) {
-                            tesst = "vi_VN"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = VIETNAM
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     2 -> {
                         if (position != currentActivity) {
-                            tesst = "en_001"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = ENGLISH
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     3 -> {
                         if (position != currentActivity) {
-                            tesst = "ca_ES"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = SPAIN
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     4 -> {
                         if (position != currentActivity) {
-                            tesst = "ko_KR"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = KOREA
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     5 -> {
                         if (position != currentActivity) {
-                            tesst = "it_IT"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = ITALIA
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     6 -> {
                         if (position != currentActivity) {
-                            tesst = "de_DE"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = GERMANY
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     7 -> {
                         if (position != currentActivity) {
-                            tesst = "fr_FR"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = FRANCE
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     8 -> {
                         if (position != currentActivity) {
-                            tesst = "zh_CN"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = CHINA
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
                     9 -> {
                         if (position != currentActivity) {
-                            tesst = "en_US"
-                            editorFlags.apply { putString("NN", tesst) }.apply()
-                            editorFlags.putInt("ItemSpiner", position).commit()
+                            ketOfCountry = USA
+                            editorFlags.apply { putString(LANGUAGE2, ketOfCountry) }.apply()
+                            editorFlags.putInt(ITEM_SPINER, position).commit()
                             resetApp()
                         }
                     }
@@ -510,7 +667,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun changeLanguage() {
-        languageToLoad123 = sharedPerfFlags.getString("NN", "ja_JP")
+        languageToLoad123 = sharedPerfFlags.getString(LANGUAGE2, JAPAN)
         val locale = Locale(languageToLoad123)
         Locale.setDefault(locale)
         val config = Configuration()
@@ -528,7 +685,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun searchByEditText() {
 
-        edtSearchAddress.setOnEditorActionListener { v, actionId, event ->
+        edtSearchAddress.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || event.action == KeyEvent.ACTION_DOWN
@@ -589,6 +746,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         customMarkerView.draw(canvas)
         return returnedBitmap
     }
+
+    private fun diaLogLoading() {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+        builder.setView(R.layout.layout_loading_dialog)
+        dialog = builder.create()
+    }
 }
+
+
 
 
