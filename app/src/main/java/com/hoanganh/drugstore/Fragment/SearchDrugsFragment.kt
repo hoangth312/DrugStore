@@ -12,11 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+
 import com.hoanganh.drugstore.Adapter.SearchDrugsAdapter
-import com.hoanganh.drugstore.Model.datasearchdrug.SearchDrugsModel
+import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.activity.MapsActivity
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.VIETNAMESE
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import com.hoanganh.drugstore.utils.InternetConnection
 import kotlinx.android.synthetic.main.app_bar_fragments.view.*
@@ -25,33 +27,40 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class SearchDrugsFragment : Fragment() {
     private lateinit var viewOfLayout: View
-    private lateinit var dataList: ArrayList<SearchDrugsModel>
+    private var dataList: ArrayList<SearchDrugsModel> = ArrayList()
     var navc: NavController? = null
     private var nameDrugSearch = ""
     var token: String = ""
     var type: String = ""
+    var adapter: SearchDrugsAdapter? = null
+    var linearLayoutManager: LinearLayoutManager? = null
+
+
+
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
         viewOfLayout = inflater.inflate(R.layout.fragment_search_drugs, container, false)
-        dataList = ArrayList()
+
+        searchDrugByEditText()
         viewOfLayout.btnToMap.setOnClickListener {
             startActivity(Intent(context, MapsActivity::class.java))
             activity?.onBackPressed()
         }
-        setTotalResult()
-        searchDrugByEditText()
-        setupView()
         return viewOfLayout
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navc = Navigation.findNavController(view)
     }
+
 
     private fun setTotalResult() {
         val number = if (dataList.size < 10) {
@@ -61,9 +70,13 @@ class SearchDrugsFragment : Fragment() {
     }
 
     private fun setupView() {
-        viewOfLayout.rvSearchDrugs.layoutManager = LinearLayoutManager(context)
-        val adapter = SearchDrugsAdapter(dataList, this::onCellClickListener)
+        linearLayoutManager = LinearLayoutManager(context)
+        viewOfLayout.rvSearchDrugs.layoutManager = linearLayoutManager
+        adapter = SearchDrugsAdapter(dataList, onItemClick = this::onCellClickListener)
         viewOfLayout.rvSearchDrugs.adapter = adapter
+        adapter?.notifyDataSetChanged()
+        setTotalResult()
+
     }
 
 
@@ -75,61 +88,61 @@ class SearchDrugsFragment : Fragment() {
                     || event.action == KeyEvent.ACTION_DOWN
                     || event.action == KeyEvent.KEYCODE_ENTER
             ) {
-                setData()
+                getListData()
             }
             false
         }
     }
 
 
-    private fun setData() {
+    private fun getListData() {
+
+
         nameDrugSearch = viewOfLayout.edtSearchDrug.text.toString()
-        token = SharedPrefManager.getInstance(context).getToken().toString()
-        type = SharedPrefManager.getInstance(context).getType().toString()
-
+        token = SharedPrefManager.getInstance(requireContext()).getToken().toString()
+        type = SharedPrefManager.getInstance(requireContext()).getType().toString()
         if (InternetConnection.checkConnection(requireContext())) {
-
-
-            RetrofitClient.getApiService().getDrugSearchbyName("$type $token",
-                    "VIETNAMESE", nameDrugSearch).enqueue(object : Callback<List<SearchDrugsModel>> {
+            RetrofitClient.getApiService().getDrugSearchbyName("$type  $token",
+                    VIETNAMESE, nameDrugSearch).enqueue(object : Callback<List<SearchDrugsModel>> {
                 override fun onResponse(call: Call<List<SearchDrugsModel>>, response: Response<List<SearchDrugsModel>>) {
                     if (response.isSuccessful) {
                         dataList = response.body() as ArrayList<SearchDrugsModel>
-
-
+                        if (dataList.size == 0) {
+                            activity!!.runOnUiThread {
+                                Toast.makeText(context, "Không có sp phù hợp", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        setupView()
 
                     } else {
-                        Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
+                        activity!!.runOnUiThread {
+                            Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
+                        }
                     }
-
-
                 }
 
                 override fun onFailure(call: Call<List<SearchDrugsModel>>, t: Throwable) {
-                    Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show()
+                    activity!!.runOnUiThread {
+                        Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show()
+                    }
                 }
             })
-
-
         } else {
-            Toast.makeText(requireContext(), "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+            requireActivity().runOnUiThread {
+                Toast.makeText(requireContext(), "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+            }
         }
-//        for (i in 0..10) {
-//            dataList.add(
-//                    SearchDrugsModel(
-//                            R.drawable.salonpas, "CAO DÁN SALONPAS (HỘP 20 MIẾNG) ",
-//                            "Công ty TNHH Dược phẩm Hisamitsu Việt Nam",
-//                            "Cao dán Salonpas dùng để giảm đau nhanh chóng, kháng viêm trong các cơn đau liên quan đến các triệu chứng đau khớp, đau cơ, đau lưng, căng cơ, bong gân, đau răng. Sản phẩm là giải pháp tiện lợi chăm sóc cho sức khỏe gia đình bạn.",
-//                            165, 23
-//                    )
-//            )
-//        }
     }
 
-    private fun onCellClickListener(drugModel: SearchDrugsModel) {
-        navc?.navigate(R.id.action_fmSearchDugs_to_fmDrugInfo2)
-        Toast.makeText(context, "123", Toast.LENGTH_SHORT).show()
+    private fun onCellClickListener(drugsModel: SearchDrugsModel) {
+        navc?.navigate(R.id.action_fmSearchDugs_to_fmDrugInfo)
+        val action = SearchDrugsFragmentDirections.actionFmSearchDugsToFmDrugInfo(drugsModel.id)
+        navc?.navigateUp()
+        navc?.navigate(action)
+        Toast.makeText(context, drugsModel.id.toString(), Toast.LENGTH_SHORT).show()
     }
+
+
 }
 
 

@@ -4,20 +4,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hoanganh.drugstore.Model.datasearchdrug.SearchDrugsModel
+import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_rv_search_drugs.view.*
 
+
 class SearchDrugsAdapter(
-    private val listDrug: ArrayList<SearchDrugsModel>,
-    private val onItemClick: (SearchDrugsModel) -> Unit
+        private val listDrug: ArrayList<SearchDrugsModel>,
+        private val onItemClick: (SearchDrugsModel) -> Unit
 ) : RecyclerView.Adapter<SearchDrugsAdapter.ViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_rv_search_drugs,
-            parent,
-            false
+                R.layout.item_rv_search_drugs,
+                parent,
+                false
         )
         return ViewHolder(view, this::onItemClick)
     }
@@ -45,7 +48,19 @@ class SearchDrugsAdapter(
 
         fun bindData(model: SearchDrugsModel) {
             itemView.apply {
-              //  imageDrugs.setImageResource(model.imageProducts.get(0))
+
+                var listURL = model.imageProducts
+                if (model.imageProducts[0] == "null"){
+                    imageDrugs.setImageResource(R.drawable.bear_test)
+                }else {
+                    imageDrugs.visibility = View.VISIBLE
+
+
+                    Picasso.get().load(listURL[0])
+                            .error(R.drawable.bear_test)
+                            .fit().into(imageDrugs);
+                }
+
                 nameDrug.text = model.vietnameseName
                 subTitleDrug.text = model.categoryName
                 descriptionDrug.text = model.description
@@ -55,4 +70,6 @@ class SearchDrugsAdapter(
         }
     }
 }
+
+
 

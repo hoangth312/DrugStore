@@ -4,10 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
-import com.hoanganh.drugstore.Model.Banner
-import com.hoanganh.drugstore.R
+import com.hoanganh.drugstore.model.Banner
 
 class BannerAdapter(context : Context, private val listBanner : List<Banner>) : PagerAdapter()
 {

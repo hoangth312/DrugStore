@@ -25,9 +25,7 @@
         <action
             android:id="@+id/action_nav_home_to_activityMap"
             app:destination="@id/activityMap" />
-        <action
-            android:id="@+id/action_nav_home_to_fmDrugInfo2"
-            app:destination="@id/fmDrugInfo" />
+
         <action
             android:id="@+id/action_nav_home_to_fmInfoDrugStore"
             app:destination="@id/fmInfoDrugStore" />
@@ -39,7 +37,11 @@
         android:id="@+id/nav_informationUser"
         android:name="com.hoanganh.drugstore.Fragment.InfoUserFragment"
         android:label=""
-        tools:layout="@layout/fragment_info_user" />
+        tools:layout="@layout/fragment_info_user" >
+        <action
+            android:id="@+id/action_nav_informationUser_to_fmChangePass"
+            app:destination="@id/fmChangePass" />
+    </fragment>
     <activity
         android:id="@+id/activityMap"
         android:name="com.hoanganh.drugstore.activity.MapsActivity"
@@ -55,19 +57,26 @@
         tools:layout="@layout/fragment_search_drugs" >
         <action
             android:id="@+id/action_fmSearchDugs_to_fmDrugInfo"
-            app:destination="@id/fmDrugInfo" />
+            app:destination="@id/fmDrugInfo" >
+        </action>
         <action
             android:id="@+id/action_fmSearchDugs_to_activityMap"
             app:destination="@id/activityMap" />
-        <action
-            android:id="@+id/action_fmSearchDugs_to_fmDrugInfo2"
-            app:destination="@id/fmDrugInfo" />
+
+
+
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/fmDrugInfo"
         android:name="com.hoanganh.drugstore.Fragment.DrugInformationFragment"
         android:label=""
-        tools:layout="@layout/fragment_drug_information" />
+        tools:layout="@layout/fragment_drug_information" >
+        <argument
+            android:name="sendIdDrug"
+            app:argType="integer"
+            android:defaultValue="0"/>
+
+    </dialog>
 
     <fragment
         android:id="@+id/fmPersonDetail"
@@ -85,4 +94,15 @@
         android:name="com.hoanganh.drugstore.Fragment.InformationOfClinicFragment"
         android:label=""
         tools:layout="@layout/fragment_information_of_clinic" />
+
+
+    <fragment
+        android:id="@+id/fmChangePass"
+        android:name="com.hoanganh.drugstore.Fragment.ChangePassFragment"
+        tools:layout="@layout/fragment_change_pass"
+        >
+        <action
+            android:id="@+id/action_fmChangePass_to_nav_informationUser"
+            app:destination="@id/nav_informationUser" />
+    </fragment>
 </navigation>

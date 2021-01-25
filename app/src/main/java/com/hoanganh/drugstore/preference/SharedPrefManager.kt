@@ -2,11 +2,12 @@ package com.hoanganh.drugstore.preference
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.hoanganh.drugstore.Model.User
+import com.hoanganh.drugstore.model.User
 
 
 class SharedPrefManager private constructor(private val context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(GET_USER, Context.MODE_PRIVATE)
+
     val isLoggedIn: Boolean
         get() {
             val sharedPreferences = context.getSharedPreferences(GET_USER, Context.MODE_PRIVATE)
@@ -50,12 +51,11 @@ class SharedPrefManager private constructor(private val context: Context) {
 
     companion object {
         val GET_USER = "getUser"
-        val SET_USER = "setUser"
         private var sharedPrefManager: SharedPrefManager? = null
         @Synchronized
-        fun getInstance(mCtx: Context?): SharedPrefManager {
+        fun getInstance(context: Context): SharedPrefManager {
             if (sharedPrefManager == null) {
-                sharedPrefManager = mCtx?.let { SharedPrefManager(it) }
+                sharedPrefManager = SharedPrefManager(context)
             }
             return sharedPrefManager as SharedPrefManager
         }

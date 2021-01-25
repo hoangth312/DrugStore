@@ -297,7 +297,7 @@
                         android:weightSum="10">
 
                         <TextView
-                            android:id="@+id/textView"
+                            android:id="@+id/tvForgotPass"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="3"

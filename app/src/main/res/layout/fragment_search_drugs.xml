@@ -72,12 +72,11 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_25sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="@string/results_found"
-
+            android:layout_marginStart="@dimen/_5sdp"
             android:textSize="@dimen/_15ssp"
-            app:layout_constraintStart_toStartOf="@id/totalResult"
+            app:layout_constraintStart_toEndOf="@+id/totalResult"
             app:layout_constraintTop_toBottomOf="@id/flSearch" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -85,7 +84,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingBottom="?attr/actionBarSize"
             app:layout_constraintTop_toBottomOf="@id/totalResult" />
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
