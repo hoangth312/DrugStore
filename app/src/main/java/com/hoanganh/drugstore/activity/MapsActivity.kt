@@ -31,8 +31,9 @@ import com.google.android.gms.maps.model.*
 import com.hoanganh.drugstore.Adapter.FlagAdapter
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.BUNDLE
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.CHINA
-import com.hoanganh.drugstore.extension.CompanionObject.Companion.CLINIC
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.CLINICS
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.ENGLISH
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.EXTRA
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.FRANCE
@@ -44,6 +45,7 @@ import com.hoanganh.drugstore.extension.CompanionObject.Companion.JAPAN
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.KOREA
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.LANGUAGE
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.LANGUAGE2
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.LATLNG
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.SPAIN
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.STORE
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.USA
@@ -135,6 +137,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         Paper.init(this);
         historySearch = Paper.book().read(HISTORY_SEARCH, ArrayList())
 
+
+
     }
 
     override fun onStop() {
@@ -210,9 +214,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapGG.setOnMarkerClickListener { marker ->
             val intent = Intent(this, ScanBarCodeActivity::class.java)
+            val args = Bundle()
+
             when (marker.tag) {
-                STORE -> intent.putExtra(EXTRA, "openFragmentDrugStore")
-                CLINIC -> intent.putExtra(EXTRA, "openFragmentClinic")
+                STORE -> {
+                    intent.putExtra(EXTRA, "openFragmentDrugStore")
+                    args.putParcelable(LATLNG, marker.position)
+                    intent.putExtra(BUNDLE, args)
+
+
+                }
+                "CLINICS" -> {
+                    intent.putExtra(EXTRA, "openFragmentClinic")
+                    args.putParcelable(LATLNG, marker.position)
+                    intent.putExtra(BUNDLE, args)
+
+                }
             }
             startActivity(intent)
             false
@@ -275,13 +292,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         getDataDrugStore()
 
        Handler(Looper.getMainLooper()).postDelayed({
-            if (checkAllCityAndRround == 0) {
-                searchDrugsStoreAllCity()
-            }
+           if (checkAllCityAndRround == 0) {
+               searchDrugsStoreAllCity()
+           }
 
-            if (checkAllCityAndRround == 1) {
-                searchDrugstore500m()
-            }
+           if (checkAllCityAndRround == 1) {
+               searchDrugstore500m()
+           }
        }, 2000)
 
         btnSearchDrugStore.isEnabled = true
@@ -306,7 +323,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
                 } else {
-                  runOnUiThread {
+                    runOnUiThread {
                         Toast.makeText(this@MapsActivity, "không có", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -314,7 +331,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             override fun onFailure(call: Call<List<DrugStoreModel>>, t: Throwable) {
                 runOnUiThread {
-           Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -333,6 +350,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on)))
                 )
                 markerStore.tag = STORE
+
                 markersStores.add(markerStore)
             }
 
@@ -373,9 +391,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     markerStore = mapGG.addMarker(
                             MarkerOptions()
+
                                     .position(LatLng(j.latitude, j.longitude))
                                     .title(j.name)
+
                                     .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_store_on)))
+
                     )
                     markerStore.tag = STORE
                     markersStores.add(markerStore)
@@ -420,7 +441,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             override fun onFailure(call: Call<List<ClinicModel>>, t: Throwable) {
                 runOnUiThread {
-            Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -445,12 +466,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         getDataClinic()
 
         Handler(Looper.getMainLooper()).postDelayed({
-        if (checkAllCityAndRround == 0) {
-           searchClinicStoreAllCity()
-        }
-        if (checkAllCityAndRround == 1) {
-            searchClinic500m()
-        }
+            if (checkAllCityAndRround == 0) {
+                searchClinicStoreAllCity()
+            }
+            if (checkAllCityAndRround == 1) {
+                searchClinic500m()
+            }
         }, 2000)
         btnSearchDrugStore.isEnabled = true
         btnSearchClinic.isEnabled = true
@@ -491,13 +512,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     markerClinic = mapGG.addMarker(
                             MarkerOptions()
                                     .position(LatLng(j.latitude, j.longitude))
-                                    .title("tìm thấy$j")
+                                    .title(j.name)
                                     .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_clinic_on)))
                     )
 
-                    markerClinic.tag = CLINIC
+                    markerClinic.tag = "CLINICS"
                     markersClinics.add(markerClinic)
                 }
+
             } else if (!isCheckClinic && addressClinicsNearbyPlaces.size == 0) {
                 isCheckClinic = true
                 Toast.makeText(this, "No Drug stores near you", Toast.LENGTH_SHORT).show()
@@ -524,7 +546,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 .title(i.name)
                                 .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromStore(R.drawable.ic__01_clinic_on)))
                 )
-                markerClinic.tag = CLINIC
+                markerClinic.tag = "CLINICS"
                 markersClinics.add(markerClinic)
             }
 

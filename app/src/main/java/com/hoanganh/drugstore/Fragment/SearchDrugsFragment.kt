@@ -107,13 +107,14 @@ class SearchDrugsFragment : Fragment() {
                 override fun onResponse(call: Call<List<SearchDrugsModel>>, response: Response<List<SearchDrugsModel>>) {
                     if (response.isSuccessful) {
                         dataList = response.body() as ArrayList<SearchDrugsModel>
-                        if (dataList.size == 0) {
-                            activity!!.runOnUiThread {
-                                Toast.makeText(context, "Không có sp phù hợp", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                        setupView()
+                        activity!!.runOnUiThread {
+                            if (dataList.size == 0) {
 
+                                Toast.makeText(context, "Không có sp phù hợp", Toast.LENGTH_SHORT).show()
+
+                            }
+                            setupView()
+                        }
                     } else {
                         activity!!.runOnUiThread {
                             Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
@@ -139,7 +140,7 @@ class SearchDrugsFragment : Fragment() {
         val action = SearchDrugsFragmentDirections.actionFmSearchDugsToFmDrugInfo(drugsModel.id)
         navc?.navigateUp()
         navc?.navigate(action)
-        Toast.makeText(context, drugsModel.id.toString(), Toast.LENGTH_SHORT).show()
+
     }
 
 

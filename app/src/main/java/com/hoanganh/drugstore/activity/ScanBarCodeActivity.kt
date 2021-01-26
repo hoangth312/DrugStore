@@ -12,12 +12,14 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.navigation.NavigationView
-import com.hoanganh.drugstore.Fragment.InformationDrugStoreFragment
-import com.hoanganh.drugstore.Fragment.InformationOfClinicFragment
+import com.hoanganh.drugstore.Fragment.ScanBarCodeFragmentDirections
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.BUNDLE
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.EXTRA
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.LATLNG
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_scan_bar_code.*
 import kotlinx.android.synthetic.main.app_bar_scan_barcode.*
@@ -62,7 +64,7 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
         val firstName = SharedPrefManager.getInstance(this).getFirstName()
         val lastName = SharedPrefManager.getInstance(this).getLastName()
-        headerView.tvUserName.text =  "$firstName $lastName"
+        headerView.tvUserName.text = "$firstName $lastName"
         headerView.tvEmailUser.text = SharedPrefManager.getInstance(this).getEmail().toString()
 
 
@@ -84,17 +86,33 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
             "openFragmentSearchDrug" -> {
                 //   supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SearchDrugsFragment()).commit()
                 navController.navigate(R.id.action_nav_home_to_fmSearchDugs)
+
             }
             "openFragmentDrugStore" -> {
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment, InformationDrugStoreFragment()).commit()
+//                supportFragmentManager.beginTransaction()
+//                        .replace(R.id.nav_host_fragment, InformationDrugStoreFragment()).commit()
+                val bundle = intent.getParcelableExtra<Bundle>(BUNDLE)
+                val latLngStore = bundle!!.getParcelable<LatLng>(LATLNG)
+                navController.navigate(R.id.action_nav_home_to_fmInfoDrugStore)
+                val action = ScanBarCodeFragmentDirections.actionNavHomeToFmInfoDrugStore(latLngStore!!)
+                navController.navigateUp()
+                navController.navigate(action)
 
-                //navController.navigate(R.id.action_nav_home_to_fmInfoDrugStore)
+
+
+
+
             }
             "openFragmentClinic" -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationOfClinicFragment())
-                        .commit()
-                //navController.navigate(R.id.action_nav_home_to_fmInfoClinic)
+//                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, InformationOfClinicFragment())
+//                        .commit()
+
+                val bundle = intent.getParcelableExtra<Bundle>(BUNDLE)
+                val latLngClinic = bundle!!.getParcelable<LatLng>(LATLNG)
+                navController.navigate(R.id.action_nav_home_to_fmInfoClinic)
+                val action = ScanBarCodeFragmentDirections.actionNavHomeToFmInfoClinic(latLngClinic!!)
+                navController.navigateUp()
+                navController.navigate(action)
             }
 
         }

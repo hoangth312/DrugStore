@@ -88,12 +88,22 @@
         android:id="@+id/fmInfoDrugStore"
         android:name="com.hoanganh.drugstore.Fragment.InformationDrugStoreFragment"
         android:label=""
-        tools:layout="@layout/fragment_information_drug_store" />
+        tools:layout="@layout/fragment_information_drug_store" >
+        <argument
+            android:name="latlngStore"
+            app:argType="com.google.android.gms.maps.model.LatLng" />
+    </fragment>
     <fragment
         android:id="@+id/fmInfoClinic"
         android:name="com.hoanganh.drugstore.Fragment.InformationOfClinicFragment"
         android:label=""
-        tools:layout="@layout/fragment_information_of_clinic" />
+        tools:layout="@layout/fragment_information_of_clinic" >
+
+        <argument
+            android:name="latlngClinic"
+            app:argType="com.google.android.gms.maps.model.LatLng" />
+
+    </fragment>
 
 
     <fragment

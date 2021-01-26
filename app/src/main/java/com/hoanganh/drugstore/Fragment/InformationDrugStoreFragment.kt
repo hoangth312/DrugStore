@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.LatLng
 import com.hoanganh.drugstore.Adapter.CommentAdapter
 import com.hoanganh.drugstore.Adapter.ProductUsedAdapter
 import com.hoanganh.drugstore.Adapter.ServiceAdapter
@@ -18,11 +19,14 @@ import com.hoanganh.drugstore.model.Services
 import com.hoanganh.drugstore.R
 import kotlinx.android.synthetic.main.fragment_information_drug_store.*
 import kotlinx.android.synthetic.main.fragment_information_drug_store.view.*
-import retrofit2.Call
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 class InformationDrugStoreFragment : Fragment() {
+    private var args by Delegates.notNull<LatLng>()
+    private  var latitudeStore: Double = 0.0
+    private  var longitudeStore: Double = 0.0
     lateinit var viewOfLayout: View
     private val listService = ArrayList<Services>()
     private val listProductUsed = ArrayList<ProductUsed>()
@@ -30,16 +34,32 @@ class InformationDrugStoreFragment : Fragment() {
     private val now = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewOfLayout = inflater.inflate(R.layout.fragment_information_drug_store, container, false)
+
+
+
+
+
+
+
+
+
+        setLatLng()
+
         setupView()
         setDataService()
         setDataProduct()
         setDataComment()
-        getDataDrugStore()
+
         return viewOfLayout
     }
     override fun onDestroy() {
         super.onDestroy()
         activity?.finish()
+    }
+    private fun setLatLng(){
+        args = InformationDrugStoreFragmentArgs.fromBundle(requireArguments()).latlngStore
+        latitudeStore = args.latitude
+        longitudeStore = args.longitude
     }
 
     private fun setupView() {
@@ -94,35 +114,7 @@ class InformationDrugStoreFragment : Fragment() {
     }
 
 
-    private fun getDataDrugStore() {
-        RetrofitClient
-                .getApiService()
-                .getDrugstore()
-                .enqueue(object : Callback<List<DrugStoreItem>> {
-                    override fun onResponse(call: Call<List<DrugStoreItem>>, response: Response<List<DrugStoreItem>>) {
-                        response.isSuccessful
-//                    val jsonArray = JSONArray()
-//                    for (i in 0 until jsonArray.length()) {
-//                        val drugStore = jsonArray.getJSONObject(i)
-//                        txtNameDrugStore.text = drugStore.getString("name")
-//                        val name = drugStore.getString("name")
-//                        val phoneNumber = drugStore.getString("phoneNumber")
-//                        val apartmentNumber = drugStore.getString("apartmentNumber")
-//                        val street = drugStore.getString("street")
-//                        val timeWorking = drugStore.getString("timeWorking")
-//                        val vote = drugStore.getBoolean("vote")
-//
 
-
-
-    }
-
-    override fun onFailure(call: Call<List<DrugStoreItem>>, t: Throwable) {
-
-    }
-
-})
-}
 
 override fun onResume() {
     super.onResume()
