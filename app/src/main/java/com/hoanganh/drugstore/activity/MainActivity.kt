@@ -40,29 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnSignUp.setOnClickListener(this)
         tvForgotPass.setOnClickListener(this)
 
-        btnLogin.setOnClickListener() {
-                 userName = edtUserName.text.toString().trim()
-                 password = edtPassword.text.toString().trim()
 
-                if(userName.isEmpty()){
-                    edtUserName.error = "User required"
-                    edtUserName.requestFocus()
-                    return@setOnClickListener
-                }
-                if(password.isEmpty()){
-                    edtPassword.error = "Password required"
-                    edtPassword.requestFocus()
-                    return@setOnClickListener
-                }
-                loginAccount()
-
-            val intent = Intent(applicationContext, ScanBarCodeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-            startActivity(intent)
-
-
-        }
     }
 
     override fun onStart() {
@@ -145,7 +123,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             RetrofitClient.getApiService().userLogin(LoginResponse(userName, password)).enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     dialog!!.dismiss()
-                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                    runOnUiThread {
+                        Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {

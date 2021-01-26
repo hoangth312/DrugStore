@@ -7,8 +7,9 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.hoanganh.drugstore.activity.MapsActivity.Companion.REQUEST_CODE_LOCATION
-import com.hoanganh.drugstore.activity.MapsActivity.Companion.SDK_VERSION_ANDROID_P
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.REQUEST_CODE_LOCATION
+
+import com.hoanganh.drugstore.extension.CompanionObject.Companion.SDK_VERSION_ANDROID_P
 
 fun Activity.checkRequiredPermissions(): Boolean {
     val permission = if (Build.VERSION.SDK_INT <= SDK_VERSION_ANDROID_P) {

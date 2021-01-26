@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.model.LatLng
 import com.hoanganh.drugstore.Adapter.CommentAdapter
 import com.hoanganh.drugstore.Adapter.NoteAdapter
 import com.hoanganh.drugstore.model.Clinics
@@ -19,13 +20,16 @@ import kotlinx.android.synthetic.main.fragment_information_of_clinic.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 
 class InformationOfClinicFragment : Fragment() {
     lateinit var viewOfLayout: View
     private val listNote = ArrayList<Clinics>()
     private val listCommentClinics = ArrayList<Comment>()
-
+    private var args by Delegates.notNull<LatLng>()
+    private  var latitudeClinic: Double = 0.0
+    private  var longitudeClinic: Double = 0.0
   private val listImage = ArrayList<Int>()
 
     private val now = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
@@ -33,6 +37,8 @@ class InformationOfClinicFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewOfLayout = inflater.inflate(R.layout.fragment_information_of_clinic, container, false)
         viewOfLayout.toolbar_title.text = getString(R.string.detailOfClinic)
+
+        setLatLng()
         setupView()
         setData()
         setDataComment()
@@ -40,7 +46,13 @@ class InformationOfClinicFragment : Fragment() {
         return viewOfLayout
 
     }
-
+    private fun setLatLng(){
+        args = InformationOfClinicFragmentArgs.fromBundle(requireArguments()).latlngClinic
+        latitudeClinic = args.latitude
+        longitudeClinic = args.longitude
+        viewOfLayout.address.text = latitudeClinic.toString()
+        viewOfLayout.phoneNumber.text = longitudeClinic.toString()
+    }
     override fun onDestroy() {
         super.onDestroy()
         activity?.finish()

@@ -9,7 +9,7 @@ class CompanionObject {
         const val ITEM_SPINER = "ItemSpiner"
         const val EXTRA = "EXTRA"
         const val STORE = "clinic"
-        const val CLINIC = "clinic"
+        const val CLINICS = "clinic"
         const val JAPAN = "ja_JP"
         const val VIETNAM  = "vi_VN"
         const val ENGLISH = "en_001"
@@ -22,6 +22,8 @@ class CompanionObject {
         const val SPAIN = "ca_ES"
         const val LANGUAGE2 =  "NN"
         const val VIETNAMESE =  "VIETNAMESE"
+        const val LATLNG =  "LatLng"
+        const val BUNDLE =  "bundle"
 
     }
 }
