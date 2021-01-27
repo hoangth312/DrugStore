@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
 import com.hoanganh.drugstore.utils.InternetConnection
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
@@ -59,7 +60,7 @@ class ForgotPasswordActivity : AppCompatActivity(),View.OnClickListener {
                 if (response.isSuccessful) {
                     dialog!!.dismiss()
                     edEmailForgotPass.visibility = View.INVISIBLE
-                    subTitleForgotPass.text = "Pass da duoc gui den mail"
+                    subTitleForgotPass.text = getString(R.string.notification_change_pass_success)
                     subTitleForgotPass.setTextColor(ContextCompat.getColor(this@ForgotPasswordActivity, R.color.red))
                     btnBackToHome.visibility = View.VISIBLE
                     btnConfirmForgotPass.visibility = View.INVISIBLE
@@ -67,20 +68,23 @@ class ForgotPasswordActivity : AppCompatActivity(),View.OnClickListener {
                 } else {
                     dialog!!.dismiss()
                     runOnUiThread {
-                        Toast.makeText(this@ForgotPasswordActivity, " Khoong thay email", Toast.LENGTH_SHORT).show()
+                        Toasty.error(this@ForgotPasswordActivity, " Your search did not return any results. Please try again with other information.", Toast.LENGTH_SHORT, true).show();
+
                     }
                 }
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
                runOnUiThread {
-                    Toast.makeText(this@ForgotPasswordActivity, t.message, Toast.LENGTH_SHORT).show()
+                   Toasty.error(this@ForgotPasswordActivity, t.message.toString(), Toast.LENGTH_SHORT, true).show();
+
+
                 }
             }
         })
 
     } else {
         runOnUiThread {
-                Toast.makeText(applicationContext, "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+            Toasty.error(this@ForgotPasswordActivity, "Internet Connection Not Available", Toast.LENGTH_SHORT, true).show();
             }
         }
     }

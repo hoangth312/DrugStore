@@ -33,7 +33,6 @@ import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.BUNDLE
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.CHINA
-import com.hoanganh.drugstore.extension.CompanionObject.Companion.CLINICS
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.ENGLISH
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.EXTRA
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.FRANCE
@@ -58,6 +57,7 @@ import com.hoanganh.drugstore.preference.SharedPrefManager
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.nightonke.jellytogglebutton.JellyToggleButton.OnStateChangeListener
 import com.nightonke.jellytogglebutton.State
+import es.dmoral.toasty.Toasty
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_maps.*
 import retrofit2.Call
@@ -70,7 +70,7 @@ import kotlin.collections.ArrayList
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-
+   private var listCityName: MutableList<Address> = mutableListOf()
     var dialog: AlertDialog? = null
     private lateinit var mapGG: GoogleMap
     lateinit var sharedPerfFlags: SharedPreferences
@@ -136,8 +136,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         btnClearTextSeach.setOnClickListener { edtSearchAddress.text.clear() }
         Paper.init(this);
         historySearch = Paper.book().read(HISTORY_SEARCH, ArrayList())
-
-
+        diaLogLoading()
 
     }
 
@@ -150,14 +149,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         btnSearchDrugStore.isEnabled
         tbSelectOption.onStateChangeListener = OnStateChangeListener { _, state, _ ->
             if (state == State.LEFT) {
+
                 btnSearchDrugStore.isEnabled = true
                 btnSearchClinic.isEnabled = true
                 checkAllCityAndRround = 0
+                dialog!!.dismiss()
             }
             if (state == State.RIGHT) {
                 btnSearchDrugStore.isEnabled = true
                 btnSearchClinic.isEnabled = true
                 checkAllCityAndRround = 1
+                dialog!!.dismiss()
             }
             if (state == State.LEFT_TO_RIGHT) {
                 btnSearchDrugStore.isEnabled = false
@@ -244,17 +246,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             addCricle()
             mapGG.clear()
         } else {
-            Toast.makeText(this, "Taking positioning, ,Wait 5 seconds", Toast.LENGTH_SHORT).show()
+            Toasty.info(this@MapsActivity, "Taking positioning, ,Wait 3 seconds", Toast.LENGTH_SHORT, true).show()
+
+          //  Toast.makeText(this, "Taking positioning, ,Wait 3 seconds", Toast.LENGTH_SHORT).show()
             Handler(Looper.getMainLooper()).postDelayed({
                 if (mapGG.myLocation != null) {
                     setMyLocation()
                     addCricle()
                 } else {
-                    Toast.makeText(this@MapsActivity, "Can't update Your Location", Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, "Can't update Your Location", Toast.LENGTH_SHORT, true).show()
+//                    Toast.makeText(this@MapsActivity, "Can't update Your Location", Toast.LENGTH_SHORT).show()
                 }
                 btnSearchDrugStore.isEnabled = true
                 btnSearchClinic.isEnabled = true
-            }, 5000)
+            }, 3000)
         }
         btnSearchDrugStore.isChecked = false
         btnSearchClinic.isChecked = false
@@ -262,7 +267,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setMyLocation() {
         if (mapGG.myLocation == null) {
-            Toast.makeText(this, "Can't update Your Location", Toast.LENGTH_SHORT).show()
+            Toasty.error(this, "Can't update Your Location", Toast.LENGTH_SHORT, true).show()
+
         } else {
             latitude = mapGG.myLocation.latitude
             longitude = mapGG.myLocation.longitude
@@ -271,15 +277,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun getCityName(){
+    private fun getCityName() {
+
+
         val gcd = Geocoder(this, Locale.getDefault())
-        val listCityName: List<Address> = gcd.getFromLocation(latitude, longitude, 1)
-        cityName = listCityName[0].adminArea
+        listCityName = gcd.getFromLocation(latitude, longitude, 10)
+        if (listCityName.size > 0) {
+            cityName = listCityName[0].adminArea
+        }else{
+
+        }
+
     }
     private fun searchDrugStore() {
         btnSearchDrugStore.isEnabled = false
         btnSearchClinic.isEnabled = false
-        diaLogLoading()
+       // diaLogLoading()
         dialog!!.show()
         listAddressStores.clear()
         addressStoreNearbyPlaces.clear()
@@ -291,15 +304,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         getDataDrugStore()
 
-       Handler(Looper.getMainLooper()).postDelayed({
-           if (checkAllCityAndRround == 0) {
-               searchDrugsStoreAllCity()
-           }
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (checkAllCityAndRround == 0) {
+                searchDrugsStoreAllCity()
+            }
 
-           if (checkAllCityAndRround == 1) {
-               searchDrugstore500m()
-           }
-       }, 2000)
+            if (checkAllCityAndRround == 1) {
+                searchDrugstore500m()
+            }
+        }, 2000)
 
         btnSearchDrugStore.isEnabled = true
         btnSearchClinic.isEnabled = true
@@ -324,14 +337,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@MapsActivity, "không có", Toast.LENGTH_SHORT).show()
+                        Toasty.error(this@MapsActivity, "No matching results were found", Toast.LENGTH_SHORT, true).show()
+
                     }
                 }
             }
 
             override fun onFailure(call: Call<List<DrugStoreModel>>, t: Throwable) {
                 runOnUiThread {
-                    Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(applicationContext, t.message.toString(), Toast.LENGTH_SHORT, true).show()
+
 
                 }
             }
@@ -357,7 +372,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         } else if (!isCheckDrugStore && listAddressStores.size == 0) {
             isCheckDrugStore = true
-            Toast.makeText(this, "No Drug stores in Your City", Toast.LENGTH_SHORT).show()
+
+            Toasty.error(this@MapsActivity, "There are no stores in your city", Toast.LENGTH_SHORT, true).show()
+
         } else {
             isCheckDrugStore = false
             for (marker in markersStores)
@@ -403,19 +420,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             } else if (!isCheckDrugStore && addressStoreNearbyPlaces.size == 0) {
                 isCheckDrugStore = true
-                Toast.makeText(this, "No Drug stores near you", Toast.LENGTH_SHORT).show()
+
+                Toasty.error(this@MapsActivity, "There are no stores in your city", Toast.LENGTH_SHORT, true).show()
+
             } else {
                 isCheckDrugStore = false
                 for (marker in markersStores)
                     marker.remove()
             }
 
-        } else Toast.makeText(this, "null", Toast.LENGTH_SHORT).show()
+        } else  Toasty.error(this@MapsActivity, "Something is Wrong", Toast.LENGTH_SHORT, true).show()
+
 
         dialog!!.dismiss()
 
     }
-
 
 
     private fun getDataClinic() {
@@ -434,14 +453,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@MapsActivity, "không có", Toast.LENGTH_SHORT).show()
+                        Toasty.error(this@MapsActivity, "There are no clinic in your city", Toast.LENGTH_SHORT, true).show()
+
+
                     }
                 }
             }
 
             override fun onFailure(call: Call<List<ClinicModel>>, t: Throwable) {
                 runOnUiThread {
-                    Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(this@MapsActivity, t.message.toString(), Toast.LENGTH_SHORT, true).show()
+
+                   // Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -453,7 +476,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         btnSearchDrugStore.isEnabled = false
         btnSearchClinic.isEnabled = false
-        diaLogLoading()
+        //diaLogLoading()
         dialog!!.show()
         listAddressClinics.clear()
         addressClinicsNearbyPlaces.clear()
@@ -475,7 +498,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }, 2000)
         btnSearchDrugStore.isEnabled = true
         btnSearchClinic.isEnabled = true
-
 
 
     }
@@ -522,14 +544,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             } else if (!isCheckClinic && addressClinicsNearbyPlaces.size == 0) {
                 isCheckClinic = true
-                Toast.makeText(this, "No Drug stores near you", Toast.LENGTH_SHORT).show()
+                Toasty.error(this@MapsActivity, "There are no clinic in your city", Toast.LENGTH_SHORT, true).show()
+
             } else {
                 isCheckClinic = false
                 for (marker in markersClinics)
                     marker.remove()
             }
         } else {
-            Toast.makeText(this, "Clinic null", Toast.LENGTH_SHORT).show()
+          //  Toast.makeText(this, "Clinic null", Toast.LENGTH_SHORT).show()
+            Toasty.error(this@MapsActivity, "Something is Wrong", Toast.LENGTH_SHORT, true).show()
+
         }
         dialog!!.dismiss()
     }
@@ -553,7 +578,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         } else if (!isCheckClinic && listAddressClinics.size == 0) {
             isCheckClinic = true
-            Toast.makeText(this, "No Clinic in Your City", Toast.LENGTH_SHORT).show()
+            Toasty.error(this@MapsActivity, "There are no clinic in your city", Toast.LENGTH_SHORT, true).show()
+
         } else {
             isCheckClinic = false
             for (marker in markersClinics)

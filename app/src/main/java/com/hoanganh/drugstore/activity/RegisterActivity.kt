@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hoanganh.drugstore.model.RegisterAccount
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
@@ -93,7 +94,7 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
             override fun onResponse(call: Call<RegisterAccount?>, response: Response<RegisterAccount?>) {
                 if (response.isSuccessful) {
                     runOnUiThread {
-                        Toast.makeText(this@RegisterActivity, "User registered successfully", Toast.LENGTH_LONG).show()
+                        Toasty.success(this@RegisterActivity, "User registered successfully", Toast.LENGTH_SHORT, true).show()
                     }
 //
                     finish()
@@ -102,7 +103,8 @@ class RegisterActivity : AppCompatActivity(),View.OnClickListener {
 
             override fun onFailure(call: Call<RegisterAccount>, t: Throwable) {
                 runOnUiThread {
-                    Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_LONG).show()
+                    Toasty.error(this@RegisterActivity, t.message.toString(), Toast.LENGTH_SHORT, true).show()
+
                 }
                 tvNoty.text = "Registration failed"
                 tvNoty.visibility = View.VISIBLE
