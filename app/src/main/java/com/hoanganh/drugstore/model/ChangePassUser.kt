@@ -7,8 +7,8 @@ data class ChangePassUser(
 
 
 
-    @SerializedName("username")
-    val userName: String,
+    @SerializedName("email")
+    val email: String,
     val oldPassword: String,
     @SerializedName("password")
     val passWord: String,

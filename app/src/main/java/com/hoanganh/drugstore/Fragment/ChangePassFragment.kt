@@ -54,7 +54,7 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
     private fun changePass(){
         val token = SharedPrefManager.getInstance(requireContext()).getToken()
         val type = SharedPrefManager.getInstance(requireContext()).getType()
-        val userName = SharedPrefManager.getInstance(requireContext()).getUserName()
+        val emailUser = SharedPrefManager.getInstance(requireContext()).getEmail()
         val oldPass = viewOfLayout.edOldPass.text.toString().trim()
         val newPass = viewOfLayout.edNewPassword.text.toString().trim()
         val confirmNewPass = viewOfLayout.edComfirmNewPassword.text.toString().trim()
@@ -86,7 +86,7 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
             return
         }
 
-        RetrofitClient.getApiService().putChangePass("$type  $token",ChangePassUser(userName!!,oldPass,newPass,confirmNewPass)).enqueue(object : Callback<Void> {
+        RetrofitClient.getApiService().putChangePass("$type  $token",ChangePassUser(emailUser!!,oldPass,newPass,confirmNewPass)).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.code() == 200) {
                     activity!!.runOnUiThread {
@@ -98,7 +98,6 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
                 } else {
                     activity!!.runOnUiThread {
                         Toasty.error(context!!, "Old Password is Wrong", Toast.LENGTH_SHORT, true).show()
-
                     }
                 }
 

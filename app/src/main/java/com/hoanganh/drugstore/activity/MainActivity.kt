@@ -27,7 +27,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    var userName = ""
+    var emailUser = ""
     var password = ""
     var dialog: AlertDialog? = null
 
@@ -104,12 +104,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun loginAccount() {
-        userName = edUserName.text.toString().trim()
+        emailUser = edEmailUser.text.toString().trim()
         password = edPassword.text.toString().trim()
 
-        if (userName.isEmpty()) {
-            edUserName.error = "User required"
-            edUserName.requestFocus()
+        if (emailUser.isEmpty()) {
+            edEmailUser.error = "User required"
+            edEmailUser.requestFocus()
             return
         }
         if (password.isEmpty()) {
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             dialog!!.show()
 
 
-            RetrofitClient.getApiService().userLogin(LoginResponse(userName, password)).enqueue(object : Callback<User> {
+            RetrofitClient.getApiService().userLogin(LoginResponse(emailUser, password)).enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     dialog!!.dismiss()
                     runOnUiThread {
