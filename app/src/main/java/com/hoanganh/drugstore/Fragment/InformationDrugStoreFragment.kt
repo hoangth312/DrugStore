@@ -17,6 +17,8 @@ import com.hoanganh.drugstore.model.Comment
 import com.hoanganh.drugstore.model.ProductUsed
 import com.hoanganh.drugstore.model.Services
 import com.hoanganh.drugstore.R
+import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.app_bar_fragments.view.*
 import kotlinx.android.synthetic.main.fragment_information_drug_store.*
 import kotlinx.android.synthetic.main.fragment_information_drug_store.view.*
 import java.text.SimpleDateFormat
@@ -34,7 +36,7 @@ class InformationDrugStoreFragment : Fragment() {
     private val now = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewOfLayout = inflater.inflate(R.layout.fragment_information_drug_store, container, false)
-
+        viewOfLayout.toolbar_title.text = getString(R.string.detailOfDrugstore)
 
 
 
@@ -95,19 +97,25 @@ class InformationDrugStoreFragment : Fragment() {
         viewOfLayout.reviewCommentDS.setOnRatingBarChangeListener { ratingBar, rating, fromUser -> rating }
 
         viewOfLayout.btnCommentDS.setOnClickListener {
-            if (edtComment.text.toString() == "") {
-                Toast.makeText(context, "Pls Enter Text", Toast.LENGTH_SHORT).show()
-            } else if (reviewCommentDS.rating.toDouble() == 0.0) {
-                Toast.makeText(context, "Pls Enter Rating for you", Toast.LENGTH_SHORT).show()
-            } else {
-                val cmt = edtComment.text.toString()
-                val currentDate = txtDateCommentDS.text.toString()
-                val rateValue = reviewCommentDS.rating
-                listCommentDS.add(0, Comment(cmt, "", rateValue, currentDate))
-                val listCommentAdapter = CommentAdapter(listCommentDS)
-                viewOfLayout.rcComment.layoutManager = LinearLayoutManager(context)
-                viewOfLayout.rcComment.setItemViewCacheSize(2)
-                viewOfLayout.rcComment.adapter = listCommentAdapter
+            when {
+                edtComment.text.toString() == "" -> {
+                    Toasty.error(requireContext(), "Pls Enter Text", Toast.LENGTH_SHORT, true).show()
+                    // Toast.makeText(context, "Pls Enter Text", Toast.LENGTH_SHORT).show()
+                }
+                reviewCommentDS.rating.toDouble() == 0.0 -> {
+                    Toasty.error(requireContext(), "Pls Enter Rating for you", Toast.LENGTH_SHORT, true).show()
+                    //Toast.makeText(context, "Pls Enter Rating for you", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    val cmt = edtComment.text.toString()
+                    val currentDate = txtDateCommentDS.text.toString()
+                    val rateValue = reviewCommentDS.rating
+                    listCommentDS.add(0, Comment(cmt, "", rateValue, currentDate))
+                    val listCommentAdapter = CommentAdapter(listCommentDS)
+                    viewOfLayout.rcComment.layoutManager = LinearLayoutManager(context)
+                    viewOfLayout.rcComment.setItemViewCacheSize(2)
+                    viewOfLayout.rcComment.adapter = listCommentAdapter
+                }
             }
         }
 

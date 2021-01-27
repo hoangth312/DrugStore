@@ -103,5 +103,8 @@
     <string name="comfirm_new_your_password">Comfirm New Your Password</string>
     <string name="confirm">Confirm</string>
     <string name="input_your_mail">Input Your Mail</string>
+    <string name="save">Save</string>
+    <string name="don_t_save">Don\'t Save</string>
+    <string name="notification_change_pass_success">Your request has been processed. You will get e-mail guide to change the password.</string>
 
 </resources>

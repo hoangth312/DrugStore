@@ -12,6 +12,7 @@ import com.hoanganh.drugstore.model.ChangePassUser
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
 import com.hoanganh.drugstore.preference.SharedPrefManager
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_change_pass.*
 import kotlinx.android.synthetic.main.fragment_change_pass.view.*
 import retrofit2.Call
@@ -43,7 +44,7 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v){
-            btnCancelChangePass-> { navc?.navigate(R.id.action_fmChangePass_to_nav_informationUser)}
+            btnCancelChangePass-> { navc!!.popBackStack()}
             btnConfirmChagnePass->{changePass()}
         }
     }
@@ -66,7 +67,7 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
             return
         }
         if (newPass.isEmpty()){
-            viewOfLayout.edNewPassword.error = "Old Password required"
+            viewOfLayout.edNewPassword.error = "New Password required"
             viewOfLayout.edNewPassword.requestFocus()
             return
         }
@@ -89,13 +90,15 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.code() == 200) {
                     activity!!.runOnUiThread {
-                        Toast.makeText(context, "Change Password Successfully", Toast.LENGTH_SHORT).show()
+                        Toasty.success(context!!, "Change Password Successfully", Toast.LENGTH_SHORT, true).show()
+
                     }
                     SharedPrefManager.getInstance(requireContext()).logOutShare()
                     activity!!.finish()
                 } else {
                     activity!!.runOnUiThread {
-                        Toast.makeText(context, "Old Password is Wrong", Toast.LENGTH_SHORT).show()
+                        Toasty.error(context!!, "Old Password is Wrong", Toast.LENGTH_SHORT, true).show()
+
                     }
                 }
 
@@ -103,7 +106,8 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 activity!!.runOnUiThread {
-                    Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(context!!, t.message.toString(), Toast.LENGTH_SHORT, true).show()
+                    
                 }
             }
 

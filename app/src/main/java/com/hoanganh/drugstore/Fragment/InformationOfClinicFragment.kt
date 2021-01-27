@@ -14,6 +14,7 @@ import com.hoanganh.drugstore.Adapter.NoteAdapter
 import com.hoanganh.drugstore.model.Clinics
 import com.hoanganh.drugstore.model.Comment
 import com.hoanganh.drugstore.R
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.app_bar_fragments.view.*
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.*
 import kotlinx.android.synthetic.main.fragment_information_of_clinic.view.*
@@ -74,19 +75,25 @@ class InformationOfClinicFragment : Fragment() {
         viewOfLayout.txtDateCommentClinic.text = now
         viewOfLayout.reviewCommentClinic.setOnRatingBarChangeListener { ratingBar, rating, fromUser -> rating }
         viewOfLayout.btnCommentClinic.setOnClickListener {
-            if (edtCommentClinic.text.toString() == "") {
-                Toast.makeText(context, "Pls Enter Text", Toast.LENGTH_SHORT).show()
-            } else if (reviewCommentClinic.rating.toDouble() == 0.0) {
-                Toast.makeText(context, "Pls Enter Rating for you", Toast.LENGTH_SHORT).show()
-            } else {
-                val cmt = edtCommentClinic.text.toString()
-                val currentDate = txtDateCommentClinic.text.toString()
-                val rateValue = reviewCommentClinic.rating
-                listCommentClinics.add(0, Comment(cmt, "", rateValue, currentDate))
-                val listCommentAdapter = CommentAdapter(listCommentClinics)
-                viewOfLayout.reCommentClinic.layoutManager = LinearLayoutManager(context)
-                viewOfLayout.reCommentClinic.adapter = listCommentAdapter
+            when {
+                edtCommentClinic.text.toString() == "" -> {
+                    //Toast.makeText(context, "Pls Enter Text", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "Pls Enter Text", Toast.LENGTH_SHORT, true).show()
+                }
+                reviewCommentClinic.rating.toDouble() == 0.0 -> {
+                    Toasty.error(requireContext(), "Pls Enter Rating for you", Toast.LENGTH_SHORT, true).show()
+                    // Toast.makeText(context, "Pls Enter Rating for you", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    val cmt = edtCommentClinic.text.toString()
+                    val currentDate = txtDateCommentClinic.text.toString()
+                    val rateValue = reviewCommentClinic.rating
+                    listCommentClinics.add(0, Comment(cmt, "", rateValue, currentDate))
+                    val listCommentAdapter = CommentAdapter(listCommentClinics)
+                    viewOfLayout.reCommentClinic.layoutManager = LinearLayoutManager(context)
+                    viewOfLayout.reCommentClinic.adapter = listCommentAdapter
 
+                }
             }
 
         }

@@ -18,6 +18,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         Dexter.withContext(this)
                 .withPermissions(
+                        Manifest.permission.CAMERA,
                         Manifest.permission.CAMERA,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -124,7 +126,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     dialog!!.dismiss()
                     runOnUiThread {
-                        Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                        Toasty.error(applicationContext, t.message.toString(), Toast.LENGTH_SHORT, true).show()
                     }
                 }
 
@@ -134,9 +136,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         SharedPrefManager.getInstance(this@MainActivity).saveUser(response.body()!!.copy())
                         val intent = Intent(this@MainActivity, ScanBarCodeActivity::class.java)
                         startActivity(intent)
+                        runOnUiThread {
+                            Toasty.success(applicationContext, "Login Success!", Toast.LENGTH_SHORT, true).show()
+                        }
                     } else {
                         runOnUiThread {
-                            Toast.makeText(applicationContext, "User Name  or Password is Wrong", Toast.LENGTH_LONG).show()
+
+                            Toasty.error(applicationContext, "User Name or Password is Wrong!", Toast.LENGTH_SHORT, true).show()
                         }
 
                     }
@@ -144,8 +150,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             })
         } else {
             runOnUiThread {
-            Toast.makeText(applicationContext, "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
-        }
+                Toasty.error(applicationContext, "Internet Connection Not Available", Toast.LENGTH_SHORT, true).show();
+            }
         }
     }
 

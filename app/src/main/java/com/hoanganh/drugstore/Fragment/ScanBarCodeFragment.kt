@@ -18,6 +18,7 @@ import com.hoanganh.drugstore.extension.checkRequiredPermissions
 import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import com.hoanganh.drugstore.utils.InternetConnection
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_change_pass.view.*
 import kotlinx.android.synthetic.main.fragment_change_pass.view.btnCancelChangePass
 import kotlinx.android.synthetic.main.fragment_change_pass.view.btnConfirmChagnePass
@@ -103,19 +104,24 @@ class ScanBarCodeFragment : Fragment(), View.OnClickListener {
                         }
                     } else {
                         activity!!.runOnUiThread {
-                            Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
+                            Toasty.error(context!!, "No matching results were found", Toast.LENGTH_SHORT, true).show()
+
+                            //Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
                 override fun onFailure(call: Call<SearchDrugsModel>, t: Throwable) {
                     activity!!.runOnUiThread {
-                        Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show()
+                        Toasty.error(context!!, "onFailure", Toast.LENGTH_SHORT, true).show()
+
+//                        Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show()
                     }
                 }
             })
         } else {
             requireActivity().runOnUiThread {
-                Toast.makeText(requireContext(), "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
+                Toasty.error(requireContext(), "Internet Connection Not Available", Toast.LENGTH_SHORT, true).show()
+               // Toast.makeText(requireContext(), "Internet Connection Not Available", Toast.LENGTH_SHORT).show()
             }
         }
     }
