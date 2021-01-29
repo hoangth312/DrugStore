@@ -1,14 +1,16 @@
 package com.hoanganh.drugstore.model.drugstore
 
+import com.hoanganh.drugstore.model.Comment1
+
 data class DrugStoreModel(
     val apartmentNumber: String,
     val city: String,
     val commentTotal: Int,
     val country: String,
     val district: String,
-    val evaluates: List<Evaluate>,
+    val evaluates: List<Comment1>,
     val id: Int,
-    val imageDrugStores: List<ImageDrugStore>,
+    val imageDrugStores: List<String>,
     val latitude: Double,
     val longitude: Double,
     val name: String,

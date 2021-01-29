@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class ChangePassUser(
 
-
-
-
     @SerializedName("email")
     val email: String,
     val oldPassword: String,

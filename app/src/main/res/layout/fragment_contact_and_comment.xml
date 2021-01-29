@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/txtEXP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial"
+        android:textSize="@dimen/_12ssp"
+        android:text="100000000000000"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtProducer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="386dp"
+        android:fontFamily="@font/arial"
+        android:textSize="@dimen/_12ssp"
+        android:text="100000000000000"
+        app:layout_constraintTop_toBottomOf="@+id/txtEXP"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtDistribution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="386dp"
+        android:fontFamily="@font/arial"
+        android:textSize="@dimen/_12ssp"
+        android:text="100000000000000"
+        app:layout_constraintTop_toBottomOf="@+id/txtProducer"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtHotline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="386dp"
+        android:fontFamily="@font/arial"
+        android:textSize="@dimen/_12ssp"
+        android:text="100000000000000"
+        app:layout_constraintTop_toBottomOf="@+id/txtDistribution"
+        tools:ignore="MissingConstraints" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/gray_200"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/txtHotline"
+        />
+    <LinearLayout
+        android:id="@+id/linear6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        >
+
+        <ImageView
+            android:id="@+id/imgSpeech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_speech"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial"
+        android:text="@string/comment"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/_5sdp"
+       />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcCommentProduct"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear6" />
+
+    <EditText
+        android:id="@+id/edtCommentProduct"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext"
+        android:gravity="top"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="200"
+        android:minHeight="@dimen/_100sdp"
+        android:padding="@dimen/_5sdp"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rcCommentProduct" />
+
+    <LinearLayout
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_50sdp"
+
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtCommentProduct">
+
+        <TextView
+            android:id="@+id/txtDateCommentProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/date" />
+
+        <Button
+            android:id="@+id/btnCommentProduct"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:background="@drawable/button"
+            android:text="@string/comment"
+            android:textColor="#1AA6CD" />
+    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,5 +1,7 @@
 package com.hoanganh.drugstore.model
 
+import com.hoanganh.drugstore.model.drugstore.Service
+
 data class DrugStoreItem(
     val apartmentNumber: String,
     val city: String,
