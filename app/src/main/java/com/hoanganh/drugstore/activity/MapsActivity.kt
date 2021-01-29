@@ -70,7 +70,7 @@ import kotlin.collections.ArrayList
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-   private var listCityName: MutableList<Address> = mutableListOf()
+    private var listCityName: MutableList<Address> = mutableListOf()
     var dialog: AlertDialog? = null
     private lateinit var mapGG: GoogleMap
     lateinit var sharedPerfFlags: SharedPreferences
@@ -248,7 +248,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             Toasty.info(this@MapsActivity, "Taking positioning, ,Wait 3 seconds", Toast.LENGTH_SHORT, true).show()
 
-          //  Toast.makeText(this, "Taking positioning, ,Wait 3 seconds", Toast.LENGTH_SHORT).show()
+            //  Toast.makeText(this, "Taking positioning, ,Wait 3 seconds", Toast.LENGTH_SHORT).show()
             Handler(Looper.getMainLooper()).postDelayed({
                 if (mapGG.myLocation != null) {
                     setMyLocation()
@@ -292,7 +292,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun searchDrugStore() {
         btnSearchDrugStore.isEnabled = false
         btnSearchClinic.isEnabled = false
-       // diaLogLoading()
+        // diaLogLoading()
         dialog!!.show()
         listAddressStores.clear()
         addressStoreNearbyPlaces.clear()
@@ -464,7 +464,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 runOnUiThread {
                     Toasty.error(this@MapsActivity, t.message.toString(), Toast.LENGTH_SHORT, true).show()
 
-                   // Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(this@MapsActivity, t.message, Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -552,7 +552,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     marker.remove()
             }
         } else {
-          //  Toast.makeText(this, "Clinic null", Toast.LENGTH_SHORT).show()
+            //  Toast.makeText(this, "Clinic null", Toast.LENGTH_SHORT).show()
             Toasty.error(this@MapsActivity, "Something is Wrong", Toast.LENGTH_SHORT, true).show()
 
         }

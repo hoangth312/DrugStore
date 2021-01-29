@@ -1,4 +1,4 @@
 package com.hoanganh.drugstore.model
 
-class Banner(imgBanner : Int) {
+data class Banner(val id : Int, val imageUrl: String) {
 }

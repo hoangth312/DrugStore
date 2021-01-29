@@ -18,28 +18,27 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F5F5">
+        android:background="#FAF6F6">
 
         <ImageView
             android:id="@+id/imgMedicine"
             android:layout_width="@dimen/_250sdp"
             android:layout_height="@dimen/_250sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/salonpas"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textPrice"
+            android:id="@+id/txtPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_120sdp"
+           android:layout_marginStart="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/arial"
             android:text="@string/price"
-            android:textSize="@dimen/_15ssp"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgMedicine" />
@@ -52,8 +51,9 @@
             android:text="@string/tax"
             android:textColor="#FF9800"
             android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toTopOf="@+id/tv"
-            app:layout_constraintLeft_toRightOf="@+id/textPrice"
+            app:layout_constraintLeft_toRightOf="@+id/txtPrice"
             app:layout_constraintTop_toBottomOf="@+id/imgMedicine" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:background="#898989"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/txtPrice" />
 
         <LinearLayout
             android:id="@+id/linearHeart"
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv">
 
             <TextView
-                android:id="@+id/txtLike"
+                android:id="@+id/txtNumberLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -84,17 +84,18 @@
                 android:fontFamily="@font/arial"
                 android:text="@string/number"
                 android:textColor="#898989"
-                android:textSize="@dimen/_15ssp" />
+                android:textSize="@dimen/_13ssp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imgUnlike"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:background="@drawable/ic_unlike" />
 
             <TextView
-                android:id="@+id/txtSpeech"
+                android:id="@+id/txtCommentPd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -102,50 +103,52 @@
                 android:fontFamily="@font/arial"
                 android:text="@string/number"
                 android:textColor="#898989"
-                android:textSize="@dimen/_15ssp" />
+                android:textSize="@dimen/_13ssp" />
 
             <ImageView
                 android:id="@+id/imgSpeech"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/_5ssp"
                 android:background="@drawable/ic_speech" />
 
             <ImageView
                 android:id="@+id/imgFacebook"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/_80sdp"
                 android:background="@drawable/ic__facebook_gray" />
 
             <ImageView
                 android:id="@+id/googlePlus"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_google_gray" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/linearTab"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_500sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/linearHeart"
-            tools:ignore="MissingConstraints">
+           >
 
-            <TableLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPagerProduct"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="@dimen/_280sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                />
         </LinearLayout>
 
         <ImageView
@@ -153,8 +156,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/ic_bag"
+            app:layout_constraintBottom_toTopOf="@+id/reSimilarProduct"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearTab" />
 
@@ -162,18 +165,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/arial"
             android:text="@string/similarProduct"
-            android:textSize="@dimen/_18ssp"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/reSimilarProduct"
             app:layout_constraintStart_toEndOf="@id/imgBag"
             app:layout_constraintTop_toBottomOf="@+id/linearTab" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reSimilarProduct"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/imgBag" />
     </androidx.constraintlayout.widget.ConstraintLayout>

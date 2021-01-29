@@ -1,7 +1,9 @@
 package com.hoanganh.drugstore.Fragment
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -98,7 +100,6 @@ class SearchDrugsFragment : Fragment() {
 
     private fun getListData() {
 
-
         nameDrugSearch = viewOfLayout.edtSearchDrug.text.toString()
         token = SharedPrefManager.getInstance(requireContext()).getToken().toString()
         type = SharedPrefManager.getInstance(requireContext()).getType().toString()
@@ -110,12 +111,15 @@ class SearchDrugsFragment : Fragment() {
                         dataList = response.body() as ArrayList<SearchDrugsModel>
                         activity!!.runOnUiThread {
                             if (dataList.size == 0) {
+                                Log.d("Tesst", "onResponse: ConfigurationListener::"+call.request().url());
                                 Toasty.error(context!!, "No matching results were found", Toast.LENGTH_SHORT, true).show()
                             }
                             setupView()
                         }
                     } else {
                         activity!!.runOnUiThread {
+                            Log.d("Tesst", "onResponse: ConfigurationListener::"+call.request().url());
+
                             Toasty.error(context!!, "No matching results were found", Toast.LENGTH_SHORT, true).show()
 
                             //Toast.makeText(context, "lỗi", Toast.LENGTH_SHORT).show()
@@ -126,6 +130,7 @@ class SearchDrugsFragment : Fragment() {
                 override fun onFailure(call: Call<List<SearchDrugsModel>>, t: Throwable) {
                     activity!!.runOnUiThread {
                         Toasty.error(context!!, "onFailure", Toast.LENGTH_SHORT, true).show()
+                        Log.d("Tesst", "onResponse: ConfigurationListener::"+call.request().url());
 
                         //Toast.makeText(context, "onFailure", Toast.LENGTH_SHORT).show()
                     }
