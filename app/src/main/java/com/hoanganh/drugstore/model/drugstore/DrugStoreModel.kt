@@ -20,6 +20,7 @@ data class DrugStoreModel(
     val services: List<Service>,
     val status: Int,
     val street: String,
+    val categories: List<Category>,
     val timeWorking: String,
     val vote: Double
 )

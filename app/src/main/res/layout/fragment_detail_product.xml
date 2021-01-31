@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/_10sdp">
 
-    <TextView
-        android:id="@+id/txtAttention"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/arial"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:text="@string/timeMorning"
-        android:textColor="#898989"
-        android:textSize="@dimen/_12ssp"
-        />
-    <TextView
-    android:id="@+id/txtIngredient"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:fontFamily="@font/arial"
-    android:layout_marginStart="@dimen/_2sdp"
-    android:text="@string/timeMorning"
-    android:textColor="#898989"
-    android:textSize="@dimen/_12ssp"
-        app:layout_constraintTop_toBottomOf="@+id/txtAttention"
-    />
-    <TextView
-    android:id="@+id/txtNoteProduct"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:fontFamily="@font/arial"
-    android:layout_marginStart="@dimen/_2sdp"
-    android:text="@string/timeMorning"
-    android:textColor="#898989"
-    android:textSize="@dimen/_12ssp"
-    app:layout_constraintTop_toBottomOf="@+id/txtIngredient"
-    />
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtAttention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:fontFamily="@font/arial"
+            android:maxLength="80"
+            android:text="@string/timeMorning"
+            android:textColor="#898989"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:id="@+id/txtIngredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:fontFamily="@font/arial"
+            android:maxLength="80"
+
+            android:text="@string/timeMorning"
+            android:textColor="#898989"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@+id/txtAttention" />
+
+        <TextView
+            android:id="@+id/txtNoteProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:fontFamily="@font/arial"
+            android:maxLength="80"
+
+            android:text="@string/timeMorning"
+            android:textColor="#898989"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@+id/txtIngredient" />
+    </LinearLayout>
+</ScrollView>

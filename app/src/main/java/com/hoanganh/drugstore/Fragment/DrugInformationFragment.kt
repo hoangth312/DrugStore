@@ -1,6 +1,8 @@
 package com.hoanganh.drugstore.Fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +13,8 @@ import com.hoanganh.drugstore.Adapter.SimilarProductAdapter
 import com.hoanganh.drugstore.Adapter.ViewPagerProductAdapter
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
-import com.hoanganh.drugstore.model.Comment1
 import com.hoanganh.drugstore.model.Like
-import com.hoanganh.drugstore.model.product.EvaluateInit
-import com.hoanganh.drugstore.model.product.EvaluateRequest
+import com.hoanganh.drugstore.model.product.LikeRequest
 import com.hoanganh.drugstore.model.product.Product
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import com.squareup.picasso.Picasso
@@ -27,6 +27,10 @@ import retrofit2.Response
 import kotlin.properties.Delegates
 
 class DrugInformationFragment : DialogFragment() {
+    private var isLiked: Boolean = false
+    private var totalLike by Delegates.notNull<Int>()
+    private var idEvaluate by Delegates.notNull<Int>()
+    private var idProduct by Delegates.notNull<Int>()
     private var args by Delegates.notNull<Int>()
     private lateinit var viewOfLayout: View
     private var categoryName = ""
@@ -36,6 +40,7 @@ class DrugInformationFragment : DialogFragment() {
     var similarAdapter: SimilarProductAdapter? = null
     private var linearLayoutManager: LinearLayoutManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setStyle(
                 DialogFragment.STYLE_NORMAL,
@@ -49,11 +54,89 @@ class DrugInformationFragment : DialogFragment() {
         type = SharedPrefManager.getInstance(requireContext()).getType().toString()
         args = DrugInformationFragmentArgs.fromBundle(requireArguments()).sendIdDrug
         getData()
+        handleClickLikeButton()
+//        getLikeSharePreference()
         return viewOfLayout
+    }
+
+//    private fun getLikeSharePreference() {
+//        val sharedPreferences = requireActivity().getSharedPreferences("Like", Context.MODE_PRIVATE)
+//        isLiked = sharedPreferences.getBoolean("saveLike", false)
+//        checkLike(isLiked)
+//    }
+//
+//    private fun saveLikeSharePreference(isLiked: Boolean) {
+//        val sharedPreferences = requireActivity().getSharedPreferences("Like", Context.MODE_PRIVATE)
+//        val status = sharedPreferences.edit()
+//        status.putBoolean("saveLike", isLiked)
+//        status.apply()
+//    }
+
+//    private fun checkLike(isLiked: Boolean) {
+//        when(isLiked){
+//            true -> viewOfLayout.imgUnlike.setImageResource(R.drawable.ic_like)
+//            false -> viewOfLayout.imgUnlike.setImageResource(R.drawable.ic_unlike)
+//        }
+//    }
+
+    private fun handleClickLikeButton() {
+        viewOfLayout.imgUnlike.setOnClickListener {
+            val user = SharedPrefManager.getInstance(requireContext()).getID()
+            if (!isLiked) {
+                isLiked = true
+                viewOfLayout.imgUnlike.setImageResource(R.drawable.ic_like)
+                viewOfLayout.txtNumberLike.text = (totalLike + 1).toString()
+                addLike(user, true)
+ //               saveLikeSharePreference(true)
+                Log.e("ptest", "onLikeClick true")
+
+            } else {
+                isLiked = false
+                viewOfLayout.imgUnlike.setImageResource(R.drawable.ic_unlike)
+                viewOfLayout.txtNumberLike.text = totalLike.toString()
+                updateLike(false, idEvaluate)
+ //               saveLikeSharePreference(false)
+                Log.e("ptest", "onLikeClick false")
+            }
+        }
+    }
+
+
+    private fun addLike(user: Int, isLike: Boolean) {
+        RetrofitClient
+                .getApiService()
+                .addLike("$type  $token", Like(likes = isLike, args, user))
+                .enqueue(object : Callback<LikeRequest> {
+                    override fun onResponse(call: Call<LikeRequest>, response: Response<LikeRequest>) {
+                        activity!!.runOnUiThread {
+                            idEvaluate = response.body()!!.id
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<LikeRequest>, t: Throwable) {
+                    }
+                })
+    }
+
+    private fun updateLike(isLike: Boolean, idEvaluate: Int) {
+        RetrofitClient
+                .getApiService()
+                .updateLike("$type  $token", LikeRequest(idEvaluate, likes = isLike))
+                .enqueue(object : Callback<LikeRequest> {
+                    override fun onResponse(call: Call<LikeRequest>, response: Response<LikeRequest>) {
+                        activity!!.runOnUiThread() {
+                        }
+                    }
+
+                    override fun onFailure(call: Call<LikeRequest>, t: Throwable) {
+                    }
+                })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewPager(args)
+
     }
 
     private fun viewPager(args: Int) {
@@ -69,16 +152,11 @@ class DrugInformationFragment : DialogFragment() {
                     activity!!.runOnUiThread {
                         viewOfLayout.txtNameMedicine.text = response.body()!!.vietnameseName
                         viewOfLayout.textView2.text = response.body()!!.description
-                        var listImageProduct = response.body()!!.imageProducts
+                        val listImageProduct = response.body()!!.imageProducts
                         Picasso.get().load(listImageProduct.get(0)).into(viewOfLayout.imgMedicine)
-                        viewOfLayout.tvPrice.text = response.body()!!.price.toString() + " VND"
+                        viewOfLayout.tvPrice.text = response.body()!!.price.toString() + " VND(" + response.body()!!.priceTax.toString() + " VNĐ)"
                         viewOfLayout.txtNumberLike.text = response.body()!!.likeTotal.toString()
-                        viewOfLayout.imgUnlike.setOnClickListener {
-                            viewOfLayout.imgUnlike.setImageResource(R.drawable.ic_like)
-                            viewOfLayout.txtNumberLike.text = (response.body()!!.likeTotal + 1).toString()
-                            val user = SharedPrefManager.getInstance(requireContext()).getID()
-                            val like: Boolean? = null
-                        }
+                        totalLike = response.body()!!.likeTotal
                         viewOfLayout.txtCommentPd.text = response.body()!!.commentTotal.toString()
                         categoryName = response.body()!!.categoryName
                         getListProduct(categoryName)
@@ -127,6 +205,34 @@ class DrugInformationFragment : DialogFragment() {
     }
 
     private fun onCellClickListener(products: Product) {
+          val args = products.id
+            getDataId(args)
+    }
+
+    private fun getDataId(args: Int) {
+        RetrofitClient.getApiService().getProducts("$type  $token", args).enqueue(object : Callback<Product> {
+            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                if (response.code() == 200) {
+                    activity!!.runOnUiThread {
+                        viewOfLayout.txtNameMedicine.text = response.body()!!.vietnameseName
+                        viewOfLayout.textView2.text = response.body()!!.description
+                        val listImageProduct = response.body()!!.imageProducts
+                        Picasso.get().load(listImageProduct.get(0)).into(viewOfLayout.imgMedicine)
+                        viewOfLayout.tvPrice.text = response.body()!!.price.toString() + " VND(" + response.body()!!.priceTax.toString() + " VNĐ)"
+                        viewOfLayout.txtNumberLike.text = response.body()!!.likeTotal.toString()
+                        totalLike = response.body()!!.likeTotal
+                        viewOfLayout.txtCommentPd.text = response.body()!!.commentTotal.toString()
+                        categoryName = response.body()!!.categoryName
+                        getListProduct(categoryName)
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+
+            }
+        })
 
     }
 }

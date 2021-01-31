@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoanganh.drugstore.Adapter.EvaluateAdapter
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CustomEllipsize
 import com.hoanganh.drugstore.model.product.EvaluateInit
 import com.hoanganh.drugstore.model.product.EvaluateRequest
 import com.hoanganh.drugstore.model.product.Product
@@ -36,11 +37,11 @@ class ContactAndCommentFragment(getId: Int) : Fragment() {
         token = SharedPrefManager.getInstance(requireContext()).getToken().toString()
         type = SharedPrefManager.getInstance(requireContext()).getType().toString()
         getContactAndComment(args)
-        updateComment(args)
+        addComment(args)
         return viewOfLayout
     }
 
-    private fun updateComment(args: Int) {
+    private fun addComment(args: Int) {
         viewOfLayout.txtDateCommentProduct.text = createDate
         viewOfLayout.btnCommentProduct.setOnClickListener {
             when {
@@ -52,14 +53,13 @@ class ContactAndCommentFragment(getId: Int) : Fragment() {
                     val currentDate = txtDateCommentProduct.text.toString()
                     val user = SharedPrefManager.getInstance(requireContext()).getID()
                     RetrofitClient.getApiService()
-                            .updateEvaluates("$type $token", EvaluateInit(cmt, args, user))
+                            .addEvaluates("$type $token", EvaluateInit(cmt, args, user))
                             .enqueue(object : Callback<EvaluateRequest> {
                                 override fun onResponse(call: Call<EvaluateRequest>, response: Response<EvaluateRequest>) {
                                     if (response.isSuccessful) {
                                         activity!!.runOnUiThread {
                                             val username = response.body()!!.user
                                             listCommentProduct.add(0, EvaluateRequest(cmt, currentDate, args, username))
-//                                    getDataDrugStore()
                                             getAllComment()
                                         }
                                     }
@@ -81,14 +81,13 @@ class ContactAndCommentFragment(getId: Int) : Fragment() {
                 if (response.isSuccessful) {
                     activity!!.runOnUiThread {
                         val array: String = response.body()!!.attention
-                        val exp: String = array.split(".\n")[3]
-                        viewOfLayout.txtEXP.text = exp
                         val producer: String = array.split(".\n")[4]
                         viewOfLayout.txtProducer.text = producer
                         val distribution: String = array.split(".\n")[5]
                         viewOfLayout.txtDistribution.text = distribution
                         val hotline: String = array.split(".\n")[6]
                         viewOfLayout.txtHotline.text = hotline
+
                         listCommentProduct = response.body()!!.evaluates as ArrayList<EvaluateRequest>
                         if (listCommentProduct.size > 0) {
                             getAllComment()

@@ -99,7 +99,6 @@ class SearchDrugsFragment : Fragment() {
 
 
     private fun getListData() {
-
         nameDrugSearch = viewOfLayout.edtSearchDrug.text.toString()
         token = SharedPrefManager.getInstance(requireContext()).getToken().toString()
         type = SharedPrefManager.getInstance(requireContext()).getType().toString()

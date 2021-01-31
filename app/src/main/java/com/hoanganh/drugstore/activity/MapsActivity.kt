@@ -266,6 +266,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setMyLocation() {
+
         if (mapGG.myLocation == null) {
             Toasty.error(this, "Can't update Your Location", Toast.LENGTH_SHORT, true).show()
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CustomEllipsize
 import com.hoanganh.drugstore.model.product.Product
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_detail_product.view.*
@@ -32,19 +33,23 @@ class InformationProductFragment(getId: Int) : Fragment() {
             override fun onResponse(call: Call<Product>, response: Response<Product>) {
                 if (response.isSuccessful) {
                     activity!!.runOnUiThread {
-                        val array : String = response.body()!!.attention
-                        val a : String = array.split(".\n")[0]
-                        viewOfLayout.txtAttention.text = a
-                        val b : String = array.split(".\n")[1]
-                        viewOfLayout.txtIngredient.text = b
-                        val c : String = array.split(".\n")[2]
-                        viewOfLayout.txtNoteProduct.text = c
+                        val array: String = response.body()!!.attention
+                        val attention: String = array.split(".\n")[0]
+                        viewOfLayout.txtAttention.text = attention
+                        CustomEllipsize(viewOfLayout.txtAttention, 1, "...")
+                        val ingredient: String = array.split(".\n")[1]
+                        viewOfLayout.txtIngredient.text = ingredient
+                        CustomEllipsize(viewOfLayout.txtIngredient, 1, "...")
+                        val noteProduct: String = array.split(".\n")[2]
+                        viewOfLayout.txtNoteProduct.text = noteProduct
+                        CustomEllipsize(viewOfLayout.txtNoteProduct, 1, "...")
                     }
                 }
+
             }
 
             override fun onFailure(call: Call<Product>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
     }

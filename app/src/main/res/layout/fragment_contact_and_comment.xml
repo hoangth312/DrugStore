@@ -2,20 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+   android:scrollbars="vertical"
+    android:fillViewport="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/txtEXP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/arial"
-        android:textSize="@dimen/_12ssp"
-        android:text="100000000000000"
-        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtProducer"
@@ -24,8 +18,7 @@
         android:layout_marginEnd="386dp"
         android:fontFamily="@font/arial"
         android:textSize="@dimen/_12ssp"
-        android:text="100000000000000"
-        app:layout_constraintTop_toBottomOf="@+id/txtEXP"
+        android:text=""
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -35,7 +28,7 @@
         android:layout_marginEnd="386dp"
         android:fontFamily="@font/arial"
         android:textSize="@dimen/_12ssp"
-        android:text="100000000000000"
+        android:text=""
         app:layout_constraintTop_toBottomOf="@+id/txtProducer"
         tools:ignore="MissingConstraints" />
 
@@ -46,7 +39,7 @@
         android:layout_marginEnd="386dp"
         android:fontFamily="@font/arial"
         android:textSize="@dimen/_12ssp"
-        android:text="100000000000000"
+        android:text=""
         app:layout_constraintTop_toBottomOf="@+id/txtDistribution"
         tools:ignore="MissingConstraints" />
     <View

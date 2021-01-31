@@ -11,9 +11,8 @@ import kotlinx.android.synthetic.main.item_faculty_clinic.view.*
 
 
 class FacultyAdapter(private val listFaculty: ArrayList<Faculty>) : RecyclerView.Adapter<FacultyAdapter.FacultyViewHolder>() {
-    class FacultyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class FacultyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacultyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_faculty_clinic, parent, false)
