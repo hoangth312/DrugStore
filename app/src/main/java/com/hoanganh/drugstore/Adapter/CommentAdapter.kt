@@ -19,18 +19,19 @@ class CommentAdapter(private val listComment: ArrayList<Comment1>) : RecyclerVie
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment1 = listComment[position]
-        if (comment1.comment != null) {
-            holder.itemView.txtComment.text = comment1.comment
-        }
-        holder.itemView.dateComment.text = comment1.updatedDate
-        if (comment1.user != null) {
-            holder.itemView.txtNameUser.text = comment1.user.userName
-        }
+
+        holder.itemView.txtComment.text = comment1.comment
+
+        holder.itemView.dateComment.text = comment1.createdDate
+
+        holder.itemView.txtNameUser.text = comment1.user.userName
+
         holder.itemView.reviewComment.rating = comment1.vote.toFloat()
     }
 
     override fun getItemCount(): Int {
         return listComment.size
+
 
     }
 }

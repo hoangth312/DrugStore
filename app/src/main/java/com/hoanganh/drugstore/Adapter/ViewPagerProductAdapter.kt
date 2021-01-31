@@ -32,7 +32,7 @@ class ViewPagerProductAdapter(fm: FragmentManager, args: Int) : FragmentPagerAda
         when(position){
             0 -> {return "Explain"}
             1 -> {return "Information"}
-            2 -> {return "Contact & Comment"}
+            2 -> {return "Contact"}
         }
         return super.getPageTitle(position)
     }

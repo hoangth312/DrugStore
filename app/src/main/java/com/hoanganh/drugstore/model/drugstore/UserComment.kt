@@ -1,7 +1,7 @@
 package com.hoanganh.drugstore.model.drugstore
 
 data class UserComment(
-    val avatarUrl: Any,
-    val id: Int,
-    val name: String
+        val userName: String,
+        val avatarUrl: String,
+        val userId: Int
 )

@@ -6,6 +6,7 @@ import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.model.drugstore.DrugStoreModel
 import com.hoanganh.drugstore.model.product.EvaluateInit
 import com.hoanganh.drugstore.model.product.EvaluateRequest
+import com.hoanganh.drugstore.model.product.LikeRequest
 import com.hoanganh.drugstore.model.product.Product
 import retrofit2.Call
 import retrofit2.http.*
@@ -67,11 +68,30 @@ interface API {
             @Query("id") id: Int,
     ): Call<Product>
 
-    @POST("evaluates/add/product")
-    fun updateEvaluates(
+
+    @POST("evaluates/add")
+    fun addEvaluates(
             @Header("Authorization") auth: String,
             @Body evaluate: EvaluateInit,
     ):Call<EvaluateRequest>
+
+    @POST("evaluates/add")
+    fun addLike(
+            @Header("Authorization") auth: String,
+            @Body evaluate: Like,
+    ):Call<LikeRequest>
+
+    @PUT("evaluates/update")
+    fun updateLike(
+            @Header("Authorization") auth: String,
+            @Body evaluate: LikeRequest,
+    ):Call<LikeRequest>
+
+    @GET("evaluates/id")
+    fun getLike(
+            @Header("Authorization") auth: String,
+            @Query("id") id : Int,
+    ): Call<LikeRequest>
 
     @GET("products/search/category")
     fun getListSP(
@@ -87,12 +107,13 @@ interface API {
             @Query("longitude") longitude: Double,
     ): Call<DrugStoreModel>
 
+
     @GET("drugstores/images")
     fun getBannerDrug(@Header("Authorization") auth: String,
                       @Query("id") id: Int
     ): Call<List<Banner>>
 
-    @POST("evaluates/add/drugstore")
+    @POST("evaluates/add")
     fun addCommentDS(@Header("Authorization") auth: String,
                      @Body comment: Comment
     ): Call<Comment1>
@@ -110,7 +131,7 @@ interface API {
                         @Query("id") id: Int
     ): Call<List<Banner>>
 
-    @POST("evaluates/add/clinic")
+    @POST("evaluates/add")
     fun addCommentClinic(@Header("Authorization") auth: String,
                         @Body comment: Comment
     ): Call<Comment1>

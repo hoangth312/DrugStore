@@ -6,10 +6,12 @@ import android.text.InputFilter.LengthFilter
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.model.LatLng
@@ -18,10 +20,12 @@ import com.hoanganh.drugstore.Adapter.CommentAdapter
 import com.hoanganh.drugstore.Adapter.FacultyAdapter
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CustomEllipsize
 import com.hoanganh.drugstore.model.Banner
 import com.hoanganh.drugstore.model.Comment
 import com.hoanganh.drugstore.model.Comment1
 import com.hoanganh.drugstore.model.clinic.ClinicModel
+import com.hoanganh.drugstore.model.clinic.ClinicWorkTime
 import com.hoanganh.drugstore.model.clinic.Faculty
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import es.dmoral.toasty.Toasty
@@ -48,6 +52,7 @@ class InformationOfClinicFragment : Fragment() {
     private var listFaculties = ArrayList<Faculty>()
     private var listBanner = ArrayList<Banner>()
     private var listCommentClinics = ArrayList<Comment1>()
+    private var listWorkingTime = ArrayList<ClinicWorkTime>()
     private val createDate = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,12 +62,7 @@ class InformationOfClinicFragment : Fragment() {
         type = SharedPrefManager.getInstance(requireContext()).getType().toString()
         setLatLng()
         getDataClinic()
-        viewOfLayout.txtSeeMore.setOnClickListener {
-            viewOfLayout.txtDetailClinic.apply {
-                addFilter(LengthFilter(250))
-                ellipsize = TextUtils.TruncateAt.END
-            }
-        }
+
         return viewOfLayout
 
     }
@@ -71,7 +71,6 @@ class InformationOfClinicFragment : Fragment() {
         args = InformationOfClinicFragmentArgs.fromBundle(requireArguments()).latlngClinic
         latitudeClinic = args.latitude
         longitudeClinic = args.longitude
-
 
     }
 
@@ -98,36 +97,44 @@ class InformationOfClinicFragment : Fragment() {
         RetrofitClient.getApiService().getClinic("$type  $token", latitudeClinic, longitudeClinic).enqueue(object : Callback<ClinicModel> {
             override fun onResponse(call: Call<ClinicModel>, response: Response<ClinicModel>) {
                 if (response.isSuccessful) {
-                    var idClinic = response.body()!!.id
-                    getDataBanner(idClinic)
-                    viewOfLayout.txtNameClinic.text = response.body()!!.name
-                    viewOfLayout.ratingbarClinic.rating = (response.body()!!.vote).toFloat()
-                    viewOfLayout.addressClinic.text = response.body()!!.apartmentNumber + " " + response.body()!!.street + "," + response.body()!!.district + "," + response.body()!!.city
-                    viewOfLayout.phoneClinic.text = response.body()!!.phoneNumber
-                    viewOfLayout.txtLanguage.text = response.body()!!.languages
-                    viewOfLayout.txtWebsite.text = response.body()!!.websiteUrl
-                    viewOfLayout.txtDetailClinic.text = response.body()!!.information
+                    activity!!.runOnUiThread {
+                        var idClinic = response.body()!!.id
+                        getDataBanner(idClinic)
+                        viewOfLayout.txtNameClinic.text = response.body()!!.name
+                        viewOfLayout.ratingbarClinic.rating = (response.body()!!.vote).toFloat()
+                        viewOfLayout.addressClinic.text = response.body()!!.apartmentNumber + " " + response.body()!!.street + "," + response.body()!!.district + "," + response.body()!!.city
+                        viewOfLayout.phoneClinic.text = response.body()!!.phoneNumber
+                        viewOfLayout.txtLanguage.text = response.body()!!.languages
+                        viewOfLayout.txtWebsite.text = response.body()!!.websiteUrl
+                        viewOfLayout.timeWorkingMorning.text = response.body()!!.workTimeMorning
+                        viewOfLayout.timeWorkingAfternoon.text = response.body()!!.workTimeAfternoon
+                        listWorkingTime = response.body()!!.clinicWorkTimes as ArrayList<ClinicWorkTime>
+                        listWorkingTime.apply {
+                            getDateWorking()
+                        }
 
-                    if (txtDetailClinic.length() < 20) {
-                        viewOfLayout.txtSeeMore.visibility = View.GONE
-                    } else {
-                        viewOfLayout.txtSeeMore.visibility = View.VISIBLE
-                    }
-                    viewOfLayout.txtDetailClinic.apply {
-                        addFilter(LengthFilter(10))
-                        ellipsize = TextUtils.TruncateAt.END
-                    }
-                    listCommentClinics = response.body()!!.evaluates as ArrayList<Comment1>
-                    if (listCommentClinics.size > 0) {
-                        getAllComment()
-                    }
-                    val listFaculties = response.body()!!.faculties as ArrayList<Faculty>
-                    if (listFaculties.size > 0) {
-                        getAllFaculties()
-                    } else {
+                        viewOfLayout.txtDetailClinic.apply {
+                            txtDetailClinic.text = response.body()!!.information
+                            CustomEllipsize(txtDetailClinic, 1, "...")
+                        }
 
+                        if (txtDetailClinic.length() < 79) {
+                            viewOfLayout.txtSeeMore.visibility = GONE
+                        } else {
+                            viewOfLayout.txtSeeMore.visibility = VISIBLE
+                        }
+
+                        listCommentClinics = response.body()!!.evaluates as ArrayList<Comment1>
+                        if (listCommentClinics.size > 0) {
+                            getAllComment()
+                        }
+                        listFaculties = response.body()!!.faculties as ArrayList<Faculty>
+                        if (listFaculties.size > 0) {
+                            getAllFaculties()
+                        } else {
+                        }
+                        setDataComment(idClinic)
                     }
-                    setDataComment(idClinic)
                 }
             }
 
@@ -137,23 +144,104 @@ class InformationOfClinicFragment : Fragment() {
         })
     }
 
-    fun TextView.addFilter(filter: InputFilter) {
-        filters = if (filters.isNullOrEmpty()) {
-            arrayOf(filter)
-        } else {
-            filters.toMutableList()
-                    .apply {
-                        removeAll { it.javaClass == filter.javaClass }
-                        add(filter)
+    private fun getDateWorking() {
+        for (time in listWorkingTime) {
+            when (time.weekDay) {
+                "1" -> {
+                    when (time.workingMorning) {
+                        true -> viewOfLayout.checkMorMon.visibility = VISIBLE
+                        false -> viewOfLayout.checkMorMon.visibility = INVISIBLE
+
                     }
-                    .toTypedArray()
+                    when (time.workingAfternoon) {
+                        true -> viewOfLayout.checkAfterMon.visibility = VISIBLE
+                        false -> viewOfLayout.checkAfterMon.visibility = INVISIBLE
+
+                    }
+                }
+                "2" -> {
+                    when (time.workingMorning) {
+                        true -> viewOfLayout.checkMorTue.visibility = VISIBLE
+                        false -> viewOfLayout.checkMorTue.visibility = INVISIBLE
+
+                    }
+                    when (time.workingAfternoon) {
+                        true -> viewOfLayout.checkAfterTue.visibility = VISIBLE
+                        false -> viewOfLayout.checkAfterTue.visibility = INVISIBLE
+
+                    }
+                }
+                "3" -> {
+                    when (time.workingMorning) {
+                        true -> viewOfLayout.checkMorWed.visibility = VISIBLE
+                        false -> viewOfLayout.checkMorWed.visibility = INVISIBLE
+
+                    }
+                    when (time.workingAfternoon) {
+                        true -> viewOfLayout.checkAfterWed.visibility = VISIBLE
+                        false -> viewOfLayout.checkAfterWed.visibility = INVISIBLE
+
+                    }
+                }
+                "4" -> {
+                    when (time.workingMorning) {
+                        true -> viewOfLayout.checkMorThu.visibility = VISIBLE
+                        false -> viewOfLayout.checkMorThu.visibility = INVISIBLE
+
+                    }
+                    when (time.workingAfternoon) {
+                        true -> viewOfLayout.checkAfterThu.visibility = VISIBLE
+                        false -> viewOfLayout.checkAfterThu.visibility = INVISIBLE
+
+                    }
+                }
+                "5" -> {
+                    when (time.workingMorning) {
+                        true -> viewOfLayout.checkMorFri.visibility = VISIBLE
+                        false -> viewOfLayout.checkMorFri.visibility = INVISIBLE
+
+                    }
+                    when (time.workingAfternoon) {
+                        true -> viewOfLayout.checkAfterFri.visibility = VISIBLE
+                        false -> viewOfLayout.checkAfterFri.visibility = INVISIBLE
+
+                    }
+                }
+                "6" -> {
+                    when (time.workingMorning) {
+                        true -> viewOfLayout.checkMorSat.visibility = VISIBLE
+                        false -> viewOfLayout.checkMorSat.visibility = INVISIBLE
+
+                    }
+                    when (time.workingAfternoon) {
+                        true -> viewOfLayout.checkAfterSat.visibility = VISIBLE
+                        false -> viewOfLayout.checkAfterSat.visibility = INVISIBLE
+
+                    }
+                }
+                "7" -> {
+                    when (time.workingMorning) {
+                        true -> viewOfLayout.checkMorSun.visibility = VISIBLE
+                        false -> viewOfLayout.checkMorSun.visibility = INVISIBLE
+
+                    }
+                    when (time.workingAfternoon) {
+                        true -> viewOfLayout.checkAfterSun.visibility = VISIBLE
+                        false -> viewOfLayout.checkAfterSun.visibility = INVISIBLE
+
+                    }
+                }
+            }
         }
+
+
     }
+
 
     private fun getAllFaculties() {
         val listFacultyAdapter = FacultyAdapter(listFaculties)
-        viewOfLayout.reFacultiesClinic.layoutManager = LinearLayoutManager(context)
-        viewOfLayout.reFacultiesClinic.adapter = listFacultyAdapter
+        viewOfLayout.rcFacultiesClinic.layoutManager = LinearLayoutManager(context)
+        viewOfLayout.rcFacultiesClinic.adapter = listFacultyAdapter
     }
 
     private fun getAllComment() {
@@ -186,13 +274,14 @@ class InformationOfClinicFragment : Fragment() {
                     val rateValue = reviewCommentClinic.rating.toDouble()
                     val user = SharedPrefManager.getInstance(requireContext()).getID()
                     RetrofitClient.getApiService()
-                            .addCommentClinic("$type $token", Comment(cmt, 0, idClinic, user, rateValue))
+                            .addCommentClinic("$type  $token", Comment(cmt, null, idClinic, user, rateValue))
                             .enqueue(object : Callback<Comment1> {
                                 override fun onResponse(call: Call<Comment1>, response: Response<Comment1>) {
                                     if (response.isSuccessful) {
                                         activity!!.runOnUiThread() {
                                             val username = response.body()!!.user
                                             listCommentClinics.add(0, Comment1(cmt, currentDate, idClinic, username, rateValue))
+                                            viewOfLayout.edtCommentClinic.text.clear()
                                             getAllComment()
                                         }
                                     }

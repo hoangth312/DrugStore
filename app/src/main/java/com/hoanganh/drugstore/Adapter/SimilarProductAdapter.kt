@@ -54,7 +54,7 @@ class SimilarProductAdapter(private val listSP: ArrayList<Product>, private val 
                 }
 
                 txtNameProduct.text = product.vietnameseName
-                tax.text = product.priceTax.toString()
+                tax.text = product.price.toString()+" VNĐ("+product.priceTax.toString()+" VNĐ) "
                 txtNumber.text = product.likeTotal.toString()
             }
         }

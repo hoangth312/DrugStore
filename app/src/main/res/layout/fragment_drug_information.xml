@@ -34,7 +34,7 @@
             android:id="@+id/txtPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_marginStart="@dimen/_100sdp"
+           android:layout_marginStart="@dimen/_80sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/arial"
             android:text="@string/price"
@@ -47,14 +47,16 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/arial"
             android:text="@string/tax"
             android:textColor="#FF9800"
-            android:textStyle="bold"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv"
             app:layout_constraintLeft_toRightOf="@+id/txtPrice"
-            app:layout_constraintTop_toBottomOf="@+id/imgMedicine" />
+            app:layout_constraintTop_toBottomOf="@+id/imgMedicine"
+            />
 
         <TextView
             android:id="@+id/tv"
@@ -88,11 +90,11 @@
 
             <ImageView
                 android:id="@+id/imgUnlike"
-                android:layout_width="@dimen/_13sdp"
-                android:layout_height="@dimen/_13sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:background="@drawable/ic_unlike" />
+                android:src="@drawable/ic_unlike" />
 
             <TextView
                 android:id="@+id/txtCommentPd"
@@ -107,8 +109,8 @@
 
             <ImageView
                 android:id="@+id/imgSpeech"
-                android:layout_width="@dimen/_13sdp"
-                android:layout_height="@dimen/_13sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/_5ssp"
                 android:background="@drawable/ic_speech" />
@@ -129,37 +131,43 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_google_gray" />
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linearTab"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_500sdp"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@+id/linearHeart"
+            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/linearHeart"
            >
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
+                app:tabMode="fixed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPagerProduct"
                 android:layout_width="@dimen/_280sdp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_200sdp"
                 android:layout_gravity="center_horizontal"
-                />
+                android:nestedScrollingEnabled="true" />
         </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <ImageView
             android:id="@+id/imgBag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/ic_bag"
-            app:layout_constraintBottom_toTopOf="@+id/reSimilarProduct"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearTab" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -167,11 +175,11 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/arial"
             android:text="@string/similarProduct"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_13ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/reSimilarProduct"
             app:layout_constraintStart_toEndOf="@id/imgBag"
-            app:layout_constraintTop_toBottomOf="@+id/linearTab" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reSimilarProduct"

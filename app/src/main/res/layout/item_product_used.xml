@@ -28,7 +28,7 @@
             android:layout_margin="@dimen/_3sdp"
             >
             <ImageView
-                android:id="@+id/imgProductUsed"
+                android:id="@+id/imgCategory"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center"
@@ -40,7 +40,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/txtNameProductUsed"
+        android:id="@+id/txtNameCategory"
         android:layout_width="@dimen/_55sdp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.extension.CustomEllipsize
 import com.hoanganh.drugstore.model.product.Product
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_explain_product.view.*
@@ -37,6 +38,7 @@ class ExplainProductFragment(getId: Int) : Fragment() {
                 if (response.isSuccessful) {
                     activity!!.runOnUiThread {
                         viewOfLayout.txtExplain.text = response.body()!!.manual
+                            CustomEllipsize(viewOfLayout.txtExplain, 1, "...")
                     }
                 }
             }

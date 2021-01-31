@@ -1,6 +1,7 @@
 package com.hoanganh.drugstore.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.model.LatLng
 import com.hoanganh.drugstore.Adapter.BannerAdapter
 import com.hoanganh.drugstore.Adapter.CommentAdapter
-import com.hoanganh.drugstore.Adapter.ProductUsedAdapter
+import com.hoanganh.drugstore.Adapter.CategorydAdapter
 import com.hoanganh.drugstore.Adapter.ServiceAdapter
 import com.hoanganh.drugstore.R
 import com.hoanganh.drugstore.api.RetrofitClient
 import com.hoanganh.drugstore.model.*
+import com.hoanganh.drugstore.model.drugstore.Category
 import com.hoanganh.drugstore.model.drugstore.DrugStoreModel
-import com.hoanganh.drugstore.model.drugstore.Product
+
 import com.hoanganh.drugstore.model.drugstore.Service
+import com.hoanganh.drugstore.model.product.Product
 import com.hoanganh.drugstore.preference.SharedPrefManager
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.app_bar_fragments.view.*
@@ -41,7 +44,7 @@ class InformationDrugStoreFragment : Fragment() {
     private var type = ""
     private var listBanner = ArrayList<Banner>()
     private var listService = ArrayList<Service>()
-    private var listProductUsed = ArrayList<Product>()
+    private var listCategory = ArrayList<Category>()
     private var listCommentDS = ArrayList<Comment1>()
     private val createDate = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(Date())
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,6 +54,7 @@ class InformationDrugStoreFragment : Fragment() {
         type = SharedPrefManager.getInstance(requireContext()).getType().toString()
         setLatLng()
         getDataDrugStore()
+
         return viewOfLayout
     }
 
@@ -91,7 +95,7 @@ class InformationDrugStoreFragment : Fragment() {
                                 var idDrug = response.body()!!.id
                                 viewOfLayout.txtNameDrugStore.text = response.body()!!.name
                                 viewOfLayout.txtNameDrugStore.text = response.body()!!.name
-                                viewOfLayout.ratingBar.rating = (response.body()!!.vote).toDouble().toFloat()
+                                viewOfLayout.ratingBar.rating = (response.body()!!.vote).toFloat()
                                 viewOfLayout.txtAddress.text = response.body()!!.apartmentNumber + " " + response.body()!!.street + "," + response.body()!!.district + "," + response.body()!!.city
                                 viewOfLayout.txtPhone.text = response.body()!!.phoneNumber
                                 viewOfLayout.txtTimeWorking.text = "Open at AM " + response.body()!!.timeWorking + " PM Close"
@@ -103,8 +107,8 @@ class InformationDrugStoreFragment : Fragment() {
                                 if (listService.size > 0) {
                                     getAllSerVice()
                                 }
-                                listProductUsed = response.body()!!.products as ArrayList<Product>
-                                if (listProductUsed.size > 0) {
+                                listCategory = response.body()!!.categories as ArrayList<Category>
+                                if (listCategory.size > 0) {
                                     getAllProduct()
                                 }
                                 getDataBanner(idDrug)
@@ -122,9 +126,12 @@ class InformationDrugStoreFragment : Fragment() {
     }
 
     private fun getAllProduct() {
-        val listProductAdapter = ProductUsedAdapter(listProductUsed)
-//        viewOfLayout.rcService.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-//        viewOfLayout.rcService.adapter = listProductAdapter
+        val listCategorydAdapter = CategorydAdapter()
+        viewOfLayout.rcProductUsed.apply {
+        layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        adapter = listCategorydAdapter
+        }
+        listCategorydAdapter.setData(listCategory)
     }
 
     private fun getAllSerVice() {
@@ -152,11 +159,9 @@ class InformationDrugStoreFragment : Fragment() {
             when {
                 edtComment.text.toString() == "" -> {
                     Toasty.error(requireContext(), "Pls Enter Text", Toast.LENGTH_SHORT, true).show()
-
                 }
                 reviewCommentDS.rating.toDouble() == 0.0 -> {
                     Toasty.error(requireContext(), "Pls Enter Rating for you", Toast.LENGTH_SHORT, true).show()
-
                 }
                 else -> {
                     val cmt = edtComment.text.toString()
@@ -164,13 +169,14 @@ class InformationDrugStoreFragment : Fragment() {
                     val rateValue = reviewCommentDS.rating.toDouble()
                     val user = SharedPrefManager.getInstance(requireContext()).getID()
                     RetrofitClient.getApiService()
-                            .addCommentDS("$type $token", Comment(cmt, idDrug, 0, user, rateValue))
+                            .addCommentDS("$type $token", Comment(cmt, idDrug, null, user, rateValue))
                             .enqueue(object : Callback<Comment1> {
                                 override fun onResponse(call: Call<Comment1>, response: Response<Comment1>) {
                                     if (response.isSuccessful) {
                                         activity!!.runOnUiThread {
                                             val username = response.body()!!.user
                                             listCommentDS.add(0, Comment1(cmt, currentDate, idDrug, username, rateValue))
+                                            viewOfLayout.edtComment.text.clear()
                                             getAllComment()
                                         }
                                     }
