@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_150sdp"
-    android:layout_height="@dimen/_150sdp">
+    android:layout_width="@dimen/_120sdp"
+    android:layout_height="@dimen/_170sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:background="@drawable/edittext"
+    >
 
     <ImageView
         android:id="@+id/imgProduct"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_100sdp"
-        android:background="@drawable/salonpas"
         android:scaleType="fitXY"
+        android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,8 +26,7 @@
         android:fontFamily="@font/arial"
         android:maxLines="2"
         android:text="@string/medicine"
-
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgProduct" />
 
@@ -48,6 +50,7 @@
         android:layout_marginTop="@dimen/_1sdp"
         android:text="@string/number"
         android:textSize="@dimen/_8ssp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tax" />
 
@@ -59,5 +62,7 @@
         android:layout_marginTop="@dimen/_1sdp"
         android:background="@drawable/ic_unlike"
         app:layout_constraintLeft_toRightOf="@+id/txtNumber"
-        app:layout_constraintTop_toBottomOf="@+id/tax" />
+        app:layout_constraintTop_toBottomOf="@+id/tax"
+
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

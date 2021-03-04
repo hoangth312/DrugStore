@@ -22,20 +22,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/toolbarMedicine">
-
-            <ViewFlipper
-                android:id="@+id/viewImageStore"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpagerDS"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 android:background="@drawable/pharmacy" />
 
-<!--            <me.relex.circleindicator.CircleIndicator-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignBottom="@+id/viewImageStore"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:visibility="visible"-->
-<!--                app:ci_drawable="@drawable/white_radius_circle_indicator" />-->
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/circleIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignBottom="@+id/viewpagerDS"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible" />
         </RelativeLayout>
 
         <TextView
@@ -49,7 +48,7 @@
             android:textColor="#1AA6CD"
             android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/viewImageStore" />
+            app:layout_constraintTop_toBottomOf="@id/viewpagerDS" />
 
         <TextView
             android:layout_width="match_parent"
@@ -99,6 +98,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_15sdp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:theme="@style/RatingBar"
                     android:numStars="5"
                     android:rating="4.5"
                     android:stepSize="0.5" />
@@ -114,7 +115,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="top"
                     android:background="@drawable/ic_pin" />
 
                 <TextView
@@ -128,7 +129,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/address"
+                    android:id="@+id/txtAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
@@ -164,7 +165,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/phoneNumber"
+                    android:id="@+id/txtPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
@@ -198,7 +199,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/timeOpen"
+                    android:id="@+id/txtTimeWorking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
@@ -310,21 +311,21 @@
                     android:background="@color/gray_100" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcComment"
+                    android:id="@+id/rcCommentDS"
                     android:layout_width="@dimen/_280sdp"
-                    android:layout_height="wrap_content"
-                   android:layout_gravity="center" />
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_gravity="center" />
 
                 <EditText
                     android:id="@+id/edtComment"
                     android:layout_width="@dimen/_280sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/_10sdp"
                     android:background="@drawable/edittext"
                     android:gravity="top"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="200"
-                    android:layout_margin="@dimen/_10sdp"
                     android:minHeight="@dimen/_100sdp"
                     android:padding="@dimen/_5sdp"
                     android:textSize="@dimen/_12ssp" />
@@ -350,6 +351,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_20sdp"
+                        android:theme="@style/RatingBar"
                         android:isIndicator="false"
                         android:numStars="5"
                         android:stepSize="0.5" />

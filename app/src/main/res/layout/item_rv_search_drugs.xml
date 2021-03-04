@@ -79,7 +79,7 @@
                 android:layout_height="@dimen/_13sdp"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/ic_like"
+                android:background="@drawable/ic_unlike"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/numberOfLikes"
                 app:layout_constraintTop_toTopOf="parent" />

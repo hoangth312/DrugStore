@@ -1,3 +1,9 @@
 package com.hoanganh.drugstore.model
 
-class Comment(var comment: String, var nameUser: String, var review: Float, var date: String)
+data class Comment(
+        val comment: String,
+        val drugstoreId: Int?,
+        val clinicId:Int?,
+        val userId: Int,
+        val vote: Double,
+)

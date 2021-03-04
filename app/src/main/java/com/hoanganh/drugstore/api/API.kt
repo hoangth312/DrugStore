@@ -4,8 +4,6 @@ import com.hoanganh.drugstore.model.*
 import com.hoanganh.drugstore.model.clinic.ClinicModel
 import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.model.drugstore.DrugStoreModel
-import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -23,28 +21,35 @@ interface API {
 
 
     @GET("products/search/name")
-    fun getDrugSearchbyName(@Header("Authorization") auth: String,
-                            @Query("language") language: String,
-                            @Query("name") name: String
+    fun getDrugSearchbyName(
+            @Header("Authorization") auth: String,
+            @Query("language") language: String,
+            @Query("name") name: String,
     ): Call<List<SearchDrugsModel>>
 
     @PUT("user/update/password")
-    fun putChangePass(@Header("Authorization") auth: String,
-                      @Body changePassUser: ChangePassUser): Call<Void>
+    fun putChangePass(
+            @Header("Authorization") auth: String,
+            @Body changePassUser: ChangePassUser,
+    ): Call<Void>
 
     @GET("drugstores")
-    fun getDrugstore(@Header("Authorization") auth: String): Call<DrugStore>
+    fun getAllDrugstore(@Header("Authorization") auth: String): Call<DrugStore>
 
     @POST("auth/password/reset")
     fun forgotPassword(@Query("email") email: String): Call<Void>
 
     @GET("drugstores/city")
-    fun getAllDrugStoreInCity(@Header("Authorization") auth: String,
-                              @Query("city") city: String): Call<List<DrugStoreModel>>
+    fun getAllDrugStoreInCity(
+            @Header("Authorization") auth: String,
+            @Query("city") city: String,
+    ): Call<List<DrugStoreModel>>
 
     @GET("clinic/city")
-    fun getAllClinicInCity(@Header("Authorization") auth: String,
-                           @Query("city") city: String): Call<List<ClinicModel>>
+    fun getAllClinicInCity(
+            @Header("Authorization") auth: String,
+            @Query("city") city: String,
+    ): Call<List<ClinicModel>>
 
 
     @GET("products/search/qrcode")
@@ -69,4 +74,26 @@ interface API {
             @Query("id") idUser: Int,
             @Body hexColor: HexColorModel): Call<ResultHexModel>
 
+    @POST("evaluates/add")
+    fun addCommentDS(@Header("Authorization") auth: String,
+                     @Body comment: Comment
+    ): Call<Comment1>
+
+
+    @GET("clinic/location")
+    fun getClinic(
+            @Header("Authorization") auth: String,
+            @Query("latitude") latitude: Double,
+            @Query("longitude") longitude: Double,
+    ): Call<ClinicModel>
+
+    @GET("clinic/images")
+    fun getBannerClinic(@Header("Authorization") auth: String,
+                        @Query("id") id: Int
+    ): Call<List<Banner>>
+
+    @POST("evaluates/add")
+    fun addCommentClinic(@Header("Authorization") auth: String,
+                        @Body comment: Comment
+    ): Call<Comment1>
 }

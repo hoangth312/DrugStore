@@ -55,12 +55,10 @@ class SearchDrugsAdapter(
                 }else {
                     imageDrugs.visibility = View.VISIBLE
 
-
                     Picasso.get().load(listURL[0])
                             .error(R.drawable.bear_test)
                             .fit().into(imageDrugs);
                 }
-
                 nameDrug.text = model.vietnameseName
                 subTitleDrug.text = model.categoryName
                 descriptionDrug.text = model.description

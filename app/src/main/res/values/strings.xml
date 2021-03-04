@@ -47,10 +47,10 @@
     <string name="subtitle">SubTitle</string>
     <string name="price">Price: </string>
     <string name="tax">140$ (154$ VAT)</string>
-    <string name="number">123</string>
+    <string name="number">0</string>
     <string name="similarProduct">Similar Products</string>
     <string name="check">✓</string>
-
+    <string name="faculties">Faculties</string>
     <string name="Email">Email</string>
     <string name="drugstore">Drug Store</string>
     <string name="Password">Password</string>
