@@ -29,7 +29,6 @@ class SharedPrefManager private constructor(private val context: Context) {
         editor.putString("firstName", user.firstName)
         editor.putString("lastName", user.lastName)
         editor.putString("avatarUrl", user.avatarUrl)
-        editor.putString("passwordEncode", user.passwordEncode)
         editor.apply()
     }
 
@@ -44,7 +43,7 @@ class SharedPrefManager private constructor(private val context: Context) {
         fun getFirstName(): String?  {return sharedPreferences.getString("firstName", "")}
         fun getLastName(): String?  {return sharedPreferences.getString("lastName", "")}
         fun getAvatarUrl(): String?  {return sharedPreferences.getString("avatarUrl", "")}
-        fun getPasswordEncode(): String?  {return sharedPreferences.getString("passwordEncode", "")}
+
 
 
 

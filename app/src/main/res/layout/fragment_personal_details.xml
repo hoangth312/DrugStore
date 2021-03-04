@@ -44,27 +44,18 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPersonalDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPersonalDetails">
 
-    <TextureView
-        android:id="@+id/textureView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/viewPagerImage"
-        app:layout_constraintTop_toTopOf="@id/viewPagerImage"
-        app:layout_constraintEnd_toEndOf="@id/viewPagerImage"
-        app:layout_constraintStart_toStartOf="@id/viewPagerImage" />
 
-<ImageView
-    android:id="@+id/imvResult"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:visibility="invisible"
-    app:layout_constraintBottom_toBottomOf="@id/viewPagerImage"
-    app:layout_constraintTop_toTopOf="@id/viewPagerImage"
-    app:layout_constraintEnd_toEndOf="@id/viewPagerImage"
-    app:layout_constraintStart_toStartOf="@id/viewPagerImage" />
+    </androidx.viewpager.widget.ViewPager>
+
+    <ImageView
+        android:id="@+id/imvResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="invisible" />
+
 
     <Button
         android:id="@+id/btnCamera"
@@ -90,50 +81,59 @@
         app:layout_constraintTop_toBottomOf="@+id/viewPagerImage" />
 
     <ImageButton
-        android:id="@+id/btnClickShot"
+        android:id="@+id/btnDone"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/ic_tick"
         android:visibility="invisible"
-        android:background="@drawable/ic_circle_click"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewPagerImage"
-        android:layout_marginTop="@dimen/_20sdp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancel"
+        app:layout_constraintStart_toStartOf="@+id/btnCancel" />
 
     <ImageButton
-        android:id="@+id/btnCancelCamera"
+        android:id="@+id/btnDontSave"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/ic_remove"
         android:visibility="invisible"
-        android:background="@drawable/ic_cancel_button_circle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnClickShot" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnCamera"
+        app:layout_constraintStart_toEndOf="@+id/btnCamera" />
 
-    <Button
-        android:id="@+id/btnOkSaveImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button"
-        android:text="@string/save"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPagerImage" />
 
-    <Button
-        android:id="@+id/btnDontSaveImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/button"
-        android:text="@string/don_t_save"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/btnCamera"
-        app:layout_constraintTop_toBottomOf="@+id/viewPagerImage" />
+
+
+        <View
+            android:id="@+id/test1"
+            android:background="@color/gray"
+            android:layout_width="@dimen/_50sdp"
+            android:visibility="invisible"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titlePersonalDetails" />
+
+        <View
+            android:id="@+id/test2"
+            android:background="@color/gray"
+            android:visibility="invisible"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test1" />
+
+
+        <View
+            android:id="@+id/test3"
+            android:background="@color/gray"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:visibility="invisible"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

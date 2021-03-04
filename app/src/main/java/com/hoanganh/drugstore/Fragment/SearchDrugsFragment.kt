@@ -47,7 +47,8 @@ class SearchDrugsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         viewOfLayout = inflater.inflate(R.layout.fragment_search_drugs, container, false)
-
+        token = SharedPrefManager.getInstance(requireContext()).getToken().toString()
+        type = SharedPrefManager.getInstance(requireContext()).getType().toString()
         searchDrugByEditText()
         viewOfLayout.btnToMap.setOnClickListener {
             startActivity(Intent(context, MapsActivity::class.java))
@@ -100,8 +101,7 @@ class SearchDrugsFragment : Fragment() {
 
 
         nameDrugSearch = viewOfLayout.edtSearchDrug.text.toString()
-        token = SharedPrefManager.getInstance(requireContext()).getToken().toString()
-        type = SharedPrefManager.getInstance(requireContext()).getType().toString()
+
         if (InternetConnection.checkConnection(requireContext())) {
             RetrofitClient.getApiService().getDrugSearchbyName("$type  $token",
                     VIETNAMESE, nameDrugSearch).enqueue(object : Callback<List<SearchDrugsModel>> {
