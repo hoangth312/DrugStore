@@ -18,13 +18,13 @@ object RetrofitClient {
 
 
 
-private const val BASE_URL = "http://10.99.11.3:2020/api/"
+//private const val BASE_URL = "http://10.99.11.3:2020/api/"
 //private const val BASE_URL = "http://192.168.43.29:2020/api/"
 
 // private const val BASE_URL = "http://10.99.20.26:2020/api/"
 //    private const val BASE_URL = "http://172.16.101.177:2020/api/"
 
-  //  private const val BASE_URL = "http://192.168.1.130:2020/api/"
+    private const val BASE_URL = "http://192.168.1.130:2020/api/"
 
     var gson: Gson = GsonBuilder()
             .setLenient()

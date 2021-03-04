@@ -4,6 +4,8 @@ import com.hoanganh.drugstore.model.*
 import com.hoanganh.drugstore.model.clinic.ClinicModel
 import com.hoanganh.drugstore.model.datasearchdrug.SearchDrugsModel
 import com.hoanganh.drugstore.model.drugstore.DrugStoreModel
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -47,7 +49,24 @@ interface API {
 
     @GET("products/search/qrcode")
     fun getDrugbyCode(@Header("Authorization") auth: String,
-                           @Query("qrCode") city: String):  Call<SearchDrugsModel>
+                      @Query("qrCode") city: String): Call<SearchDrugsModel>
 
+    @Multipart
+    @POST("file/upload")
+    fun postFileAvatar(
+            @Header("Authorization") auth: String,
+            @Part image: MultipartBody.Part
+    ): Call<ResponseBody>
+
+    @PUT ("user/update/detail")
+    fun putAvatarUser(
+            @Header("Authorization") auth: String,
+            @Body updateAvatarUser: updateAvatarUser): Call<Void>
+
+    @POST("medical/analysis/urine")
+    fun postHexColor(
+            @Header("Authorization") auth: String,
+            @Query("id") idUser: Int,
+            @Body hexColor: HexColorModel): Call<ResultHexModel>
 
 }

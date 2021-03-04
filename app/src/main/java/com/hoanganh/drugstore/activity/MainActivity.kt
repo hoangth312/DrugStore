@@ -54,7 +54,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         Manifest.permission.CAMERA,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.INTERNET
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+
                 )
                 .withListener(object : MultiplePermissionsListener {
                     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
@@ -81,8 +84,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             btnLogin -> {
-                loginAccount()
-//                startActivity(Intent(this@MainActivity, ScanBarCodeActivity::class.java))
+           loginAccount()
+//              startActivity(Intent(this@MainActivity, ScanBarCodeActivity::class.java))
             }
             btnSignUp -> {
                 startActivity(Intent(applicationContext, RegisterActivity::class.java))

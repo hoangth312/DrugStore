@@ -1,70 +1,117 @@
 package com.hoanganh.drugstore.Fragment
 
-import android.Manifest.permission.CAMERA
-import android.content.Context
-import android.content.Context.*
+import android.annotation.SuppressLint
+import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
-import android.graphics.ImageFormat
-import android.graphics.SurfaceTexture
-import android.hardware.camera2.*
-import android.media.Image
-import android.media.ImageReader
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.Matrix
+import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
-import android.view.*
+import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.View.OnTouchListener
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
+import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.camera_demo.CameraCaptureListener
-import com.example.camera_demo.ImageAvailableListener
 import com.hoanganh.drugstore.Adapter.ImageTutorialAdapter
 import com.hoanganh.drugstore.R
-import com.hoanganh.drugstore.`interface`.CameraStateCallback
-import com.hoanganh.drugstore.utils.CaptureStateCallback
-import kotlinx.android.synthetic.main.activity_main.*
+import com.hoanganh.drugstore.api.RetrofitClient
+import com.hoanganh.drugstore.model.HexColorModel
+import com.hoanganh.drugstore.model.ResultHexModel
+import com.hoanganh.drugstore.preference.SharedPrefManager
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_personal_details.*
 import kotlinx.android.synthetic.main.fragment_personal_details.view.*
-import java.nio.ByteBuffer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
-class PersonalDetailsFragment : Fragment() , TextureView.SurfaceTextureListener
-, View.OnClickListener{
+
+class PersonalDetailsFragment : Fragment(), View.OnClickListener {
     private lateinit var viewOfLayout: View
-    private lateinit var cameraId: String
-    private lateinit var cameraHandler: Handler
-    private lateinit var handlerThread: HandlerThread
-    private lateinit var captureRequest: CaptureRequest.Builder
-    private lateinit var cameraDevice: CameraDevice
-    private lateinit var cameraCaptureSession: CameraCaptureSession
+
     var navc: NavController? = null
+    var a = 0
+    private lateinit var photoURI: Uri
+    private lateinit var currentPhotoPath: String
+    private var text1 = ""
+    private var text2 = ""
+    private var text3 = ""
+  
 
 
-    private val stateCallback =
-            CameraStateCallback { cameraDevice -> startCameraPreview(cameraDevice) }
 
-    private val captureStateCallback =
-            CaptureStateCallback { cameraSession -> updatePreview(cameraSession) }
+    companion object {
+        private const val requestCode = 123
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewOfLayout = inflater.inflate(R.layout.fragment_personal_details, container, false)
 
         setUpViewPager()
 
-       viewOfLayout.btnCamera.setOnClickListener(this)
-       viewOfLayout.btnCancel.setOnClickListener(this)
-       viewOfLayout.btnClickShot.setOnClickListener(this)
-       viewOfLayout.btnCancelCamera.setOnClickListener(this)
-       viewOfLayout.btnOkSaveImage.setOnClickListener(this)
-       viewOfLayout.btnDontSaveImage.setOnClickListener(this)
+        viewOfLayout.btnCamera.setOnClickListener(this)
+        viewOfLayout.btnCancel.setOnClickListener(this)
+        viewOfLayout.btnDone.setOnClickListener(this)
+        viewOfLayout.btnDontSave.setOnClickListener(this)
+        viewOfLayout.test1.setOnClickListener(this)
+        viewOfLayout.test2.setOnClickListener(this)
+        viewOfLayout.test3.setOnClickListener(this)
+
+        viewOfLayout.imvResult.setOnTouchListener(OnTouchListener { v, event ->
+
+            try {
+                viewOfLayout.imvResult.isDrawingCacheEnabled = true
+                val ibm: Bitmap = Bitmap.createBitmap(viewOfLayout.imvResult.drawingCache)
+                viewOfLayout.imvResult.isDrawingCacheEnabled = false
+                val pxl = ibm.getPixel(event.x.toInt(), event.y.toInt())
+                val hex = "#" + Integer.toHexString(pxl).substring(2)
+
+
+                when (a) {
+                    0 -> {
+                        test1.setBackgroundColor((Color.parseColor(hex)))
+                        text1 = hex
+                    }
+
+                    1 -> {
+                        test2.setBackgroundColor((Color.parseColor(hex)))
+                        text2 = hex
+                    }
+                    2 ->{
+                        test3.setBackgroundColor((Color.parseColor(hex)))
+                        text3 = hex
+                    }
+                }
+                Log.d("text1", text1)
+                Log.d("text2", text2)
+                Log.d("text3", text3)
+                ibm.recycle()
+
+            } catch (ignore: Exception) {
+                Log.d("123", ignore.toString())
+            }
+            true
+        })
 
         return viewOfLayout
     }
@@ -73,50 +120,136 @@ class PersonalDetailsFragment : Fragment() , TextureView.SurfaceTextureListener
         super.onViewCreated(view, savedInstanceState)
         navc = Navigation.findNavController(view)
     }
-    override fun onResume() {
-        super.onResume()
-        startCameraThread()
-    }
+
     override fun onClick(v: View?) {
-        when (v){
+        when (v) {
             btnCamera -> {
+
                 viewOfLayout.viewPagerImage.visibility = View.INVISIBLE
-                viewOfLayout.textureView.visibility = View.VISIBLE
                 viewOfLayout.btnCancel.visibility = View.INVISIBLE
                 viewOfLayout.btnCamera.visibility = View.INVISIBLE
-                viewOfLayout.btnClickShot.visibility = View.VISIBLE
-                viewOfLayout.btnCancelCamera.visibility = View.VISIBLE
-                viewOfLayout.textureView.surfaceTextureListener = this
+                viewOfLayout.imvResult.visibility = View.VISIBLE
+                viewOfLayout.btnDone.visibility = View.VISIBLE
+                viewOfLayout.btnDontSave.visibility = View.VISIBLE
+                viewOfLayout.test1.visibility = View.VISIBLE
+                viewOfLayout.test2.visibility = View.VISIBLE
+                viewOfLayout.test3.visibility = View.VISIBLE
 
+                dispatchTakePictureIntent()
             }
+
             btnCancel -> navc!!.popBackStack()
-            btnClickShot->{
-                captureImage()
-                viewOfLayout.btnCancelCamera.visibility = View.INVISIBLE
-                viewOfLayout.btnClickShot.visibility = View.INVISIBLE
-                viewOfLayout.btnOkSaveImage.visibility = View.VISIBLE
-                viewOfLayout.btnDontSaveImage.visibility = View.VISIBLE
+            test1 -> a = 0
+            test2 -> a = 1
+            test3 -> a = 2
+            btnDone -> updateHex()
+            btnDontSave -> navc!!.navigate(R.id.action_fmPersonDetail_self)
 
-            }
-            btnCancelCamera->{
-                viewOfLayout.viewPagerImage.visibility = View.VISIBLE
-                viewOfLayout.textureView.visibility = View.INVISIBLE
-                viewOfLayout.btnCancel.visibility = View.VISIBLE
-                viewOfLayout.btnCamera.visibility = View.VISIBLE
-                viewOfLayout.btnClickShot.visibility = View.INVISIBLE
-                viewOfLayout.btnCancelCamera.visibility = View.INVISIBLE
-            }
-            btnOkSaveImage->{}
-            btnDontSaveImage->{
-                viewOfLayout.btnCancelCamera.visibility = View.VISIBLE
-                viewOfLayout.btnClickShot.visibility = View.VISIBLE
-                viewOfLayout.btnOkSaveImage.visibility = View.INVISIBLE
-                viewOfLayout.btnDontSaveImage.visibility = View.INVISIBLE
-                startCameraPreview(cameraDevice)
-            }
+
+
+
         }
 
+
     }
+
+    private fun updateHex(){
+        val token = SharedPrefManager.getInstance(requireContext()).getToken()
+        val type = SharedPrefManager.getInstance(requireContext()).getType()
+        val idUser = SharedPrefManager.getInstance(requireContext()).getID()
+
+
+        RetrofitClient.getApiService().postHexColor("$type  $token",idUser, HexColorModel(listOf(text1,text2,text3) )).enqueue(object : Callback<ResultHexModel> {
+            override fun onResponse(call: Call<ResultHexModel>, response: Response<ResultHexModel>) {
+                activity!!.runOnUiThread {
+                    if (response.code() == 200) {
+                        Log.d("haha", response.body().toString())
+                    } else {
+                        Toasty.error(context!!, "haha", Toast.LENGTH_SHORT, true).show()
+                        Log.d("haha", response.code().toString())
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<ResultHexModel>, t: Throwable) {
+                activity!!.runOnUiThread {
+                    Toasty.error(context!!, "onFailure", Toast.LENGTH_SHORT, true).show()
+                }
+            }
+        })
+
+    }
+
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val dir = File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM), "Camera")
+        return File.createTempFile(
+                "JPEG_${timeStamp}_",
+                ".jpg",
+                dir
+        ).apply {
+
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+
+            takePictureIntent.resolveActivity(activity?.packageManager!!)?.also {
+
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    null
+                }
+
+                photoFile?.also {
+                    photoURI = FileProvider.getUriForFile(
+                            requireContext(),
+                            "com.hoanganh.drugstore.fileprovider",
+                            it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, requestCode)
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == requestCode && resultCode == RESULT_OK) {
+            val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, photoURI);
+            rotateImage(bitmap)
+        }
+    }
+
+    private fun rotateImage(bitmap: Bitmap) {
+        var exif: ExifInterface? = null
+        try {
+            exif = ExifInterface(currentPhotoPath)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        val orientation = exif!!.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+        val matrix = Matrix()
+        when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.setRotate(90f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.setRotate(180f)
+        }
+        var rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        viewOfLayout.imvResult.setImageBitmap(rotateBitmap)
+
+    }
+
+
 
     private fun setUpViewPager() {
         val imgView = listOf(
@@ -130,86 +263,5 @@ class PersonalDetailsFragment : Fragment() , TextureView.SurfaceTextureListener
         viewOfLayout.viewPagerImage.adapter = adapter
     }
 
-    private fun requestCameraPermission() {
-        if (ActivityCompat.checkSelfPermission(requireContext(), CAMERA) != PackageManager.PERMISSION_GRANTED
-        ) { ActivityCompat.requestPermissions(requireActivity(), arrayOf(CAMERA), 1
-        )
-        }
-    }
-
-
-    private fun prepareCamera() {
-        val cameraManager = requireActivity().getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        cameraId = cameraManager.cameraIdList[0]
-        requestCameraPermission()
-        if (ActivityCompat.checkSelfPermission(requireActivity(), CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            cameraManager.openCamera(cameraId, stateCallback, null)
-        }
-    }
-    private fun startCameraPreview(cameraDevice: CameraDevice) {
-        this.cameraDevice = cameraDevice
-        val surfaceTexture = viewOfLayout.textureView.surfaceTexture
-        val surface = Surface(surfaceTexture)
-        captureRequest = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-        captureRequest.addTarget(surface)
-        cameraDevice.createCaptureSession(listOf(surface), captureStateCallback, null)
-    }
-    private fun updatePreview(session: CameraCaptureSession) {
-        captureRequest.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
-        session.setRepeatingRequest(captureRequest.build(), null, cameraHandler)
-        cameraCaptureSession = session
-    }
-
-    override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
-        prepareCamera()
-    }
-
-    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
-    }
-
-    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean = false
-    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-    }
-    private fun startCameraThread() {
-        handlerThread = HandlerThread("THREAD_NAME")
-        handlerThread.start()
-        cameraHandler = Handler(handlerThread.looper)
-    }
-
-    private fun captureImage() {
-        val imageReader = ImageReader.newInstance(400, 400, ImageFormat.JPEG, 1)
-        val outputSurfaces =
-                mutableListOf<Surface>(imageReader.surface)
-        val captureRequest =
-                cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
-        captureRequest.addTarget(imageReader.surface)
-        captureRequest.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
-        val imageAvailableListener = ImageAvailableListener { reader ->
-            displayImage(reader.acquireLatestImage())
-//            startCameraPreview(cameraDevice)
-        }
-        imageReader.setOnImageAvailableListener(imageAvailableListener, null)
-        cameraDevice.createCaptureSession(
-                outputSurfaces,
-                CaptureStateCallback { cameraSession ->
-                    cameraSession.capture(
-                            captureRequest.build(),
-                            CameraCaptureListener(),
-                            cameraHandler
-                    )
-                },
-                cameraHandler
-        )
-    }
-
-    private fun displayImage(outputImage: Image) {
-        val buffer: ByteBuffer = outputImage.planes[0].buffer
-        val bytes = ByteArray(buffer.capacity())
-        buffer.position(0)
-        buffer.get(bytes)
-        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size, null)
-        viewOfLayout.imvResult.setImageBitmap(bitmap)
-        viewOfLayout.imvResult.rotation = 90f
-    }
 
 }

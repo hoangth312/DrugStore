@@ -2,6 +2,7 @@ package com.hoanganh.drugstore.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -21,6 +22,7 @@ import com.hoanganh.drugstore.extension.CompanionObject.Companion.BUNDLE
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.EXTRA
 import com.hoanganh.drugstore.extension.CompanionObject.Companion.LATLNG
 import com.hoanganh.drugstore.preference.SharedPrefManager
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_scan_bar_code.*
 import kotlinx.android.synthetic.main.app_bar_scan_barcode.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -36,6 +38,7 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     companion object {
         private var FRAGMENT_HOME = 1
         private var FRAGMENT_INFO_USER = 2
+
 
     }
 
@@ -64,17 +67,18 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
         val firstName = SharedPrefManager.getInstance(this).getFirstName()
         val lastName = SharedPrefManager.getInstance(this).getLastName()
+        val avatarUser = SharedPrefManager.getInstance(this).getAvatarUrl()
+
         headerView.tvUserName.text = "$firstName $lastName"
         headerView.tvEmailUser.text = SharedPrefManager.getInstance(this).getEmail().toString()
+        Picasso.get().load(avatarUser).into(headerView.imvAvatarUser)
+
 
 
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.scan_bar_code, menu)
-        return true
-    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
@@ -97,9 +101,6 @@ class ScanBarCodeActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 val action = ScanBarCodeFragmentDirections.actionNavHomeToFmInfoDrugStore(latLngStore!!)
                 navController.navigateUp()
                 navController.navigate(action)
-
-
-
 
 
             }

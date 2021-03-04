@@ -91,9 +91,9 @@ class ChangePassFragment : Fragment(),View.OnClickListener {
                 if (response.code() == 200) {
                     activity!!.runOnUiThread {
                         Toasty.success(context!!, "Change Password Successfully", Toast.LENGTH_SHORT, true).show()
-
+                        SharedPrefManager.getInstance(requireContext()).logOutShare()
                     }
-                    SharedPrefManager.getInstance(requireContext()).logOutShare()
+
                     activity!!.finish()
                 } else {
                     activity!!.runOnUiThread {

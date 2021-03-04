@@ -82,7 +82,11 @@
         android:id="@+id/fmPersonDetail"
         android:name="com.hoanganh.drugstore.Fragment.PersonalDetailsFragment"
         android:label=""
-        tools:layout="@layout/fragment_personal_details" />
+        tools:layout="@layout/fragment_personal_details" >
+        <action
+            android:id="@+id/action_fmPersonDetail_self"
+            app:destination="@id/fmPersonDetail" />
+    </fragment>
 
     <fragment
         android:id="@+id/fmInfoDrugStore"
